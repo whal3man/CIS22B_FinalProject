@@ -1,5 +1,5 @@
 # CIS22B_FinalProject
-\ Final project for CIS22B
+\ Final project for Group 4 in CIS22B
 
 basic git tutorial: https://www.youtube.com/watch?v=XdhuWDdu-rk
 
