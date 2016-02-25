@@ -10,6 +10,14 @@
         End Set
     End Property
 
+    Public Property MainMenu1 As MainMenu
+        Get
+            Return Nothing
+        End Get
+        Set(value As MainMenu)
+        End Set
+    End Property
+
     ''' <summary>
     ''' displays the cashier main menu and asks the user for input
     ''' </summary>

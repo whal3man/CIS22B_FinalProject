@@ -66,6 +66,8 @@
     <Compile Include="BookDatabase.vb" />
     <Compile Include="Book.vb" />
     <Compile Include="BookStruct.vb" />
+    <Compile Include="Cashier.vb" />
+    <Compile Include="MainMenu.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -82,6 +84,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Report.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

@@ -24,38 +24,47 @@
       <Property Name="Report" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="testWorkflow.Cashier">
-    <Position X="8.25" Y="0.75" Width="1.5" />
+  <Class Name="testWorkflow.Report">
+    <Position X="8" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Cashier.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Report.vb</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MainMenu1" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.MainMenu">
-    <Position X="6" Y="3" Width="1.5" />
+    <Position X="6.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAAAABAA=</HashCode>
       <FileName>MainMenu.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Cashier" />
       <Property Name="Report" />
+      <Property Name="Cashier" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="testWorkflow.Report">
-    <Position X="8.5" Y="4.5" Width="1.5" />
+  <Class Name="testWorkflow.Cashier">
+    <Position X="8.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Report.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cashier.vb</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MainMenu1" />
+    </ShowAsAssociation>
   </Class>
   <Struct Name="testWorkflow.BookStruct">
     <Position X="2.5" Y="3.25" Width="1.5" />
     <AssociationLine Name="BookDatabase" Type="testWorkflow.BookDatabase" FixedToPoint="true">
       <Path>
         <Point X="3.25" Y="3.25" />
-        <Point X="3.25" Y="1.188" />
-        <Point X="4.75" Y="1.188" />
+        <Point X="3.25" Y="1.09" />
+        <Point X="4.75" Y="1.09" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
