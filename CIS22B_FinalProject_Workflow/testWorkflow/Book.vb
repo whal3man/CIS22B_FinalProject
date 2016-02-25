@@ -47,14 +47,9 @@
         End Set
     End Property
 
-    Public Property BookStruct As BookStruct
-        Get
-            Return Nothing
-        End Get
-        Set(value As BookStruct)
-        End Set
-    End Property
-
+    ''' <summary>
+    ''' MM/DD/YYYY
+    ''' </summary>
     Private Property dateAdded As String
         Get
             Return Nothing
@@ -68,14 +63,6 @@
             Return Nothing
         End Get
         Set(value As Int)
-        End Set
-    End Property
-
-    Public Property BookDatabase As BookDatabase
-        Get
-            Return Nothing
-        End Get
-        Set(value As BookDatabase)
         End Set
     End Property
 

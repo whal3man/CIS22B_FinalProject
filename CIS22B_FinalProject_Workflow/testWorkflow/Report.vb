@@ -10,6 +10,14 @@
         End Set
     End Property
 
+    Public Property BookDatabase As BookDatabase
+        Get
+            Return Nothing
+        End Get
+        Set(value As BookDatabase)
+        End Set
+    End Property
+
     Public Property MainMenu1 As MainMenu
         Get
             Return Nothing
@@ -19,6 +27,17 @@
     End Property
 
     Public Sub mainMenu()
+
+    End Sub
+
+    ''' <summary>
+    ''' a list of all information on all books in the inventory
+    ''' </summary>
+    Public Sub inventoryList()
+
+    End Sub
+
+    Public Sub inventoryWholesaleValue()
 
     End Sub
 End Class
