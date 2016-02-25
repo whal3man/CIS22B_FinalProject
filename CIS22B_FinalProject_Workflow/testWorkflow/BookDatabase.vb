@@ -1,12 +1,12 @@
 ﻿Public Class BookDatabase
     ''' <summary>
-    ''' array of BookStructs of some arbitrary size
+    ''' array of Book of some arbitrary size
     ''' </summary>
-    Private Property books As testWorkflow.BookStruct
+    Private Property books As testWorkflow.Book
         Get
             Return Nothing
         End Get
-        Set(value As testWorkflow.BookStruct)
+        Set(value As testWorkflow.Book)
         End Set
     End Property
 
@@ -38,14 +38,14 @@
     End Property
 
     ''' <summary>
-    ''' if the book already exists in the database, add the quantity to the existing quantity. Otherwise, use the book and quantity to create a BookStruct and add it to books and increase size by one
+    ''' if the book already exists in the database, add the quantity to the existing quantity. Otherwise, create a Book and add it to books and increase size by one
     ''' </summary>
     Public Sub addBook(book As testWorkflow.Book, quantity As Int)
 
     End Sub
 
     ''' <summary>
-    ''' returns the index in books of the bookstruct with that isbn
+    ''' returns the index in books of the Book with that isbn
     ''' </summary>
     Private Function searchIsbn(isbn As Int) As Int
     End Function
@@ -57,7 +57,7 @@
     End Function
 
     ''' <summary>
-    ''' removes the book with isbn, then shifts all of the books after it to remove the gap. decreases size by 1
+    ''' removes the Book with isbn, then shifts all of the books after it to remove the gap. decreases size by 1
     ''' </summary>
     Public Sub removeBook(Isbn As Int)
 

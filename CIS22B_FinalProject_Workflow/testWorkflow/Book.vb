@@ -63,6 +63,22 @@
         End Set
     End Property
 
+    Private Property quantity As Int
+        Get
+            Return Nothing
+        End Get
+        Set(value As Int)
+        End Set
+    End Property
+
+    Public Property BookDatabase As BookDatabase
+        Get
+            Return Nothing
+        End Get
+        Set(value As BookDatabase)
+        End Set
+    End Property
+
     Public Function getAuthor() As String
     End Function
 
@@ -110,13 +126,20 @@
     Public Function Book() As testWorkflow.Book
     End Function
 
-    Public Function Book(title As String, author As String, isbn As Int, publisher As String, wholesaleCost As Double, retailPrice As String) As testWorkflow.Book
+    Public Function Book(title As String, author As String, isbn As Int, publisher As String, wholesaleCost As Double, retailPrice As String, dateAdded As String, quantity As Int) As testWorkflow.Book
     End Function
 
     Public Function getDateAdded() As String
     End Function
 
     Public Sub setDateAdded(added As String)
+
+    End Sub
+
+    Public Function getQuantity() As Int
+    End Function
+
+    Public Sub setQuantity(quant As Int)
 
     End Sub
 End Class
