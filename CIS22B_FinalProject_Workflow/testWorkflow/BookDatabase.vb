@@ -21,19 +21,11 @@
         End Set
     End Property
 
-    Public Property Cashier As Cashier
+    Public Property Book As Book
         Get
             Return Nothing
         End Get
-        Set(value As Cashier)
-        End Set
-    End Property
-
-    Public Property Report As Report
-        Get
-            Return Nothing
-        End Get
-        Set(value As Report)
+        Set(value As Book)
         End Set
     End Property
 
@@ -62,4 +54,10 @@
     Public Sub removeBook(Isbn As Int)
 
     End Sub
+
+    ''' <summary>
+    ''' returns the price of book with isbn
+    ''' </summary>
+    Public Function getPrice(isbn As Int) As Int
+    End Function
 End Class

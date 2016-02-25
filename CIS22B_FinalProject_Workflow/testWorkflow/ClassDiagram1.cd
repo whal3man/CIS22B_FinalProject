@@ -1,76 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="testWorkflow.Book">
-    <Position X="8.5" Y="0.75" Width="1.5" />
+    <Position X="8.75" Y="0.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AQAAAAIAQAAABGDAMAABAIgwAAAIIKCAAgAABCMAAAA=</HashCode>
+      <HashCode>AQAAAAIAQAAABGDAMAABAIgwAAAIIKCAAgAAAAMAAAA=</HashCode>
       <FileName>Book.vb</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="BookDatabase" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.BookDatabase">
     <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAIIAAAAICEAAAAAAAAAAAAAAAAAAAABEA=</HashCode>
+      <HashCode>AAAAAAAgAAAAIABAAICEABAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>BookDatabase.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Cashier" />
-      <Property Name="Report" />
+      <Property Name="Book" />
     </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.Report">
     <Position X="3.5" Y="3.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Properties" Collapsed="true" />
-    </Compartments>
-    <AssociationLine Name="MainMenu1" Type="testWorkflow.MainMenu" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="BookDatabase" Type="testWorkflow.BookDatabase" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="3.5" Y="4.358" />
-        <Point X="1.25" Y="4.358" />
-        <Point X="1.25" Y="3.853" />
+        <Point X="4.656" Y="3.5" />
+        <Point X="4.656" Y="3.267" />
+        <Point X="6" Y="3.267" />
+        <Point X="6" Y="3.017" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAACAAAAI=</HashCode>
       <FileName>Report.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Property Name="BookDatabase" />
       <Property Name="MainMenu1" />
     </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.MainMenu">
     <Position X="0.5" Y="2.75" Width="1.5" />
-    <AssociationLine Name="Report" Type="testWorkflow.Report" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="2" Y="3.505" />
-        <Point X="2.375" Y="3.505" />
-        <Point X="2.375" Y="3.938" />
-        <Point X="3.5" Y="3.938" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAAAABAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainMenu.vb</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Report" />
-      <Property Name="Cashier" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.Cashier">
-    <Position X="2.75" Y="1" Width="1.5" />
+    <Position X="2.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAABAIABAAAAAAAAQAAAAEAAAAAAAACAAAAA=</HashCode>
       <FileName>Cashier.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MainMenu1" />
+      <Property Name="BookDatabase" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
