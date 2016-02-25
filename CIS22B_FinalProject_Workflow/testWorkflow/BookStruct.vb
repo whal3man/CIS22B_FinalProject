@@ -7,6 +7,14 @@
         End Set
     End Property
 
+    Public Property dateAdded As String
+        Get
+            Return Nothing
+        End Get
+        Set(value As String)
+        End Set
+    End Property
+
     Public Property quantity As Int
         Get
             Return Nothing
