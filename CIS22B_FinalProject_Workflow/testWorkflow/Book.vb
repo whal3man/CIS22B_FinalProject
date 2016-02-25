@@ -55,6 +55,14 @@
         End Set
     End Property
 
+    Private Property dateAdded As String
+        Get
+            Return Nothing
+        End Get
+        Set(value As String)
+        End Set
+    End Property
+
     Public Function getAuthor() As String
     End Function
 
@@ -104,4 +112,11 @@
 
     Public Function Book(title As String, author As String, isbn As Int, publisher As String, wholesaleCost As Double, retailPrice As String) As testWorkflow.Book
     End Function
+
+    Public Function getDateAdded() As String
+    End Function
+
+    Public Sub setDateAdded(added As String)
+
+    End Sub
 End Class
