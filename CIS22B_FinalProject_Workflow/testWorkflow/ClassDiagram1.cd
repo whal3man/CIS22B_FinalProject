@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="testWorkflow.Book">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="9.5" Y="2" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -14,7 +14,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.BookDatabase">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgAAAIIAAAAICEAAAAAAAAAAAAAAAAAAAABEA=</HashCode>
       <FileName>BookDatabase.vb</FileName>
@@ -25,10 +25,17 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.Report">
-    <Position X="8" Y="4" Width="1.5" />
+    <Position X="3.5" Y="3.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="MainMenu1" Type="testWorkflow.MainMenu" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="4.358" />
+        <Point X="1.25" Y="4.358" />
+        <Point X="1.25" Y="3.853" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Report.vb</FileName>
@@ -38,7 +45,15 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.MainMenu">
-    <Position X="6.5" Y="2.5" Width="1.5" />
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <AssociationLine Name="Report" Type="testWorkflow.Report" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="3.505" />
+        <Point X="2.375" Y="3.505" />
+        <Point X="2.375" Y="3.938" />
+        <Point X="3.5" Y="3.938" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAAAABAA=</HashCode>
       <FileName>MainMenu.vb</FileName>
@@ -49,7 +64,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.Cashier">
-    <Position X="8.5" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Cashier.vb</FileName>
@@ -59,12 +74,12 @@
     </ShowAsAssociation>
   </Class>
   <Struct Name="testWorkflow.BookStruct">
-    <Position X="2.5" Y="3.25" Width="1.5" />
-    <AssociationLine Name="BookDatabase" Type="testWorkflow.BookDatabase" FixedToPoint="true">
+    <Position X="7" Y="3" Width="1.5" />
+    <AssociationLine Name="BookDatabase" Type="testWorkflow.BookDatabase" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="3.25" Y="3.25" />
-        <Point X="3.25" Y="1.09" />
-        <Point X="4.75" Y="1.09" />
+        <Point X="7.75" Y="3" />
+        <Point X="7.75" Y="1.562" />
+        <Point X="6.75" Y="1.562" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
