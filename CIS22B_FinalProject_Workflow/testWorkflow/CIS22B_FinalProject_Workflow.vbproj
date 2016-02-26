@@ -65,10 +65,7 @@
   <ItemGroup>
     <Compile Include="BookDatabase.vb" />
     <Compile Include="Book.vb" />
-    <Compile Include="BookStack.vb" />
-    <Compile Include="BookStruct.vb" />
     <Compile Include="Cashier.vb" />
-    <Compile Include="ISBN.vb" />
     <Compile Include="MainMenu.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
