@@ -10,12 +10,19 @@ We should require 2-3 approvals from group members before accepting pull request
 
 ###Important things to keep in mind###
 
-- [ ] the first line of all cpp files should be the following:
+#####Project requires the following elements#####
+- [ ] classes, inheritance, polymorphism (15 points)
+- [ ] friends (5 points)
+- [ ] templates (5 points)
+- [ ] operator overloading (5 points)
+- [ ] exception handling (5 points)
+
+the first line of all cpp files should be the following:
 **#define _CRT_SECURE_NO_WARNINGS**
 
-- [ ] The use of **vectors** and **algorithms** is **BANNED**
+The use of **vectors** and **algorithms** is **BANNED**
 
-- [ ] our default inventory file should have **25 distinct books**, some of which have multiple copies
+our default inventory file should have **25 distinct books**, some of which have multiple copies
 
 #####we must create a PDF with the following#####
 - [ ] Your requirements analysis – how did you address the specifications.
