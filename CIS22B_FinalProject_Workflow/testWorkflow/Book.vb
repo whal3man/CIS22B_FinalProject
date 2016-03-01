@@ -58,7 +58,10 @@
         End Set
     End Property
 
-    Private Property quantity As Int
+    ''' <summary>
+    ''' a nuber that is unique to each specific book
+    ''' </summary>
+    Private Property bookIdentifier As Int
         Get
             Return Nothing
         End Get
@@ -113,7 +116,7 @@
     Public Function Book() As testWorkflow.Book
     End Function
 
-    Public Function Book(title As String, author As String, isbn As Int, publisher As String, wholesaleCost As Double, retailPrice As String, dateAdded As String, quantity As Int) As testWorkflow.Book
+    Public Function Book(title As String, author As String, isbn As Int, publisher As String, wholesaleCost As Double, retailPrice As String, dateAdded As String, identifier As String) As testWorkflow.Book
     End Function
 
     Public Function getDateAdded() As String
@@ -123,10 +126,10 @@
 
     End Sub
 
-    Public Function getQuantity() As Int
+    Public Function getIdentifier() As Int
     End Function
 
-    Public Sub setQuantity(quant As Int)
+    Public Sub setIdentifier(identifier As Int)
 
     End Sub
 End Class

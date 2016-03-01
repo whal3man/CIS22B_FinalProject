@@ -1,19 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="the Book class also needs a operator&lt;&lt; overload to make it easy to print eg.&#xD;&#xA;Book a = Book();&#xD;&#xA;cout &lt;&lt; a;&#xD;&#xA;this would print all of a's information">
+    <Position X="10.542" Y="0.771" Height="1.271" Width="1.7" />
+  </Comment>
   <Class Name="testWorkflow.Book">
     <Position X="8.75" Y="0.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AQAAAAIAQAAABGDAMAABAIgwAAAIIKCAAgAAAAMAAAA=</HashCode>
+      <HashCode>AQAAAAIAQAAABGDAMAABAIxwAAAIIIAAAgAAQAMAAAA=</HashCode>
       <FileName>Book.vb</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="testWorkflow.BookDatabase">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAIABAAICEABAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAEAAAAAAAIABAAICEARAACAAAAAAAAAAAAIAAAUA=</HashCode>
       <FileName>BookDatabase.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -24,19 +27,18 @@
     <Position X="3.5" Y="3.5" Width="1.5" />
     <AssociationLine Name="BookDatabase" Type="testWorkflow.BookDatabase" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4.656" Y="3.5" />
-        <Point X="4.656" Y="3.267" />
-        <Point X="6" Y="3.267" />
-        <Point X="6" Y="3.017" />
+        <Point X="5" Y="5.188" />
+        <Point X="6.625" Y="5.188" />
+        <Point X="6.625" Y="3.978" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAACAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQBAAAAgAIAQAAAAEAAAAAAAACAAAgI=</HashCode>
       <FileName>Report.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="BookDatabase" />
       <Property Name="MainMenu1" />
+      <Property Name="BookDatabase" />
     </ShowAsAssociation>
   </Class>
   <Class Name="testWorkflow.MainMenu">
@@ -47,9 +49,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="testWorkflow.Cashier">
-    <Position X="2.75" Y="0.75" Width="1.5" />
+    <Position X="3.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAABAIABAAAAAAAAQAAAAEAAAAAAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAABAIABAAAAEAAAQAAAAEAAAAAAAACAAAAA=</HashCode>
       <FileName>Cashier.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

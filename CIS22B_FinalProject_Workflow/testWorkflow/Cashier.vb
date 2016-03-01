@@ -27,7 +27,7 @@
     End Property
 
     ''' <summary>
-    ''' array of isbn's that the user wants to buy
+    ''' array of identifiers that the user wants to buy
     ''' </summary>
     Private Property cart As Int
         Get
@@ -39,13 +39,21 @@
 
     ''' <summary>
     ''' displays the cashier main menu and asks the user for input
+    ''' options:
+    ''' add book to cart
+    ''' remove book from cart
+    ''' checkout
     ''' </summary>
     Public Sub mainMenu()
 
     End Sub
 
     ''' <summary>
-    ''' displays a menu that allows user to add books to cart
+    ''' displays a menu that
+    ''' asks the user for the ISBN of the book they want to purchase
+    ''' brings up a list of all of the books with that isbn
+    ''' asks the user which one they wish to buy by numbering them
+    ''' adds the book they select to the cart
     ''' </summary>
     Public Sub addBook()
 
@@ -55,6 +63,16 @@
     ''' displays a menu that displays all books in cart, subtotals, calculates tax, and presents grand total. if they checkout, subtract books from BookDatabase
     ''' </summary>
     Public Sub checkout()
+
+    End Sub
+
+    ''' <summary>
+    ''' displays a menu that
+    ''' lists all books in cart with all their information
+    ''' asks the user which one they want to remove
+    ''' removes the book they select, or leaves the menu if they choose to
+    ''' </summary>
+    Public Sub removeBook()
 
     End Sub
 End Class
