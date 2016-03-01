@@ -14,7 +14,7 @@ private:
 	string publisher;		// publisher of the book
 	double retailPrice;		// retail price of book
 	string title;			// full title of the book
-	double wholesalePrice;	// wholesale price of the book
+	double wholesaleCost;	// wholesale cost of the book
 public:
 	// default constructor
 	Book();
@@ -40,17 +40,17 @@ public:
 	// sets the author attribute to author
 	void setAuthor(string author);
 	// sets the dateAdded attribute to dateAdded
-	void setDateAdded(string dateAdded);
+	void setDateAdded(string dateAdd);
 	// sets the bookIdentifier attribute to identifier
 	void setIdentifier(int identifier);
 	// sets the isbn attribute to isbn
-	void setIsbn(string isbn);
+	void setIsbn(string Isbn);
 	// sets the publisher attribute to publisher
-	void setPublisher(string publisher);
+	void setPublisher(string publish);
 	// sets the retailPrice attribute to retailPrice
-	void setRetailPrice(double retailPrice);
+	void setRetailPrice(double retailPric);
 	// sets the title attribute to title
-	void setTitle(string title);
+	void setTitle(string titl);
 	// sets the wholesaleCost attribute to wholesaleCost
 	void setWholesaleCost(double wholesaleCost);
 };
