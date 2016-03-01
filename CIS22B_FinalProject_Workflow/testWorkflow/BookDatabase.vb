@@ -30,22 +30,33 @@
     End Property
 
     ''' <summary>
-    ''' if the book already exists in the database, add the quantity to the existing quantity. Otherwise, create a Book and add it to books and increase size by one
+    ''' contains the number that should be given to the next book added
     ''' </summary>
-    Public Sub addBook(book As testWorkflow.Book, quantity As Int)
+    Private Property identifierCount As Int
+        Get
+            Return Nothing
+        End Get
+        Set(value As Int)
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' add the book to the end of books and incresase size by 1. sets the bookIdentifier to identifierCount then incraments identifierCount. runs sortBooks
+    ''' </summary>
+    Public Sub addBook(book As testWorkflow.Book)
 
     End Sub
 
     ''' <summary>
-    ''' returns the index in books of the Book with that isbn
+    ''' returns the index in books of the Book with that identifier
     ''' </summary>
-    Private Function searchIsbn(isbn As Int) As Int
+    Private Function searchIdentifier(identifier As Int) As Int
     End Function
 
     ''' <summary>
-    ''' takes in an isbn, removes one from the quantity of that book, then returns the retailPrice of that book. If there are no more copies afterward, remove the struct from books.
+    ''' takes in an identifier, returns the price of that book, then removes that book from books, then decreases size by 1. runs sortBooks
     ''' </summary>
-    Public Function sellBook(isbn As Int) As Int
+    Public Function sellBook(identifier As Int) As Int
     End Function
 
     ''' <summary>
@@ -56,8 +67,38 @@
     End Sub
 
     ''' <summary>
-    ''' returns the price of book with isbn
+    ''' returns the price of book with identifier
     ''' </summary>
-    Public Function getPrice(isbn As Int) As Int
+    Public Function getPrice(identifier As Int) As Int
     End Function
+
+    ''' <summary>
+    ''' sorts the books by isbn, from lowest to highest
+    ''' </summary>
+    Public Sub sortBooks()
+
+    End Sub
+
+    ''' <summary>
+    ''' swaps books in the array with indexes location1 and location2
+    ''' </summary>
+    Private Sub swapBooks(location1 As Int, location2 As Int)
+
+    End Sub
+
+    ''' <summary>
+    ''' prints info on all books with isbn
+    ''' </summary>
+    ''' <param name="out">passed by reference</param>
+    Public Sub printISBN(isbn As Int, out As ostream)
+
+    End Sub
+
+    ''' <summary>
+    ''' prints the information on the book with identifier
+    ''' </summary>
+    ''' <param name="out">passed by reference</param>
+    Public Sub printBook(identifier As Int, out As ostream)
+
+    End Sub
 End Class

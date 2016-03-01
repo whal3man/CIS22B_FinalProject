@@ -10,19 +10,19 @@
         End Set
     End Property
 
-    Public Property BookDatabase As BookDatabase
-        Get
-            Return Nothing
-        End Get
-        Set(value As BookDatabase)
-        End Set
-    End Property
-
     Public Property MainMenu1 As MainMenu
         Get
             Return Nothing
         End Get
         Set(value As MainMenu)
+        End Set
+    End Property
+
+    Public Property BookDatabase As BookDatabase
+        Get
+            Return Nothing
+        End Get
+        Set(value As BookDatabase)
         End Set
     End Property
 
