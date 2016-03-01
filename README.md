@@ -12,9 +12,9 @@ We should require 2-3 approvals from group members before accepting pull request
 
 #####Project requires the following elements#####
 - [ ] classes, inheritance, polymorphism (15 points)
-- [ ] friends (5 points)
+- [x] friends (5 points)
 - [ ] templates (5 points)
-- [ ] operator overloading (5 points)
+- [x] operator overloading (5 points)
 - [ ] exception handling (5 points)
 
 the first line of all cpp files should be the following:
