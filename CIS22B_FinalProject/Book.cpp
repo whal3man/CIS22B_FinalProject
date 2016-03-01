@@ -115,5 +115,5 @@ ostream& operator<<(ostream& out, Book& book)
 	out << "Date Added: " << book.getDateAdded() << endl;
 	out << "Wholesale Cost: $" << book.getWholesaleCost() << endl;
 	out << "Retail Price: $" << book.getRetailPrice() << endl;
-
+	return out;
 }
