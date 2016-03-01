@@ -27,13 +27,13 @@
     <Position X="3.5" Y="3.5" Width="1.5" />
     <AssociationLine Name="BookDatabase" Type="testWorkflow.BookDatabase" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="5" Y="4.709" />
-        <Point X="6.625" Y="4.709" />
+        <Point X="5" Y="5.188" />
+        <Point X="6.625" Y="5.188" />
         <Point X="6.625" Y="3.978" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAQAAAAEAAAAAAAACAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQBAAAAgAIAQAAAAEAAAAAAAACAAAgI=</HashCode>
       <FileName>Report.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
