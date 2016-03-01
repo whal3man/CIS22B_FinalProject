@@ -2,6 +2,8 @@
 #define _BOOK_H
 
 #include <string>
+#include <ostream>
+#include <iomanip>
 using namespace std;
 
 class Book
@@ -19,8 +21,8 @@ public:
 	// default constructor
 	Book();
 	// constructor with all attributes
-	Book(string title, string author, string isbn, string publisher, 
-		double wholesaleCost, double retailPrice, string dateAdded, int bookIdentifier);
+	Book(string titl, string auth, string Isbn, string publish, 
+		double wholesaleCos, double retailPric, string dateAdd, int identifier);
 	// retuns the author attribute
 	string getAuthor();
 	// returns the date that the book was added
@@ -53,6 +55,16 @@ public:
 	void setTitle(string titl);
 	// sets the wholesaleCost attribute to wholesaleCost
 	void setWholesaleCost(double wholesaleCost);
+	/*
+	* allows books to be printed out in an easy to read format using ostream
+	* eg. 
+	* Book a = Book();
+	* cout << a; //would print out all of the information about a
+	* @param out ostream object to print to
+	* @param book book object to print
+	* @return returns out
+	*/
+	friend ostream& operator<<(ostream& out, Book& book);
 };
 
 #endif
