@@ -7,11 +7,11 @@
         End Set
     End Property
 
-    Private Property isbn As Int
+    Private Property isbn As String
         Get
             Return Nothing
         End Get
-        Set(value As Int)
+        Set(value As String)
         End Set
     End Property
 
@@ -75,10 +75,10 @@
     Public Function setAuthor(auth As String) As Void
     End Function
 
-    Public Function getIsbn() As Int
+    Public Function getIsbn() As String
     End Function
 
-    Public Sub setIsbn(isbn As Int)
+    Public Sub setIsbn(isbn As String)
 
     End Sub
 
@@ -116,7 +116,7 @@
     Public Function Book() As testWorkflow.Book
     End Function
 
-    Public Function Book(title As String, author As String, isbn As Int, publisher As String, wholesaleCost As Double, retailPrice As String, dateAdded As String, identifier As String) As testWorkflow.Book
+    Public Function Book(title As String, author As String, isbn As String, publisher As String, wholesaleCost As Double, retailPrice As String, dateAdded As String, identifier As String) As testWorkflow.Book
     End Function
 
     Public Function getDateAdded() As String
