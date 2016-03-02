@@ -90,7 +90,7 @@
     ''' prints info on all books with isbn
     ''' </summary>
     ''' <param name="out">passed by reference</param>
-    Public Sub printISBN(isbn As Int, out As ostream)
+    Public Sub printISBN(isbn As String, out As ostream)
 
     End Sub
 
