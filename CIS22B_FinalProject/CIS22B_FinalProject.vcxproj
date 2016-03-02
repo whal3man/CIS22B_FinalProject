@@ -118,10 +118,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="Book.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
+=======
+    <ClCompile Include="bookDatabase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bookDatabase.h" />
+>>>>>>> whal3man-master
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
