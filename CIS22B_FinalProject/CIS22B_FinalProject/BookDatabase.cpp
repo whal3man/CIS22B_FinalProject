@@ -21,7 +21,7 @@ void BookDatabase::removeBook(int isbn)
 {
 
 }
-int BookDatabase::searchIndentifier(int identifier)
+int BookDatabase::searchIdentifier(int identifier)
 {
 
 }
