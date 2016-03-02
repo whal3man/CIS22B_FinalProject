@@ -21,7 +21,7 @@ public:
 	// default constructor
 	Book();
 	// constructor with all attributes
-	Book(string titl, string auth, string Isbn, string publish, 
+	Book(string titl, string auth, string Isbn, string publish,
 		double wholesaleCos, double retailPric, string dateAdd, int identifier);
 	// retuns the author attribute
 	string getAuthor();
@@ -57,7 +57,7 @@ public:
 	void setWholesaleCost(double wholesaleCost);
 	/*
 	* allows books to be printed out in an easy to read format using ostream
-	* eg. 
+	* eg.
 	* Book a = Book();
 	* cout << a; //would print out all of the information about a
 	* @param out ostream object to print to
