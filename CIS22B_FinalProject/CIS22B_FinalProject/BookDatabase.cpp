@@ -1,7 +1,4 @@
-using namespace std;
-#include <iostream>
-using namespace std;
-#include <iostream>
+#define _CRT_SECURE_NO_WARNINGS
 #include "BookDatabase.h"
 
 void BookDatabase::addBook(Book book)
