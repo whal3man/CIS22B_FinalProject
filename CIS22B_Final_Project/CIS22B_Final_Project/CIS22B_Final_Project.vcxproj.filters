@@ -15,8 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="Book.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BookDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -24,16 +26,8 @@
     <ClCompile Include="Book.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-=======
-    <ClCompile Include="bookDatabase.cpp">
+    <ClCompile Include="BookDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="bookDatabase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
->>>>>>> whal3man-master
 </Project>
