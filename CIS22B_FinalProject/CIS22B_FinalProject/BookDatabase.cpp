@@ -13,10 +13,41 @@ BookDatabase::~BookDatabase()
 	delete[] books;
 }
 
-void BookDatabase::clearDatabase()
+void BookDatabase::readFile(string file)
 {
-	identifierCount = 1;
-	size = 0;
+	try
+	{
+		ifstream fin;
+		fin.open(file);
+		if (fin.fail())
+		{
+			throw "Failed to open " + file + " for reading.\n";
+		}
+
+		fin >> identifierCount;
+		fin >> size;
+
+		string tempAuthor, tempDateAdded, tempIsbn, tempPublisher, tempTitle;
+		int tempIdentifier;
+		double tempRetailPrice, tempWholesaleCost;
+
+		for (int i = 0; i < size; i++)
+		{
+			fin >> tempAuthor;
+			fin >> tempDateAdded;
+			fin >> tempIdentifier;
+			fin >> tempIsbn;
+			fin >> tempPublisher;
+			fin >> tempRetailPrice;
+			fin >> tempTitle;
+			fin >> tempWholesaleCost;
+			books[i].setAll(tempTitle, tempAuthor, tempIsbn, tempPublisher, tempWholesaleCost, tempRetailPrice, tempDateAdded, tempIdentifier);
+		}
+	}
+	catch (string e)
+	{
+		cout << e;
+	}
 }
 
 void BookDatabase::writeFile(string file)
@@ -48,14 +79,14 @@ void BookDatabase::writeFile(string file)
 		fout << size << endl;
 		for (int i = 0; i < size; i++)
 		{
-			cout << books[i].getAuthor() << endl;
-			cout << books[i].getDateAdded() << endl;
-			cout << books[i].getIdentifier() << endl;
-			cout << books[i].getIsbn() << endl;
-			cout << books[i].getPublisher() << endl;
-			cout << books[i].getRetailPrice() << endl;
-			cout << books[i].getTitle() << endl;
-			cout << books[i].getWholesaleCost() << endl;
+			fout << books[i].getAuthor() << endl;
+			fout << books[i].getDateAdded() << endl;
+			fout << books[i].getIdentifier() << endl;
+			fout << books[i].getIsbn() << endl;
+			fout << books[i].getPublisher() << endl;
+			fout << books[i].getRetailPrice() << endl;
+			fout << books[i].getTitle() << endl;
+			fout << books[i].getWholesaleCost() << endl;
 		}
 	}
 	catch (string e)
@@ -66,7 +97,7 @@ void BookDatabase::writeFile(string file)
 
 void BookDatabase::addBook(Book book)
 {
-	books[size].changeAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
+	books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
 		book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
 	identifierCount++;
 	size++;

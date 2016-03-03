@@ -25,7 +25,7 @@ Book::Book(string titl, string auth, string Isbn, string publish, double wholesa
 	bookIdentifier = identifier;
 }
 
-void Book::changeAll(string titl, string auth, string Isbn, string publish, double wholesaleCos, double retailPric, string dateAdd, int identifier)
+void Book::setAll(string titl, string auth, string Isbn, string publish, double wholesaleCos, double retailPric, string dateAdd, int identifier)
 {
 	title = titl;
 	author = auth;

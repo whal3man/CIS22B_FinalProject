@@ -15,8 +15,6 @@ private:
 public:
 	BookDatabase();
 	~BookDatabase();
-	// resets database to default values
-	void clearDatabase();
 	// clear BookDatabase, then read database from file
 	void readFile(string file);
 	// write all info in database to file
