@@ -112,10 +112,14 @@
   <ItemGroup>
     <ClInclude Include="Book.h" />
     <ClInclude Include="BookDatabase.h" />
+    <ClInclude Include="Cashier.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="Report.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookDatabase.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
