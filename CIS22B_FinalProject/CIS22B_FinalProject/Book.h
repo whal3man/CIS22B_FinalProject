@@ -23,6 +23,9 @@ public:
 	// constructor with all attributes
 	Book(string titl, string auth, string Isbn, string publish,
 		double wholesaleCos, double retailPric, string dateAdd, int identifier);
+	// set all attributes of a Book
+	void changeAll(string titl, string auth, string Isbn, string publish,
+		double wholesaleCos, double retailPric, string dateAdd, int identifier);
 	// retuns the author attribute
 	string getAuthor();
 	// returns the date that the book was added

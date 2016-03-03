@@ -25,6 +25,18 @@ Book::Book(string titl, string auth, string Isbn, string publish, double wholesa
 	bookIdentifier = identifier;
 }
 
+void Book::changeAll(string titl, string auth, string Isbn, string publish, double wholesaleCos, double retailPric, string dateAdd, int identifier)
+{
+	title = titl;
+	author = auth;
+	isbn = Isbn;
+	publisher = publish;
+	wholesaleCost = wholesaleCos;
+	retailPrice = retailPric;
+	dateAdded = dateAdd;
+	bookIdentifier = identifier;
+}
+
 string Book::getAuthor()
 {
 	return author;
