@@ -10,6 +10,13 @@ private:
 	BookDatabase* database;
 public:
 	Report(BookDatabase* dtbs);
+	void listInventory();
+	void listRetailValue();
+	void listWholesaleValue();
+	void listAge();
+	void listCost();
+	void listQuantity();
+	void mainMenu();
 };
 
 
