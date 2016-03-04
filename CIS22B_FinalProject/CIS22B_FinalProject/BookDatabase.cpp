@@ -33,13 +33,18 @@ void BookDatabase::readFile(string file)
 
 		for (int i = 0; i < size; i++)
 		{
-			fin >> tempAuthor;
-			fin >> tempDateAdded;
+			fin.ignore();
+			getline(fin, tempAuthor);
+			fin.ignore();
+			getline(fin, tempDateAdded);
 			fin >> tempIdentifier;
-			fin >> tempIsbn;
-			fin >> tempPublisher;
+			fin.ignore();
+			getline(fin, tempIsbn);
+			fin.ignore();
+			getline(fin, tempPublisher);
 			fin >> tempRetailPrice;
-			fin >> tempTitle;
+			fin.ignore();
+			getline(fin, tempTitle);
 			fin >> tempWholesaleCost;
 			books[i].setAll(tempTitle, tempAuthor, tempIsbn, tempPublisher, tempWholesaleCost, tempRetailPrice, tempDateAdded, tempIdentifier);
 		}
