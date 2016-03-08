@@ -119,6 +119,14 @@ void BookDatabase::printISBN(string isbn)
 {
 
 }
+const Book * BookDatabase::getBooks()
+{
+	return books;
+}
+int BookDatabase::getSize()
+{
+	return size;
+}
 void BookDatabase::removeBook(int isbn)
 {
 
@@ -146,3 +154,4 @@ int BookDatabase::sellBook(int identifier)
 {
 	return 0;
 }
+
