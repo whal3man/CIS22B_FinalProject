@@ -12,15 +12,18 @@ private:
 	Book* books;			// array of 1024 books
 	int identifierCount;
 	int size;
+	string databaseFile;
 public:
 	// initializes the books array, sets identifier count to 1, and sets size to 0
 	BookDatabase();
 	// deletes the books array
 	~BookDatabase();
 	// clear BookDatabase, then read database from file
-	void readFile(string file);
+	void readFile();
 	// write all info in database to file
-	void writeFile(string file);
+	void writeFile();
+	const void setDatabaseFile(string file);
+	string getDatabaseFile();
 	void addBook(Book book);
 	int getPrice(int identifier);
 	void printBook(int identifier);
