@@ -11,6 +11,7 @@ private:
 	int cartSize;
 	BookDatabase* databse;
 public:
+	Cashier();
 	Cashier(BookDatabase* dtbs);
 	// displays a menu to add a book to the cart
 	void addBookMenu();

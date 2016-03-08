@@ -6,6 +6,7 @@ BookDatabase::BookDatabase()
 	books = new Book[1024];
 	identifierCount = 1;
 	size = 0;
+	databaseFile = "database.txt";
 }
 
 BookDatabase::~BookDatabase()
@@ -13,15 +14,15 @@ BookDatabase::~BookDatabase()
 	delete[] books;
 }
 
-void BookDatabase::readFile(string file)
+void BookDatabase::readFile()
 {
 	try
 	{
 		ifstream fin;
-		fin.open(file);
+		fin.open(databaseFile);
 		if (fin.fail())
 		{
-			throw "Failed to open " + file + " for reading.\n";
+			throw "Failed to open " + databaseFile + " for reading.\n";
 		}
 
 		fin >> identifierCount;
@@ -55,29 +56,29 @@ void BookDatabase::readFile(string file)
 	}
 }
 
-void BookDatabase::writeFile(string file)
+void BookDatabase::writeFile()
 {
 	try
 	{
 		// if file already exists, renames it to file.bak
 		// if file.bak already exists, delete it
-		ifstream ifile(file.c_str());
+		ifstream ifile(databaseFile.c_str());
 		if (ifile)
 		{
-			string newName = file + ".bak";
+			string newName = databaseFile + ".bak";
 			ifstream bakIsFile(newName.c_str());
 			if (bakIsFile)
 			{
 				remove(newName.c_str());
 			}
-			rename(file.c_str(), newName.c_str());
+			rename(databaseFile.c_str(), newName.c_str());
 		}
 
 		ofstream fout;
-		fout.open(file);
+		fout.open(databaseFile);
 		if (fout.fail())
 		{
-			throw "Failed to open " + file + " for writing.\n";
+			throw "Failed to open " + databaseFile + " for writing.\n";
 		}
 
 		fout << identifierCount << endl;
@@ -100,6 +101,16 @@ void BookDatabase::writeFile(string file)
 	}
 }
 
+const void BookDatabase::setDatabaseFile(string file)
+{
+	databaseFile = file;
+}
+
+string BookDatabase::getDatabaseFile()
+{
+	return databaseFile;
+}
+
 void BookDatabase::addBook(Book book)
 {
 	books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
@@ -118,6 +129,14 @@ void BookDatabase::printBook(int identifier)
 void BookDatabase::printISBN(string isbn)
 {
 
+}
+const Book * BookDatabase::getBooks()
+{
+	return books;
+}
+int BookDatabase::getSize()
+{
+	return size;
 }
 void BookDatabase::removeBook(int isbn)
 {
@@ -146,3 +165,4 @@ int BookDatabase::sellBook(int identifier)
 {
 	return 0;
 }
+
