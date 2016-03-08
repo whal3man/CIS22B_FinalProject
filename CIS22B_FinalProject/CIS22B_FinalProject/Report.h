@@ -9,6 +9,7 @@ class Report
 private:
 	BookDatabase* database;
 public:
+	Report();
 	Report(BookDatabase* dtbs);
 	void listInventory();
 	void listRetailValue();
