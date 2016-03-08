@@ -6,7 +6,7 @@
 #include "Report.h"
 using namespace std;
 
-class Main
+class MainMenu
 {
 private:
 	BookDatabase* database;
@@ -14,9 +14,9 @@ private:
 	Report report;
 public:
 	// creates database object to be used in other modules
-	Main();
+	MainMenu();
 	// deletes database object
-	~Main();
+	~MainMenu();
 	// displays a menu asking the user if they wish to load database from file
 	void fileLoadMenu();
 	// displays a menu asking the user which module they wish to use
