@@ -2,6 +2,7 @@
 #define _REPORT_H
 
 #include <string>
+#include "BookDatabase.h"
 using namespace std;
 
 class Report

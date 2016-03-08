@@ -2,6 +2,7 @@
 #define _CASHIER_H
 
 #include <string>
+#include "BookDatabase.h"
 using namespace std;
 
 class Cashier
