@@ -115,7 +115,7 @@ void BookDatabase::printBook(int identifier)
 {
 
 }
-void BookDatabase::printISBN(int isbn)
+void BookDatabase::printISBN(string isbn)
 {
 
 }
@@ -140,4 +140,9 @@ int BookDatabase::searchIdentifier(int identifier)
 int BookDatabase::operator[](int i)
 {
 	return searchIdentifier(i);
+}
+
+int BookDatabase::sellBook(int identifier)
+{
+	return 0;
 }
