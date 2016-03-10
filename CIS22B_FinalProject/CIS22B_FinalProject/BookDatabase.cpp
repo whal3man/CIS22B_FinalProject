@@ -166,3 +166,12 @@ int BookDatabase::sellBook(int identifier)
 	return 0;
 }
 
+void BookDatabase::mainMenu()
+{
+	cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Database\n\n";
+	cout << "\t    1. Cashier Module\n";
+	cout << "\t    2. Inventory Database Module\n";
+	cout << "\t    3. Report Module\n";
+	cout << "\t    4. Exit\n";
+	cout << "\n\t     Enter your choice: ";
+}

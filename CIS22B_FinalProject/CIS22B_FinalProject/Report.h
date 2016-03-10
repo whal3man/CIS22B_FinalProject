@@ -1,11 +1,9 @@
 #ifndef _REPORT_H
 #define _REPORT_H
 
-#include <string>
 #include "BookDatabase.h"
-using namespace std;
 
-class Report
+class Report : public Book
 {
 private:
 	BookDatabase* database;
