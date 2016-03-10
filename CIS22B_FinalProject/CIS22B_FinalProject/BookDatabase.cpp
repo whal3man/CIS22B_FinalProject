@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "BookDatabase.h"
 
+
 BookDatabase::BookDatabase()
 {
 	books = new Book[1024];
@@ -120,15 +121,11 @@ void BookDatabase::addBook(Book book)
 }
 int BookDatabase::getPrice(int identifier)
 {
+	books[identifier].getRetailPrice();
 	return 0;
 }
-void BookDatabase::printBook(int identifier)
-{
 
-}
-void BookDatabase::printISBN(string isbn)
-{
-
+<<<<<<< HEAD
 }
 Book * BookDatabase::getBooks()
 {
@@ -139,8 +136,27 @@ int BookDatabase::getSize()
 	return size;
 }
 void BookDatabase::removeBook(int isbn)
+=======
+void BookDatabase::removeBook(int identifier)
+>>>>>>> d23aaa6b8dad54997ecb633828c956f2d5ee5adf
 {
-
+	int count = 0;
+	bool foundBook = false;
+	while (count < size - 1)
+	{
+		if (foundBook)
+		{
+			books[count] = books[count++];
+		}
+		else if (books[count].getIdentifier() == identifier)
+		{
+			books[count] = books[count++];
+			foundBook = true;
+		}
+		count++;
+	}
+	size--;
+	writeFile();
 }
 int BookDatabase::searchIdentifier(int identifier)
 {
@@ -163,7 +179,19 @@ int BookDatabase::operator[](int i)
 
 int BookDatabase::sellBook(int identifier)
 {
-	return 0;
+	
+	int count = 0;
+	while (count < size)
+	{
+		if (books[count].getIdentifier() == identifier)
+		{
+			return books[count].getRetailPrice();
+			delete[count]books;
+			size - 1;
+		}
+		count++;
+		
+	}
 }
 
 void BookDatabase::mainMenu()

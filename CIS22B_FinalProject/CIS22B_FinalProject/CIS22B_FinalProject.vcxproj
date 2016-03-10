@@ -126,7 +126,6 @@
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookDatabase.cpp" />
     <ClCompile Include="Cashier.cpp" />
-    <ClCompile Include="CIS22B_Group4_FinalProject.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Report.cpp" />
   </ItemGroup>
