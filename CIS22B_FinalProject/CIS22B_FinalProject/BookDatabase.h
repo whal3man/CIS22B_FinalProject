@@ -37,6 +37,7 @@ public:
 	int sellBook(int identifier);
 	//need a mainmenu for the inventory database module
 	void mainMenu();
+	void swapBooks(int index1, int index2);
 };
 
 #endif
