@@ -9,7 +9,6 @@
 	listAge() lists books sorted by date added to the inventory via the inventory database module
 	listCost() lists books sorted by wholesale cost, greatest first to least last
 	listQuantity() lists books sorted by quantity on hand. The book with the most copies is listed first
-
 */
 
 Report::Report()
@@ -18,13 +17,21 @@ Report::Report()
 }
 Report::Report(BookDatabase* dtbs)
 {
-
+	database = dtbs;
 }
 //A list of information on all books in the inventory
 //List books by title
 void Report::listInventory()
 {
 	cout << "Listing current inventory...\n\n";
+
+	//Book* books = database->getBooks();
+	//int size = database->getSize();
+
+	//for (int i = 0; i < size; i++)
+	//{
+	//	cout << books[i].getTitle();
+	//}
 }
 //A list of the retail value of all books in the inventory
 //and the total retail value of the inventory.
@@ -63,6 +70,8 @@ void Report::mainMenu()
 	//ask user what they want to have shown
 		do
 		{
+			system("CLS"); //clear screen of other modules and text
+			cout << "\t\tReport Module\n\n";
 			cout << "\t    1. List Inventory\n";
 			cout << "\t    2. List by Retail Value\n";
 			cout << "\t    3. List by Wholesale Value\n";
