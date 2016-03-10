@@ -124,9 +124,6 @@ int BookDatabase::getPrice(int identifier)
 	books[identifier].getRetailPrice();
 	return 0;
 }
-
-<<<<<<< HEAD
-}
 Book * BookDatabase::getBooks()
 {
 	return books;
@@ -135,10 +132,7 @@ int BookDatabase::getSize()
 {
 	return size;
 }
-void BookDatabase::removeBook(int isbn)
-=======
 void BookDatabase::removeBook(int identifier)
->>>>>>> d23aaa6b8dad54997ecb633828c956f2d5ee5adf
 {
 	int count = 0;
 	bool foundBook = false;
@@ -202,4 +196,11 @@ void BookDatabase::mainMenu()
 	cout << "\t    3. Report Module\n";
 	cout << "\t    4. Exit\n";
 	cout << "\n\t     Enter your choice: ";
+}
+
+void BookDatabase::swapBooks(int index1, int index2)
+{
+	Book temp = books[index1];
+	books[index1] = books[index2];
+	books[index2] = temp;
 }
