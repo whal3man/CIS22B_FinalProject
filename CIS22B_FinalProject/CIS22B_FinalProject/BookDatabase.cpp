@@ -130,7 +130,7 @@ void BookDatabase::printISBN(string isbn)
 {
 
 }
-const Book * BookDatabase::getBooks()
+Book * BookDatabase::getBooks()
 {
 	return books;
 }
