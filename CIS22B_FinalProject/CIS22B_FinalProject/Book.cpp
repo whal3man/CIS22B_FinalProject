@@ -37,42 +37,42 @@ void Book::setAll(string titl, string auth, string Isbn, string publish, double 
 	bookIdentifier = identifier;
 }
 
-const string Book::getAuthor()
+string Book::getAuthor()
 {
 	return author;
 }
 
-const string Book::getDateAdded()
+string Book::getDateAdded()
 {
 	return dateAdded;
 }
 
-const int Book::getIdentifier()
+int Book::getIdentifier()
 {
 	return bookIdentifier;
 }
 
-const string Book::getIsbn()
+string Book::getIsbn()
 {
 	return isbn;
 }
 
-const string Book::getPublisher()
+string Book::getPublisher()
 {
 	return publisher;
 }
 
-const double Book::getRetailPrice()
+double Book::getRetailPrice()
 {
 	return retailPrice;
 }
 
-const string Book::getTitle()
+string Book::getTitle()
 {
 	return title;
 }
 
-const double Book::getWholesaleCost()
+double Book::getWholesaleCost()
 {
 	return wholesaleCost;
 }

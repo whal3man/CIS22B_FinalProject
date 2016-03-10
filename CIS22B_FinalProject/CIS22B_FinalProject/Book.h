@@ -27,21 +27,21 @@ public:
 	void setAll(string titl, string auth, string Isbn, string publish,
 		double wholesaleCos, double retailPric, string dateAdd, int identifier);
 	// retuns the author attribute
-	const string getAuthor();
+	string getAuthor();
 	// returns the date that the book was added
-	const string getDateAdded();
+	string getDateAdded();
 	// returns the unique identifier
-	const int getIdentifier();
+	int getIdentifier();
 	// returns the isbn
-	const string getIsbn();
+	string getIsbn();
 	// returns the publisher
-	const string getPublisher();
+	string getPublisher();
 	// returns the retail price
-	const double getRetailPrice();
+	double getRetailPrice();
 	// returns the title 
-	const string getTitle();
+	string getTitle();
 	// returns the wholesale cost
-	const double getWholesaleCost();
+	double getWholesaleCost();
 	// sets the author attribute to author
 	void setAuthor(string author);
 	// sets the dateAdded attribute to dateAdded
