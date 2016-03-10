@@ -52,51 +52,54 @@ void MainMenu::fileLoadMenu()
 
 int MainMenu::showMainMenu()
 {
-	fileLoadMenu();
-
 	bool done = false;
-
 	int choice = 0;
 
-	
+	do
+	{
+		system("CLS");
+		//show the mainMenu and get the choice
 		cout << "\t\tSerendipity Booksellers\n\t\t\tMain Menu\n\n";
 		cout << "\t    1. Cashier Module\n";
 		cout << "\t    2. Inventory Database Module\n";
 		cout << "\t    3. Report Module\n";
 		cout << "\t    4. Exit\n";
+		cout << "\n\t     Enter your choice: ";
 
-		do
+		cin >> choice;
+
+		if (choice == 1)
 		{
-			cout << "\n\t     Enter your choice: ";
-
-			cin >> choice;
-
-			if (choice == 1)
+			cout << "Cashier module loading...\n\n";
+			//cashier.mainMenu();
+		}
+		else if (choice == 2)
+		{
+			cout << "Inventory Database module loading...\n\n";
+			//database.mainmenu
+		}
+		else if (choice == 3)
+		{
+			cout << "Report module loading...\n\n";
+			report.mainMenu();
+		}
+		else if (choice == 4)
+		{
+			cout << "\n\n\t\t\tThank you!\n\n";
+			system("pause");
+			return 0;
+		}
+		else
+		{
 			{
-				cashier.mainMenu();
+				cout << "\n\t    Please enter a valid selection.\n";
+				cin.clear();
+				cin.ignore(1000, '\n');
+				choice = 0;
 			}
-			else if (choice == 2)
-			{
-				return 2;
-			}
-			else if (choice == 3)
-			{
-				return 3;
-			}
-			else if (choice == 4)
-			{
-				return 4;
-			}
-			else
-			{
-				{
-					cout << "\n\t    Please enter a valid selection.\n";
-					cin.clear();
-					cin.ignore(1000, '\n');
-					choice = 0;
-				}
-			}
+		}
 	} while (choice != 4);
+	return -1;
 }
 
 Report MainMenu::getReport() const
@@ -106,39 +109,8 @@ Report MainMenu::getReport() const
 
 int main()
 {
-	int choice = 0; // to hold the user's module choice
 	MainMenu menu; //we need a main menu object
-
-				   //traverse the modules based on users choice
-	do
-	{
-		//show the mainMenu and get the choice
-		choice = menu.showMainMenu();
-
-		if (choice == 1)
-		{
-			//run cashier mainMenu();
-			cout << "Cashier module loading...\n\n";
-		}
-		else if (choice == 2)
-		{
-			cout << "Inventory Database module loading...\n\n";
-			//get the database object
-			//run database mainMenu;
-		}
-		else if (choice == 3)
-		{
-			cout << "Report module loading...\n\n";
-			Report* report = &menu.getReport();
-			report->mainMenu();
-		}
-		else if (choice == 4)
-		{
-			cout << "\n\n\t\t\tThank you!\n\n";
-			system("pause");
-			return 0;
-		}
-	} while (choice != 4);
-
+	menu.fileLoadMenu();
+	menu.showMainMenu();
 	system("pause");
 }
