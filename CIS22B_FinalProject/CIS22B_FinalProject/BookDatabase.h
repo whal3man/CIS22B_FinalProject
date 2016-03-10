@@ -27,7 +27,7 @@ public:
 	int getPrice(int identifier);
 	void printBook(int identifier);
 	void printISBN(string isbn);
-	const Book* getBooks();
+	Book* getBooks();
 	int getSize();
 	void removeBook(int identifier);
 	// returns the index of book with identifier, or -1 if no book with identifier is found
