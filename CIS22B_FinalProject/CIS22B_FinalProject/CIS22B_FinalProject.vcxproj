@@ -82,6 +82,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <GenerateDebugInformation>
+      </GenerateDebugInformation>
+      <SubSystem>
+      </SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -119,7 +125,10 @@
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookDatabase.cpp" />
+    <ClCompile Include="Cashier.cpp" />
+    <ClCompile Include="CIS22B_Group4_FinalProject.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Report.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

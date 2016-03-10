@@ -4,7 +4,6 @@
 #include "BookDatabase.h"
 #include "Cashier.h"
 #include "Report.h"
-using namespace std;
 
 class MainMenu
 {
@@ -17,10 +16,12 @@ public:
 	MainMenu();
 	// deletes database object
 	~MainMenu();
+	//return the report object
+	Report getReport() const;
 	// displays a menu asking the user if they wish to load database from file
 	void fileLoadMenu();
 	// displays a menu asking the user which module they wish to use
-	void mainMenu();
+	int showMainMenu();
 };
 
 #endif

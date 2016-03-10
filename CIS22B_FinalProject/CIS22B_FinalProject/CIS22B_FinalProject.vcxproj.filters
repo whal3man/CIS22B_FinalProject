@@ -41,10 +41,13 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cashier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Report.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cashier.cpp">
+    <ClCompile Include="CIS22B_Group4_FinalProject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

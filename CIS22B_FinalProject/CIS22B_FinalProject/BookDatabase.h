@@ -4,7 +4,6 @@
 #include "Book.h"
 #include <iostream>
 #include <fstream>
-using namespace std;
 
 class BookDatabase
 {
@@ -36,6 +35,8 @@ public:
 	// same as searchIdentifier but allows for easier [] notation
 	int operator[](int i);
 	int sellBook(int identifier);
+	//need a mainmenu for the inventory database module
+	void mainMenu();
 };
 
 #endif
