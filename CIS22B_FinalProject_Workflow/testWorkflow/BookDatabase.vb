@@ -65,12 +65,6 @@
     End Function
 
     ''' <summary>
-    ''' takes in an identifier, returns the price of that book, then removes that book from books, then decreases size by 1. runs sortBooks
-    ''' </summary>
-    Public Function sellBook(identifier As Int) As Int
-    End Function
-
-    ''' <summary>
     ''' removes the Book with isbn, then shifts all of the books after it to remove the gap. decreases size by 1
     ''' </summary>
     Public Sub removeBook(Isbn As Int)
@@ -82,13 +76,6 @@
     ''' </summary>
     Public Function getPrice(identifier As Int) As Int
     End Function
-
-    ''' <summary>
-    ''' sorts the books by isbn, from lowest to highest
-    ''' </summary>
-    Public Sub sortBooks()
-
-    End Sub
 
     ''' <summary>
     ''' swaps books in the array with indexes location1 and location2
@@ -110,6 +97,53 @@
     ''' </summary>
     ''' <param name="out">passed by reference</param>
     Public Sub printBook(identifier As Int, out As ostream)
+
+    End Sub
+
+    ''' <summary>
+    ''' returns books
+    ''' </summary>
+    Public Function getBooks() As testWorkflow.Book
+    End Function
+
+    ''' <summary>
+    ''' returns size
+    ''' </summary>
+    Public Function getSize() As Int
+    End Function
+
+    ''' <summary>
+    ''' displays a menu asking the user which menu they wish to enter
+    ''' </summary>
+    Public Sub mainMenu()
+
+    End Sub
+
+    ''' <summary>
+    ''' displays a menu to add a book to the database
+    ''' </summary>
+    Public Sub addBookMenu()
+
+    End Sub
+
+    ''' <summary>
+    ''' displays a menu to remove a book from the database
+    ''' </summary>
+    Public Sub removeBookMenu()
+
+    End Sub
+
+    ''' <summary>
+    ''' allows the user to find books by entering information about them
+    ''' </summary>
+    Public Sub lookupBookMenu()
+
+    End Sub
+
+    ''' <summary>
+    ''' allows the user to change any of the books variables except identifier
+    ''' </summary>
+    Public Sub changeBook()
 
     End Sub
 End Class
