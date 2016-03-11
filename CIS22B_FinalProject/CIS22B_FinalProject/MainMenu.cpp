@@ -71,12 +71,12 @@ int MainMenu::showMainMenu()
 		if (choice == 1)
 		{
 			cout << "Cashier module loading...\n\n";
-			//cashier.mainMenu();
+			cashier.mainMenu();
 		}
 		else if (choice == 2)
 		{
 			cout << "Inventory Database module loading...\n\n";
-			//database.mainmenu
+			database->mainMenu();
 		}
 		else if (choice == 3)
 		{
