@@ -80,6 +80,7 @@ void Cashier::removeBookMenu()
 			}
 		}
 	}
+	system("PAUSE");
 }
 void Cashier::checkout()
 {
@@ -90,39 +91,49 @@ void Cashier::checkout()
 	}
 	cout << "Serendipity Book Sellers" << endl << endl;
 	cout << "Date: " << endl << endl;
-	cout << "      ISBN              Title           Price       " << endl;
+	cout << "      ISBN              Title				   Price       " << endl;
 	cout << "____________________________________________________________" << endl << endl;
 	for (int i = 0; i < cartSize; i++)
 	{
 		Book* book = database->searchIdentifier(cart[i]);
 		cout << book->getIsbn() << "\t" << book->getTitle() << "\t" << book->getRetailPrice();
 	}
-	//cout << "   069-12331-123   Living like a God    $69.99      $69.99" << endl;
-	//cout << "   123-13337-420   Being like Travis    $13.37      $150.08" << endl << endl;
+	cout << "   069-12331-123   Living like a God: Travis Pham    $69.99" << endl;
+	
 	cout << "\t\t\t\t\t____________________" << endl << endl;
 	cout << "\t\t\t\t\tSubtotal: " << subtotal << endl << "\t\t\t\t\tTax: " << "Sales Tax @ 6.25%: " << (subtotal * 0.0625) << endl << "\t\t\t\t\tTotal: " << subtotal + subtotal*0.0625 << endl;
 	cout << endl << "Thank You for Shopping at Serendipity!" << endl;
+	system("PAUSE");
 }
 void Cashier::mainMenu()
 {
-	cout << "What would you like to do?" << endl << endl << "Press '1' to add a book. " << endl << "Press '2' to go to checkout." << endl << "Press '3' to remove a book." << endl;
-	int choice = 0;
-	cin >> choice;
-	if (choice == 1)
+	bool done = false;
+	while (!done)
 	{
-		addBookMenu();
+		cout << "What would you like to do?" << endl << endl << "Press '1' to add a book. " << endl << "Press '2' to go to checkout." << endl << "Press '3' to remove a book." << endl << "Press '4' to go back of the menu." << endl;
+		int choice = 0;
+		cin >> choice;
+		if (choice == 1)
+		{
+			addBookMenu();
+		}
+		else if (choice == 2)
+		{
+			checkout();
+		}
+		else if (choice == 3)
+		{
+			removeBookMenu();
+		}
+		else if (choice == 4)
+		{
+			done = true;
+		}
+		else
+		{
+			cout << "Invalid choice! ";
+		}
 	}
-	else if (choice == 2)
-	{
-		checkout();
-	}
-	else if (choice == 3)
-	{
-		removeBookMenu();
-	}
-	else
-	{
-		cout << "Invalid choice! ";
-	}
+	system("PAUSE");
 }
 
