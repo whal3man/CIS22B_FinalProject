@@ -102,11 +102,6 @@ int MainMenu::showMainMenu()
 	return -1;
 }
 
-Report MainMenu::getReport() const
-{
-	return report;
-}
-
 int main()
 {
 	MainMenu menu; //we need a main menu object
