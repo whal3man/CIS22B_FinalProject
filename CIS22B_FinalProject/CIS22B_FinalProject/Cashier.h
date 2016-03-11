@@ -9,7 +9,7 @@ class Cashier
 {
 private:
 	int cart[128];
-	int cartSize;
+	int cartSize = 0;
 	BookDatabase* database;
 public:
 	Cashier();
@@ -25,6 +25,11 @@ public:
 	void checkout();
 	// main menu that asks the user what they want to do
 	void mainMenu();
+	// function to give a list of ISBN numbers
+	void listIsbn(string isbn);
+	// to remove book from removeBookMenu function
+	void removeBookFromCart(int identifier);
+	
 };
 
 #endif
