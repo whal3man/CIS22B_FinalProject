@@ -285,7 +285,6 @@ void BookDatabase::lookupBookMenu()
 	string dateadded;
 	bool retailfound = false;
 	double retailprice;
-	bool idenfound = false;
 	double wholecost;
 	bool wholefound = false;
 
