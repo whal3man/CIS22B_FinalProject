@@ -277,6 +277,16 @@ void BookDatabase::lookupBookMenu()
 {
 	system("CLS");
 	bool done = false;
+	bool idenfound = false;
+	int identifier;
+	bool isbnfound = false;
+	string isbn;
+	bool datefound = false;
+	string dateadded;
+	bool retailfound = false;
+	double retailprice;
+	
+	
 	while (!done)
 	{
 		cout << "\t\tSerendipity Booksellers\n\t\t\tBook Lookup\n\n";
@@ -304,6 +314,21 @@ void BookDatabase::lookupBookMenu()
 		switch (response)
 		{
 		case 1:
+			cout << "Enter the identifier you are looking for: ";
+			
+			cin >> identifier;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getIdentifier() == identifier)
+				{
+					cout << books[i].getRetailPrice();
+					idenfound = true;
+				}
+			}
+			if (!idenfound)
+			{
+				cout << "nothing was found\n";
+			}
 			break;
 		case 2:
 			cout << "Enter the title you want to search for: ";
@@ -338,6 +363,21 @@ void BookDatabase::lookupBookMenu()
 			}
 			break;
 		case 4:
+			cout << "Enter the ISBN you are looking for: ";
+			
+			cin >> isbn;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getIsbn() == isbn)
+				{
+					cout << books[i].getIsbn();
+					isbnfound = true;
+				}
+			}
+		if (!isbnfound)
+		{
+			cout << "nothing was found\n";
+		}
 			break;
 		case 5:
 			cout << "Enter the publisher you want to search for: ";
@@ -356,10 +396,41 @@ void BookDatabase::lookupBookMenu()
 			}
 			break;
 		case 6:
+			cout << "Enter the date added you are looking for: ";
+			
+			cin >> dateadded;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getDateAdded() == dateadded)
+				{
+					cout << books[i].getDateAdded();
+					datefound = true;
+				}
+			}
+		if (!datefound)
+		{
+			cout << "nothing was found\n";
+		}
 			break;
 		case 7:
+			cout << "Enter the retail price you are looking for: ";
+		
+			cin >> retailprice;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getRetailPrice() == retailprice)
+				{
+					cout << books[i].getRetailPrice(); 
+					found = true;
+				}
+			}
+			if (!retailfound)
+			{
+				cout << "nothing was found\n";
+			}
 			break;
 		case 8:
+
 			break;
 		case 9:
 			break;
