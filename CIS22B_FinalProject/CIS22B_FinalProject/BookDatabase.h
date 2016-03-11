@@ -57,7 +57,7 @@ public:
 	void removeBookMenu();
 	// allows the user to find books by entering information about them
 	void lookupBookMenu();
-	// allows the user to change any of the books variables except identifier
+	// menu that allows the user to change any of the books variables except identifier
 	void changeBook();
 };
 

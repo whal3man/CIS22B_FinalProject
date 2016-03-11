@@ -132,6 +132,18 @@ double BookDatabase::getPrice(int identifier)
 	}
 	return -1;
 }
+void BookDatabase::printISBN(string isbn)
+{
+	cout << "Inventory of books with ISBN: " << isbn << endl;
+	for (int i = 0; i < size; i++)
+	{
+		if (isbn == books[i].getIsbn())
+		{
+			cout << books[i] << endl;;
+		}
+	}
+	writeFile();
+}
 Book * BookDatabase::getBooks()
 {
 	return books;
@@ -181,12 +193,42 @@ Book* BookDatabase::operator[](int i)
 
 void BookDatabase::mainMenu()
 {
-	cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Database\n\n";
-	cout << "\t    1. Cashier Module\n";
-	cout << "\t    2. Inventory Database Module\n";
-	cout << "\t    3. Report Module\n";
-	cout << "\t    4. Exit\n";
-	cout << "\n\t     Enter your choice: ";
+	system("CLS");
+	bool done = false;
+	while (!done)
+	{
+		cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Database\n\n";
+		cout << "\t    1. Look Up a Book\n";
+		cout << "\t    2. Add a Book\n";
+		cout << "\t    3. Edit a Books Record\n";
+		cout << "\t    4. Delete a Book\n";
+		cout << "\t    5. Exit\n";
+		cout << "\n\t     Enter your choice: ";
+		int response;
+		cin >> response;
+		switch (response)
+		{
+		case 1:
+			lookupBookMenu();
+			break;
+		case 2:
+			addBookMenu();
+			break;
+		case 3:
+			changeBook();
+			break;
+		case 4:
+			removeBookMenu();
+			break;
+		case 5:
+			done = true;
+			break;
+		default:
+			cout << "Invalid response.\n";
+			system("CLS");
+			break;
+		}
+	}
 }
 
 void BookDatabase::swapBooks(int index1, int index2)
