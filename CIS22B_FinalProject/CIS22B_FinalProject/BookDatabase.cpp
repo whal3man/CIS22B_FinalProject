@@ -121,7 +121,28 @@ void BookDatabase::addBook(Book book)
 }
 double BookDatabase::getPrice(int identifier)
 {
-	return books[identifier].getRetailPrice();
+	int count = 0;
+	while (count < size)
+	{
+		if (books[count].getIdentifier() == identifier)
+		{
+			return books[count].getRetailPrice();
+		}
+		count++;
+	}
+	return -1;
+}
+void BookDatabase::printISBN(string isbn)
+{
+	cout << "Inventory of books with ISBN: " << isbn << endl;
+	for (int i = 0; i < size; i++)
+	{
+		if (isbn == books[i].getIsbn())
+		{
+			cout << books[i] << endl;;
+		}
+	}
+	writeFile();
 }
 Book * BookDatabase::getBooks()
 {
@@ -172,12 +193,42 @@ Book* BookDatabase::operator[](int i)
 
 void BookDatabase::mainMenu()
 {
-	cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Database\n\n";
-	cout << "\t    1. Cashier Module\n";
-	cout << "\t    2. Inventory Database Module\n";
-	cout << "\t    3. Report Module\n";
-	cout << "\t    4. Exit\n";
-	cout << "\n\t     Enter your choice: ";
+	system("CLS");
+	bool done = false;
+	while (!done)
+	{
+		cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Database\n\n";
+		cout << "\t    1. Look Up a Book\n";
+		cout << "\t    2. Add a Book\n";
+		cout << "\t    3. Edit a Books Record\n";
+		cout << "\t    4. Delete a Book\n";
+		cout << "\t    5. Exit\n";
+		cout << "\n\t     Enter your choice: ";
+		int response;
+		cin >> response;
+		switch (response)
+		{
+		case 1:
+			lookupBookMenu();
+			break;
+		case 2:
+			addBookMenu();
+			break;
+		case 3:
+			changeBook();
+			break;
+		case 4:
+			removeBookMenu();
+			break;
+		case 5:
+			done = true;
+			break;
+		default:
+			cout << "Invalid response.\n";
+			system("CLS");
+			break;
+		}
+	}
 }
 
 void BookDatabase::swapBooks(int index1, int index2)
@@ -185,4 +236,39 @@ void BookDatabase::swapBooks(int index1, int index2)
 	Book temp = books[index1];
 	books[index1] = books[index2];
 	books[index2] = temp;
+}
+void BookDatabase::addBookMenu()
+{
+	system("CLS");
+	string title, author, isbn, publisher, dateadded;
+	double wholesalecost, retailcost;
+	cout << "What is the title of the book you want to add?";
+	cin >> title;
+	cout << "\nWhat is the name of the author? \n";
+	cin >> author;
+	cout << "\nWhat is the isbn of the book?\n";
+	cin >> isbn;
+	cout << "\nWhat is the publisher of the book? \n";
+	cin >> publisher;
+	cout << "\nWhat date is this book added";
+	cin >> dateadded;
+	cout << "\nWhat is the retail cost? \n";
+	cin >> retailcost;
+	cout << "\nWhat is the wholesalecost? \n";
+	cin >> wholesalecost;
+
+	Book a;
+	a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
+	identifierCount++;
+	addBook(a);
+}
+void BookDatabase::removeBookMenu()
+{
+	system("CLS");
+	int identifier;
+	cout << "Enter the identifier of the book that you want to remove\n";
+	cin >> identifier;
+
+	removeBook(identifier);
+
 }

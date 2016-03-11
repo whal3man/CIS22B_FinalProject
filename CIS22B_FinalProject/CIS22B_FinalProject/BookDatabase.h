@@ -32,8 +32,6 @@ public:
 	void addBook(Book book);
 	// returns the price 
 	double getPrice(int identifier);
-	// prints the book with the given identifier
-	void printBook(int identifier);
 	// prints all of the books with the given ISBN
 	void printISBN(string isbn);
 	// returns a pointer to books
@@ -59,7 +57,7 @@ public:
 	void removeBookMenu();
 	// allows the user to find books by entering information about them
 	void lookupBookMenu();
-	// allows the user to change any of the books variables except identifier
+	// menu that allows the user to change any of the books variables except identifier
 	void changeBook();
 };
 
