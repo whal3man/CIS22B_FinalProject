@@ -10,13 +10,14 @@ class Cashier
 private:
 	int cart[128];
 	int cartSize;
-	BookDatabase* databse;
+	BookDatabase* database;
 public:
 	Cashier();
 	Cashier(BookDatabase* dtbs);
 	// displays a menu to add a book to the cart
 	void addBookMenu();
 	// displays a menu to remove a book from the cart
+	void listIsbn(string isbn);
 	void removeBookMenu();
 	// displays checkout menu for all items in cart
 	// if they are satisfied with their cart, remove the books from database
