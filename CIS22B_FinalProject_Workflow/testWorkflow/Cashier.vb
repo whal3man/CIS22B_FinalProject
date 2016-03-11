@@ -38,6 +38,17 @@
     End Property
 
     ''' <summary>
+    ''' amount of items in the cart
+    ''' </summary>
+    Public Property cartSize As Integer
+        Get
+            Return Nothing
+        End Get
+        Set(value As Integer)
+        End Set
+    End Property
+
+    ''' <summary>
     ''' displays the cashier main menu and asks the user for input
     ''' options:
     ''' add book to cart
@@ -49,11 +60,9 @@
     End Sub
 
     ''' <summary>
-    ''' displays a menu that
-    ''' asks the user for the ISBN of the book they want to purchase
-    ''' brings up a list of all of the books with that isbn
-    ''' asks the user which one they wish to buy by numbering them
-    ''' adds the book they select to the cart
+    ''' //displays a menu that
+    ''' //asks the user for the identifier of the book they wish to add to cart
+    ''' //adds the book they select to the cart
     ''' </summary>
     Public Sub addBook()
 

@@ -41,6 +41,17 @@
     End Property
 
     ''' <summary>
+    ''' file to write the database to
+    ''' </summary>
+    Private Property databaseFile As String
+        Get
+            Return Nothing
+        End Get
+        Set(value As String)
+        End Set
+    End Property
+
+    ''' <summary>
     ''' add the book to the end of books and incresase size by 1. sets the bookIdentifier to identifierCount then incraments identifierCount. runs sortBooks
     ''' </summary>
     Public Sub addBook(book As testWorkflow.Book)

@@ -13,7 +13,7 @@
   <Class Name="testWorkflow.BookDatabase">
     <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAIABAAICEARAACAAAAAAAAAAAAIAAAUA=</HashCode>
+      <HashCode>AAAAEAAAAAAAIABIAICEARAACAAAAAAAAAAAAIAAAUA=</HashCode>
       <FileName>BookDatabase.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -26,7 +26,7 @@
       <Path>
         <Point X="5" Y="5.188" />
         <Point X="6.625" Y="5.188" />
-        <Point X="6.625" Y="3.978" />
+        <Point X="6.625" Y="4.17" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -48,7 +48,7 @@
   <Class Name="testWorkflow.Cashier">
     <Position X="3.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAABAIABAAAAEAAAQAAAAEAAAAAAAACAAAAA=</HashCode>
+      <HashCode>AAAAQAAEAABAIABAAAAEAAAQAAAAEAAAAAAAACAAAAA=</HashCode>
       <FileName>Cashier.vb</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
