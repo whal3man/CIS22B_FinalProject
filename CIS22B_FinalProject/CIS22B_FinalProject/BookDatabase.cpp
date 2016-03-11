@@ -272,3 +272,92 @@ void BookDatabase::removeBookMenu()
 	removeBook(identifier);
 
 }
+void BookDatabase::changeBook()
+{
+	string title, author, ISBN, publisher, dateadded;
+	double retailcost, wholesalecost;
+	int choice, identifier;
+	bool done = false;
+	system("CLS");
+	while (!done);
+	{
+		cout << "which book would you liek to change";
+		cin >> identifier;
+		cout << "What would you like to change about that book?" << endl;
+		cout << "1. Title" << endl;
+		cout << "2. Author" << endl;
+		cout << "3. ISBN" << endl;
+		cout << "4. Publisher" << endl;
+		cout << "5. Date Added" << endl;
+		cout << "6. Retail Cost" << endl;
+		cout << "7. Wholesale Cost" << endl;
+		cout << "8. Exit" << endl;
+		cout << "Enter your choice: ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new title: ";
+			cin >> title;
+			book->setTitle(title);
+			break;
+		}
+		case 2:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new Author name: "; 
+			cin >> author;
+			book->setAuthor(author);
+			break;
+		}
+		case 3:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new ISBN: ";
+			cin >> ISBN;
+			book->setIsbn(ISBN);
+			break;
+		}
+		case 4:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "Who is the new publisher: ";
+			cin >> publisher;
+			book->setPublisher(publisher);
+			break;
+		}
+		case 5:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new date added: ";
+			cin >> dateadded;
+			book->setDateAdded(dateadded);
+			break;
+		}
+		case 6:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new retail cost: " ;
+			cin >> retailcost;
+			book->setRetailPrice(retailcost);
+			break;
+		}
+		case 7:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new wholesale cost: ";
+			cin >> wholesalecost;
+			book->setWholesaleCost(wholesalecost);
+			break;
+		}
+		case 8:
+		{
+			done = true;
+			break;
+		}
+		}
+	}
+
+}
