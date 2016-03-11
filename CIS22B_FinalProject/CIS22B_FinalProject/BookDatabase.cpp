@@ -102,7 +102,7 @@ void BookDatabase::writeFile()
 	}
 }
 
-const void BookDatabase::setDatabaseFile(string file)
+void BookDatabase::setDatabaseFile(string file)
 {
 	databaseFile = file;
 }
@@ -119,10 +119,9 @@ void BookDatabase::addBook(Book book)
 	identifierCount++;
 	size++;
 }
-int BookDatabase::getPrice(int identifier)
+double BookDatabase::getPrice(int identifier)
 {
-	books[identifier].getRetailPrice();
-	return 0;
+	return books[identifier].getRetailPrice();
 }
 Book * BookDatabase::getBooks()
 {
@@ -169,23 +168,6 @@ int BookDatabase::searchIdentifier(int identifier)
 int BookDatabase::operator[](int i)
 {
 	return searchIdentifier(i);
-}
-
-int BookDatabase::sellBook(int identifier)
-{
-	
-	int count = 0;
-	while (count < size)
-	{
-		if (books[count].getIdentifier() == identifier)
-		{
-			return books[count].getRetailPrice();
-			delete[count]books;
-			size - 1;
-		}
-		count++;
-		
-	}
 }
 
 void BookDatabase::mainMenu()

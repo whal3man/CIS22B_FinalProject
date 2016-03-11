@@ -14,10 +14,11 @@ private:
 public:
 	Cashier();
 	Cashier(BookDatabase* dtbs);
-	// displays a menu to add a book to the cart
+	//displays a menu that
+	//asks the user for the identifier of the book they wish to add to cart
+	//adds the book they select to the cart
 	void addBookMenu();
 	// displays a menu to remove a book from the cart
-	void listIsbn(string isbn);
 	void removeBookMenu();
 	// displays checkout menu for all items in cart
 	// if they are satisfied with their cart, remove the books from database

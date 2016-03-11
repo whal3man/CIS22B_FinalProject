@@ -120,6 +120,7 @@ void Book::setWholesaleCost(double wholesaleCos)
 ostream& operator<<(ostream& out, Book& book)
 {
 	out << fixed << setprecision(2);			// makes doubles round to two digits
+	out << "Identifier: " << book.getIdentifier() << endl;
 	out << "ISBN: " << book.getIsbn() << endl;
 	out << "Title: " << book.getTitle() << endl;
 	out << "Author: " << book.getAuthor() << endl;
