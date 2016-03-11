@@ -197,7 +197,7 @@ void BookDatabase::mainMenu()
 	bool done = false;
 	while (!done)
 	{
-		cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Database\n\n";
+		cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Main Menu\n\n";
 		cout << "\t    1. Look Up a Book\n";
 		cout << "\t    2. Add a Book\n";
 		cout << "\t    3. Edit a Books Record\n";
@@ -270,5 +270,210 @@ void BookDatabase::removeBookMenu()
 	cin >> identifier;
 
 	removeBook(identifier);
+
+}
+
+void BookDatabase::lookupBookMenu()
+{
+	system("CLS");
+	bool done = false;
+	bool idenfound = false;
+	int identifier;
+	bool isbnfound = false;
+	string isbn;
+	bool datefound = false;
+	string dateadded;
+	bool retailfound = false;
+	double retailprice;
+	
+	
+	while (!done)
+	{
+		cout << "\t\tSerendipity Booksellers\n\t\t\tBook Lookup\n\n";
+		cout << "\t    1. Look Up by Identifier\n";
+		cout << "\t    2. Look Up by Title\n";
+		cout << "\t    3. Look Up by Author\n";
+		cout << "\t    4. Look Up by ISBN\n";
+		cout << "\t    5. Look Up by Publisher\n";
+		cout << "\t    6. Look Up by Date Added\n";
+		cout << "\t    7. Look Up by Retail Cost\n";
+		cout << "\t    8. Look Up by Wholesale Cost\n";
+		cout << "\t    9. Exit\n";
+		cout << "\n\t     Enter your choice: ";
+		int response;
+		cin >> response;
+		switch (response)
+		{
+		case 1:
+			cout << "Enter the identifier you are looking for: ";
+			
+			cin >> identifier;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getIdentifier() == identifier)
+				{
+					cout << books[i].getRetailPrice();
+					idenfound = true;
+				}
+			}
+			if (!idenfound)
+			{
+				cout << "nothing was found\n";
+			}
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			cout << "Enter the ISBN you are looking for: ";
+			
+			cin >> isbn;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getIsbn() == isbn)
+				{
+					cout << books[i].getIsbn();
+					isbnfound = true;
+				}
+			}
+		if (!isbnfound)
+		{
+			cout << "nothing was found\n";
+		}
+			break;
+		case 5:
+			break;
+		case 6:
+			cout << "Enter the date added you are looking for: ";
+			
+			cin >> dateadded;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getDateAdded() == dateadded)
+				{
+					cout << books[i].getDateAdded();
+					datefound = true;
+				}
+			}
+		if (!datefound)
+		{
+			cout << "nothing was found\n";
+		}
+			break;
+		case 7:
+			cout << "Enter the retail price you are looking for: ";
+		
+			cin >> retailprice;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getRetailPrice() == retailprice)
+				{
+					cout << books[i].getRetailPrice(); 
+					found = true;
+				}
+			}
+			if (!retailfound)
+			{
+				cout << "nothing was found\n";
+			}
+			break;
+		case 8:
+
+			break;
+		case 9:
+			break;
+		default:
+			break;
+		}
+	}
+}
+void BookDatabase::changeBook()
+{
+	string title, author, ISBN, publisher, dateadded;
+	double retailcost, wholesalecost;
+	int choice, identifier;
+	bool done = false;
+	system("CLS");
+	while (!done);
+	{
+		cout << "which book would you liek to change";
+		cin >> identifier;
+		cout << "What would you like to change about that book?" << endl;
+		cout << "1. Title" << endl;
+		cout << "2. Author" << endl;
+		cout << "3. ISBN" << endl;
+		cout << "4. Publisher" << endl;
+		cout << "5. Date Added" << endl;
+		cout << "6. Retail Cost" << endl;
+		cout << "7. Wholesale Cost" << endl;
+		cout << "8. Exit" << endl;
+		cout << "Enter your choice: ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new title: ";
+			cin >> title;
+			book->setTitle(title);
+			break;
+		}
+		case 2:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new Author name: "; 
+			cin >> author;
+			book->setAuthor(author);
+			break;
+		}
+		case 3:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new ISBN: ";
+			cin >> ISBN;
+			book->setIsbn(ISBN);
+			break;
+		}
+		case 4:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "Who is the new publisher: ";
+			cin >> publisher;
+			book->setPublisher(publisher);
+			break;
+		}
+		case 5:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new date added: ";
+			cin >> dateadded;
+			book->setDateAdded(dateadded);
+			break;
+		}
+		case 6:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new retail cost: " ;
+			cin >> retailcost;
+			book->setRetailPrice(retailcost);
+			break;
+		}
+		case 7:
+		{
+			Book* book = searchIdentifier(identifier);
+			cout << "What is the new wholesale cost: ";
+			cin >> wholesalecost;
+			book->setWholesaleCost(wholesalecost);
+			break;
+		}
+		case 8:
+		{
+			done = true;
+			break;
+		}
+		}
+	}
 
 }
