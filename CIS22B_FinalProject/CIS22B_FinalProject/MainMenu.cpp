@@ -54,7 +54,6 @@ int MainMenu::showMainMenu()
 {
 	bool done = false;
 	int choice = 0;
-
 	do
 	{
 		system("CLS");
