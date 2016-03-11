@@ -285,6 +285,10 @@ void BookDatabase::lookupBookMenu()
 	string dateadded;
 	bool retailfound = false;
 	double retailprice;
+	bool idenfound = false;
+	double wholecost;
+	bool wholefound = false;
+
 	
 	
 	while (!done)
@@ -312,7 +316,7 @@ void BookDatabase::lookupBookMenu()
 			{
 				if (books[i].getIdentifier() == identifier)
 				{
-					cout << books[i].getRetailPrice();
+					cout << books[i];
 					idenfound = true;
 				}
 			}
@@ -333,7 +337,7 @@ void BookDatabase::lookupBookMenu()
 			{
 				if (books[i].getIsbn() == isbn)
 				{
-					cout << books[i].getIsbn();
+					cout << books[i];
 					isbnfound = true;
 				}
 			}
@@ -352,7 +356,7 @@ void BookDatabase::lookupBookMenu()
 			{
 				if (books[i].getDateAdded() == dateadded)
 				{
-					cout << books[i].getDateAdded();
+					cout << books[i];
 					datefound = true;
 				}
 			}
@@ -369,8 +373,8 @@ void BookDatabase::lookupBookMenu()
 			{
 				if (books[i].getRetailPrice() == retailprice)
 				{
-					cout << books[i].getRetailPrice(); 
-					found = true;
+					cout << books[i];
+					retailfound = true;
 				}
 			}
 			if (!retailfound)
@@ -379,9 +383,24 @@ void BookDatabase::lookupBookMenu()
 			}
 			break;
 		case 8:
+			cout << "Enter the wholesale cost you are looking for: ";
 
+			cin >> wholecost;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getWholesaleCost() == wholecost)
+				{
+					cout << books[i];
+					wholefound = true;
+				}
+			}
+			if (!wholefound)
+			{
+				cout << "nothing was found\n";
+			}
 			break;
 		case 9:
+			done = true;
 			break;
 		default:
 			break;
@@ -473,6 +492,8 @@ void BookDatabase::changeBook()
 			done = true;
 			break;
 		}
+		default:
+			break;
 		}
 	}
 
