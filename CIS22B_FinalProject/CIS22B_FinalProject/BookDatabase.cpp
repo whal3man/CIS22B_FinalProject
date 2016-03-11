@@ -259,7 +259,6 @@ void BookDatabase::addBookMenu()
 
 	Book a;
 	a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
-	identifierCount++;
 	addBook(a);
 }
 void BookDatabase::removeBookMenu()
