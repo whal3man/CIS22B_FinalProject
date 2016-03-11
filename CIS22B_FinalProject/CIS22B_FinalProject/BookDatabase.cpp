@@ -292,17 +292,68 @@ void BookDatabase::lookupBookMenu()
 		cout << "\n\t     Enter your choice: ";
 		int response;
 		cin >> response;
+
+		bool pubFound = false;
+		string publisher;
+		string title;
+		bool titleFound = false;
+		string author;
+		bool authorFound = false;
+
+
 		switch (response)
 		{
 		case 1:
 			break;
 		case 2:
+			cout << "Enter the title you want to search for: ";
+			cin >> title;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getTitle().find(title) != std::string::npos)
+				{
+					cout << books[i];
+					titleFound = true;
+				}
+			}
+			if (!titleFound)
+			{
+				cout << "No book with that title found.\n";
+			}
 			break;
 		case 3:
+			cout << "Enter the author you want to search for: ";
+			cin >> author;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getAuthor().find(author) != std::string::npos)
+				{
+					cout << books[i];
+					authorFound = true;
+				}
+			}
+			if (!authorFound)
+			{
+				cout << "No book with that author found.\n";
+			}
 			break;
 		case 4:
 			break;
 		case 5:
+			cout << "Enter the publisher you want to search for: ";
+			cin >> publisher;
+			for (int i = 0; i < size; i++)
+			{
+				if (books[i].getPublisher().find(publisher) != std::string::npos)
+				{
+					cout << books[i];
+					pubFound = true;
+				}
+			}
+			if (!pubFound)
+			{
+				cout << "No book with that publisher found.\n";
+			}
 			break;
 		case 6:
 			break;
