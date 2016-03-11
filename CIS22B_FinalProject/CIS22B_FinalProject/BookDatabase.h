@@ -32,8 +32,6 @@ public:
 	void addBook(Book book);
 	// returns the price 
 	double getPrice(int identifier);
-	// prints the book with the given identifier
-	void printBook(int identifier);
 	// prints all of the books with the given ISBN
 	void printISBN(string isbn);
 	// returns a pointer to books
