@@ -21,7 +21,9 @@ public:
 	void readFile();
 	// write all info in database to file
 	void writeFile();
+	// sets databse file to file
 	void setDatabaseFile(string file);
+	// returns databaseFile
 	string getDatabaseFile();
 
 	// adds book to the database, assigns it an identifier
@@ -41,10 +43,10 @@ public:
 	// removes book with identifier from books,
 	// decrements size, and runs writeFile()
 	void removeBook(int identifier);
-	// returns the index of book with identifier, or -1 if no book with identifier is found
-	int searchIdentifier(int identifier);
+	// returns the Book with identifier, or book[1023] if not found
+	Book* searchIdentifier(int identifier);
 	// same as searchIdentifier but allows for easier [] notation
-	int operator[](int i);
+	Book* operator[](int i);
 	// swaps books with index1 and index2
 	void swapBooks(int index1, int index2);
 

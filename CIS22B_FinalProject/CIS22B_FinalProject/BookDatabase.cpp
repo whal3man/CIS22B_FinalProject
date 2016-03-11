@@ -151,21 +151,21 @@ void BookDatabase::removeBook(int identifier)
 	size--;
 	writeFile();
 }
-int BookDatabase::searchIdentifier(int identifier)
+Book* BookDatabase::searchIdentifier(int identifier)
 {
 	int count = 0;
 	while (count < size)
 	{
 		if (books[count].getIdentifier() == identifier)
 		{
-			return count;
+			return &books[count];
 		}
 		count++;
 	}
-	return -1;
+	return &books[1023];
 }
 
-int BookDatabase::operator[](int i)
+Book* BookDatabase::operator[](int i)
 {
 	return searchIdentifier(i);
 }
