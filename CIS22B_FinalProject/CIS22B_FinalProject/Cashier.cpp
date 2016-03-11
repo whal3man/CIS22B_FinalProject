@@ -83,11 +83,25 @@ void Cashier::removeBookMenu()
 }
 void Cashier::checkout()
 {
-	cout << "";
+	double subtotal = 0;
 	for (int i = 0; i < cartSize; i++)
 	{
-		database->getPrice(cart[i]);
+		subtotal += database->getPrice(cart[i]);
 	}
+	cout << "Serendipity Book Sellers" << endl << endl;
+	cout << "Date: " << endl << endl;
+	cout << "      ISBN              Title           Price       " << endl;
+	cout << "____________________________________________________________" << endl << endl;
+	for (int i = 0; i < cartSize; i++)
+	{
+		Book* book = database->searchIdentifier(cart[i]);
+		cout << book->getIsbn() << "\t" << book->getTitle() << "\t" << book->getRetailPrice();
+	}
+	//cout << "   069-12331-123   Living like a God    $69.99      $69.99" << endl;
+	//cout << "   123-13337-420   Being like Travis    $13.37      $150.08" << endl << endl;
+	cout << "\t\t\t\t\t____________________" << endl << endl;
+	cout << "\t\t\t\t\tSubtotal: " << subtotal << endl << "\t\t\t\t\tTax: " << "Sales Tax @ 6.25%: " << (subtotal * 0.0625) << endl << "\t\t\t\t\tTotal: " << subtotal + subtotal*0.0625 << endl;
+	cout << endl << "Thank You for Shopping at Serendipity!" << endl;
 }
 void Cashier::mainMenu()
 {
