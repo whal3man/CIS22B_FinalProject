@@ -25,13 +25,30 @@ void Report::listInventory()
 {
 	cout << "Listing current inventory...\n\n";
 
-	//Book* books = database->getBooks();
-	//int size = database->getSize();
+	Book* books = database->getBooks();
+	int size = database->getSize();
 
-	//for (int i = 0; i < size; i++)
-	//{
-	//	cout << books[i].getTitle();
-	//}
+	for (int i = 0; i < size; i++)
+	{
+		string bookTitle1;
+		string bookTitle2;
+		bookTitle1 = books[i].getTitle();
+		for (int j = 0; j < size; j++)
+		{
+			if ((j + 1) != size) //if next book index == size
+			{
+				bookTitle2 = books[j + 1].getTitle();
+				if (bookTitle1 > bookTitle2)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+				}
+			}
+		}
+		cout << i << ". " << books[i].getTitle() << endl;	
+	}
+	
 }
 //A list of the retail value of all books in the inventory
 //and the total retail value of the inventory.
@@ -70,7 +87,7 @@ void Report::mainMenu()
 	//ask user what they want to have shown
 		do
 		{
-			system("CLS"); //clear screen of other modules and text
+			//system("CLS"); //clear screen of other modules and text
 			cout << "\t\tReport Module\n\n";
 			cout << "\t    1. List Inventory\n";
 			cout << "\t    2. List by Retail Value\n";
