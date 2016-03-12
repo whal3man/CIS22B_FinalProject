@@ -46,10 +46,12 @@ void MainMenu::fileLoadMenu()
 	if (ifile)
 	{
 		database->readFile();
-		cout << "Existing database was read from " << database->getDatabaseFile() << ". (Press return to continue)";
-		cin.ignore();
-		cin.get();
+		cout << "Existing database was read from " << database->getDatabaseFile() << ".";
+		
 	}
+	cout << " (Press return to continue)";
+	cin.ignore();
+	cin.get();
 	ifile.close();
 }
 
