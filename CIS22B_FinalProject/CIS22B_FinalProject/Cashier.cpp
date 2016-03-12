@@ -19,7 +19,7 @@ void Cashier::listIsbn(string isbn)
 	{
 		if (books[i].getIsbn() == isbn)
 		{
-			cout << books[i];
+			cout << books[i] << endl;
 		}
 	}
 }
@@ -30,7 +30,10 @@ void Cashier::addBookMenu()
 	cout << "Enter in the ISBN of the book you want to purchase: " << endl;
 	string isbn;
 	cin >> isbn;
+	cout << endl;
 	listIsbn(isbn);
+	cout << "Which of these books do you want?(Enter in the identifier of the book)" << endl;
+	//Identifier code goes here
 }
 
 void Cashier::removeBookFromCart(int identifier)
@@ -91,7 +94,7 @@ void Cashier::checkout()
 	}
 	cout << "Serendipity Book Sellers" << endl << endl;
 	cout << "Date: " << endl << endl;
-	cout << "      ISBN              Title				   Price       " << endl;
+	cout << "      ISBN              Title			 Price       " << endl;
 	cout << "____________________________________________________________" << endl << endl;
 	for (int i = 0; i < cartSize; i++)
 	{
