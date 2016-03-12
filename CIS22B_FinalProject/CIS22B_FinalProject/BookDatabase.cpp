@@ -355,13 +355,13 @@ void BookDatabase::lookupBookMenu()
 		{
 		case 1:
 			cout << "Enter the identifier you are looking for: ";
-			
 			cin >> identifier;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getIdentifier() == identifier)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					idenFound = true;
 				}
 			}
@@ -377,11 +377,12 @@ void BookDatabase::lookupBookMenu()
 		case 2:
 			cout << "Enter the title you want to search for: ";
 			cin >> title;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getTitle().find(title) != std::string::npos)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					titleFound = true;
 				}
 			}
@@ -397,11 +398,12 @@ void BookDatabase::lookupBookMenu()
 		case 3:
 			cout << "Enter the author you want to search for: ";
 			cin >> author;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getAuthor().find(author) != std::string::npos)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					authorFound = true;
 				}
 			}
@@ -416,13 +418,13 @@ void BookDatabase::lookupBookMenu()
 			break;
 		case 4:
 			cout << "Enter the ISBN you are looking for: ";
-			
 			cin >> isbn;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getIsbn() == isbn)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					isbnFound = true;
 				}
 			}
@@ -438,11 +440,12 @@ void BookDatabase::lookupBookMenu()
 		case 5:
 			cout << "Enter the publisher you want to search for: ";
 			cin >> publisher;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getPublisher().find(publisher) != std::string::npos)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					pubFound = true;
 				}
 			}
@@ -457,13 +460,13 @@ void BookDatabase::lookupBookMenu()
 			break;
 		case 6:
 			cout << "Enter the date added you are looking for: ";
-			
 			cin >> dateadded;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getDateAdded() == dateadded)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					dateFound = true;
 				}
 			}
@@ -478,13 +481,13 @@ void BookDatabase::lookupBookMenu()
 			break;
 		case 7:
 			cout << "Enter the retail price you are looking for: ";
-		
 			cin >> retailPrice;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getRetailPrice() == retailPrice)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					retailFound = true;
 				}
 			}
@@ -499,13 +502,13 @@ void BookDatabase::lookupBookMenu()
 			break;
 		case 8:
 			cout << "Enter the wholesale cost you are looking for: ";
-
 			cin >> wholsaleCost;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getWholesaleCost() == wholsaleCost)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					wholeFound = true;
 				}
 			}
