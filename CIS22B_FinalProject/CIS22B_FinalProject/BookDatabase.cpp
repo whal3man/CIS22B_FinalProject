@@ -256,33 +256,13 @@ void BookDatabase::addBookMenu()
 	system("CLS");
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
-	bool copy = false;
 	cout << "What is the title of the book you want to add? ";
 	cin.ignore(1000, '\n');
 	getline(cin, title);
 	cout << "What is the name of the author? ";
 	getline(cin, author);
-	//get isbn, reprompt if a book exists with that ISBN already
-	do
-	{
-		cout << "What is the isbn of the book? ";
-		getline(cin, isbn);
-		for (int i = 0; i < size; i++)
-		{
-			if (isbn == books[i].getIsbn())
-				copy = true;
-			else
-				copy = false;
-		}
-		if (copy == true)
-		{
-			cout << "A book with this ISBN already exists. Please enter a different ISBN.\n\n";
-		}
-		else
-		{
-			copy = false;
-		}
-	} while (copy == true);
+	cout << "What is the isbn of the book? ";
+	getline(cin, isbn);
 	cout << "What is the publisher of the book? ";
 	getline(cin, publisher);
 	cout << "On what day was this book added? (MM/DD/YYYY) ";
@@ -309,8 +289,30 @@ void BookDatabase::addBookMenu()
 		cin >> response;
 		if (response == "y" || response == "Y")
 		{
-			addBook(a);
-			done = true;
+			while (!done)
+			{
+				cout << "How many copies of " << a.getTitle() << " would you like to add? ";
+				int numBooksToAdd;
+				cin >> numBooksToAdd;
+				if (cin.fail())
+				{
+					cout << "That is an invalid response.\n";
+					cin.clear();
+				}
+				else if (numBooksToAdd < 0)
+				{
+					cout << "That is an invalid number of books.\n";
+				}
+				else
+				{
+					for (int i = 0; i < numBooksToAdd; i++)
+					{
+						a.setIdentifier(identifierCount);
+						addBook(a);
+					}
+					done = true;
+				}
+			}
 		}
 		else if (response == "n" || response == "N")
 		{
