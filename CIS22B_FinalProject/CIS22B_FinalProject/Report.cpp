@@ -19,6 +19,7 @@ Report::Report(BookDatabase* dtbs)
 {
 	database = dtbs;
 }
+
 //A list of information on all books in the inventory
 //List books by title
 void Report::listInventory()
@@ -30,8 +31,8 @@ void Report::listInventory()
 
 	for (int i = 0; i < size; i++)
 	{
-		string bookTitle1;
-		string bookTitle2;
+		string bookTitle1; //get title of the current index
+		string bookTitle2; //get title of the next index
 		bookTitle1 = books[i].getTitle();
 		for (int j = 0; j < size; j++)
 		{
@@ -46,40 +47,79 @@ void Report::listInventory()
 				}
 			}
 		}
-		cout << i << ". " << books[i].getTitle() << endl;	
+		cout << i + 1 << ". " << books[i].getTitle() << endl;	
 	}
-	
+
+	//write newly sorted book database to file
+	writeFile();
 }
+
 //A list of the retail value of all books in the inventory
 //and the total retail value of the inventory.
 void Report::listRetailValue()
 {
 	cout << "Listing inventory sorted by retail value...\n\n";
+
+	Book* books = database->getBooks();
+	int size = database->getSize();
+
+	for (int i = 0; i < size; i++)
+	{
+		double bookRetailValue1; //get retail value of the current index
+		double bookRetailValue2; //get retail value of the next index
+		bookRetailValue1 = books[i].getRetailPrice();
+		for (int j = 0; j <= size; j++)
+		{
+			if ((j + 1) != size) //if next book index == size
+			{
+				bookRetailValue2 = books[j + 1].getRetailPrice();
+				if (bookRetailValue1 > bookRetailValue2)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+				}
+			}
+		}
+		cout << fixed << setprecision(2) << i + 1 << ". " << books[i].getRetailPrice() << endl;
+	}
+
+	//write newly sorted book database to file
+	writeFile();
 }
+
 //A list of the wholesale value of all books in the
 //inventory and the total wholesale value of the inventory
 void Report::listWholesaleValue()
 {
 	cout << "Listing wholesale value of the inventory...\n\n";
+	//write newly sorted book database to file
 }
+
 //A list of all books in the inventory, sorted by purchase date. The
 //books that have been in the inventory longest will be listed first.
 void Report::listAge()
 {
 	cout << "Listing inventory by date added...\n\n";
+	//write newly sorted book database to file
 }
+
 //A list of all books in the inventory, sorted by wholesale cost. The
 //books with the greatest wholesale cost will be listed first.
 void Report::listCost()
 {
 	cout << "Listing inventory sorted by wholesale cost...\n\n";
+	//write newly sorted book database to file
 }
+
 //A list of all books in the inventory sorted by quantity on hand.
 //The books with the greatest quantity on hand will be listed first.
 void Report::listQuantity()
 {
 	cout << "Listing inventory sorted by quantity on hand...\n\n";
+	//write newly sorted book database to file
 }
+
 void Report::mainMenu()
 {
 	int selection = 0; //to hold the user selection

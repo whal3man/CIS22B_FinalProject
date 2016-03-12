@@ -88,7 +88,6 @@ int MainMenu::showMainMenu()
 		else if (choice == 4)
 		{
 			cout << "\n\n\t\t\tThank you!\n\n";
-			system("pause");
 			return 0;
 		}
 		else
