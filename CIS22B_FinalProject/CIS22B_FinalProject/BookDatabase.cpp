@@ -273,16 +273,6 @@ void BookDatabase::addBookMenu()
 				copy = true;
 			else
 				copy = false;
-			/*for (int j = 0; j < size; j++)
-			{
-				if (size > 1)
-				{
-					if (books[i].getIsbn() == books[j].getIsbn())
-					{
-						copy = true;
-					}
-				}
-			}*/
 		}
 		if (copy == true)
 		{
