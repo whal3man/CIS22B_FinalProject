@@ -17,6 +17,7 @@ private:
 	double retailPrice;		// retail price of book
 	string title;			// full title of the book
 	double wholesaleCost;	// wholesale cost of the book
+	int quantity;			// quantity of books with a unique identifier
 public:
 	// default constructor
 	Book();
@@ -42,6 +43,8 @@ public:
 	string getTitle();
 	// returns the wholesale cost
 	double getWholesaleCost();
+	// returns quantity of the book at the specified identifier
+	int getQuantity();
 	// sets the author attribute to author
 	void setAuthor(string author);
 	// sets the dateAdded attribute to dateAdded
@@ -58,6 +61,10 @@ public:
 	void setTitle(string titl);
 	// sets the wholesaleCost attribute to wholesaleCost
 	void setWholesaleCost(double wholesaleCost);
+	// set quantity
+	void setQuantity(int quantity);
+	// increases quantity by 1
+	void increaseQuantity();
 	/*
 	* allows books to be printed out in an easy to read format using ostream
 	* eg.

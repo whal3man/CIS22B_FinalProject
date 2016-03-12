@@ -20,6 +20,13 @@ Report::Report(BookDatabase* dtbs)
 	database = dtbs;
 }
 
+struct BooksWithIsbn
+{
+	string isbn;
+	int bookIdentifiers[128];
+	int numBookIdentifiers = 0;
+};
+
 //A list of information on all books in the inventory
 //List books by title
 void Report::listInventory()
@@ -31,6 +38,31 @@ void Report::listInventory()
 	int size = database->getSize();
 	bool swap;
 
+	//int size = database->getSize();
+	BooksWithIsbn* bookCount = new BooksWithIsbn[1024];
+	int numIsbns = 0;
+	//Book* books = database->getBooks();
+
+
+	for (int i = 0; i < size; i++)
+	{
+		bool found = false;
+		for (int j = 0; j < numIsbns; j++)
+		{
+			if (bookCount[j].isbn == books[i].getIsbn())
+			{
+				found = true;
+				bookCount[j].bookIdentifiers[bookCount[j].numBookIdentifiers] = books[i].getIdentifier();
+				bookCount[j].numBookIdentifiers++;
+			}
+		}
+		if (!found)
+		{
+			bookCount[numIsbns].isbn = books[i].getIsbn();
+			bookCount[numIsbns].bookIdentifiers[bookCount[i].numBookIdentifiers] = books[i].getIdentifier();
+		}
+	}
+	/*
 	do
 	{
 		swap = false;
@@ -49,11 +81,14 @@ void Report::listInventory()
 			}
 		}
 	} while (swap);
+	*/
 
 	cout << "\nTitle\t\t\tAuthor\t\tPublisher\t\tISBN\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << i + 1 << ". "
+			<< bookCount[i].bookIdentifiers[i]
+			//<< books[i].getQuantity()
 			<< setw(20) << left << books[i].getTitle()
 			<< setw(20) << left << books[i].getAuthor()
 			<< setw(20) << left << books[i].getPublisher()
