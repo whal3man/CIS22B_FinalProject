@@ -20,6 +20,13 @@ Report::Report(BookDatabase* dtbs)
 	database = dtbs;
 }
 
+struct BooksWithIsbn
+{
+	string Isbn;
+	int bookIdentifiers[1024];
+	int numBookIdentifiers = 0;
+};
+
 //A list of information on all books in the inventory
 //List books by title
 void Report::listInventory()
@@ -169,6 +176,41 @@ void Report::listQuantity()
 	Book* books = database->getBooks();
 	int size = database->getSize();
 
+	BooksWithIsbn* isbnDatabase = new BooksWithIsbn[1024];
+	int numIsbns = 0;
+
+	// goes through the entire database finding books with the same isbn
+	// and putting their identifiers in bookIdentifiers of the element
+	// in isbnDatabase that has the same isbn as them
+	for (int i = 0; i < size; i++)
+	{
+		bool foundIsbn = false;
+		for (int j = 0; j < numIsbns; j++)
+		{
+			if (isbnDatabase[j].Isbn == books[i].getIsbn())
+			{
+				foundIsbn = true;
+				isbnDatabase[j].bookIdentifiers[isbnDatabase[j].numBookIdentifiers] = books[i].getIdentifier();
+				isbnDatabase[j].numBookIdentifiers++;
+			}
+		}
+		if (!foundIsbn)
+		{
+			isbnDatabase[numIsbns].Isbn = books[i].getIsbn();
+			isbnDatabase[numIsbns].bookIdentifiers[isbnDatabase[numIsbns].numBookIdentifiers] = books[i].getIdentifier();
+			isbnDatabase[numIsbns].numBookIdentifiers++;
+			numIsbns++;
+		}
+	}
+
+	for (int i = 0; i < numIsbns; i++)
+	{
+		cout << "There are " << isbnDatabase[i].numBookIdentifiers << " copies of "
+			<< database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
+			<< " with ISBN " << isbnDatabase[i].Isbn << endl;
+	}
+
+	delete[] isbnDatabase;
 }
 
 void Report::mainMenu()
