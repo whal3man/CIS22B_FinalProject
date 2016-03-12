@@ -101,7 +101,7 @@ void Report::listRetailValue()
 	}
 
 	//print the total retail value
-	cout << fixed << setprecision(2) << "Total Retail Value: $" << sum << endl << endl;
+	cout << fixed << setprecision(2) << "\nTotal Retail Value: $" << sum << endl << endl;
 }
 
 //A list of the wholesale value of all books in the
@@ -169,24 +169,6 @@ void Report::listQuantity()
 	Book* books = database->getBooks();
 	int size = database->getSize();
 
-	//count multiples of each book
-	for(int i = 0; i < size; i++)
-	{
-		for(int j = i; j < size; j++)
-		{
-			if (books[i].getIsbn() == books[j].getIsbn())
-			{
-				//increase quantity of the book
-				books[i].setQuantity(1);
-			}	
-		}
-	}
-
-	cout << "\nQuantity\tTitle\n";
-	for (int i = 0; i < size; i++)
-	{
-		cout << books[i].getQuantity() << books[i].getTitle() << endl;
-	}
 }
 
 void Report::mainMenu()

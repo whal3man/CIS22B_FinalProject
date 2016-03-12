@@ -11,7 +11,6 @@ Book::Book()
 	retailPrice = 0.0;
 	title = "default title";
 	wholesaleCost = 0.0;
-	quantity = 0;
 }
 
 Book::Book(string titl, string auth, string Isbn, string publish, double wholesaleCos, double retailPric, string dateAdd, int identifier)
@@ -78,11 +77,6 @@ double Book::getWholesaleCost()
 	return wholesaleCost;
 }
 
-int Book::getQuantity()
-{
-	return quantity;
-}
-
 void Book::setAuthor(string auth)
 {
 	author = auth;
@@ -121,10 +115,6 @@ void Book::setTitle(string titl)
 void Book::setWholesaleCost(double wholesaleCos)
 {
 	wholesaleCost = wholesaleCos;
-}
-void Book::setQuantity(int quantity)
-{
-	this->quantity += quantity;
 }
 
 void Book::operator=(Book & toCopy)
