@@ -50,10 +50,16 @@ void Report::listInventory()
 		}
 	} while (swap);
 
+	cout << "\nTitle\t\t\tAuthor\t\tPublisher\t\tISBN\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << i + 1 << ". " << books[i].getTitle()  << books[i].getAuthor() << books[i].getPublisher() << books[i].getIsbn() << endl;
+		cout << i + 1 << ". "
+			<< setw(20) << left << books[i].getTitle()
+			<< setw(20) << left << books[i].getAuthor()
+			<< setw(20) << left << books[i].getPublisher()
+			<< setw(12) << left << books[i].getIsbn() << endl;
 	}
+	cout << endl;
 }
 
 //A list of the retail value of all books in the inventory

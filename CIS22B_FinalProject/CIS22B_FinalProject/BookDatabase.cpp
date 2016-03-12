@@ -262,6 +262,7 @@ void BookDatabase::addBookMenu()
 	getline(cin, title);
 	cout << "What is the name of the author? ";
 	getline(cin, author);
+	//get isbn, reprompt if a book exists with that ISBN already
 	do
 	{
 		cout << "What is the isbn of the book? ";
