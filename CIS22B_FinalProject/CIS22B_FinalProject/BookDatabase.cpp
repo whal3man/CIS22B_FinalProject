@@ -177,10 +177,6 @@ int BookDatabase::getSize()
 {
 	return size;
 }
-int BookDatabase::getIdentifierCount()
-{
-	return identifierCount;
-}
 void BookDatabase::removeBook(int identifier)
 {
 	int count = 0;
@@ -279,198 +275,125 @@ void BookDatabase::addBookMenu()
 	system("CLS");
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
-	bool copy = false;
-	int index = 0;
-	Book a;
-
-	cin.clear();
+	cout << "What is the title of the book you want to add? ";
 	cin.ignore(1000, '\n');
+	getline(cin, title);
+	cout << "What is the name of the author? ";
+	getline(cin, author);
 	cout << "What is the isbn of the book? ";
 	getline(cin, isbn);
-	for (int i = 0; i < size; i++)
+	cout << "What is the publisher of the book? ";
+	getline(cin, publisher);
+	cout << "On what day was this book added? (MM/DD/YYYY) ";
+	getline(cin, dateadded);
+
+	bool retailEntered = false;
+	while (!retailEntered)
 	{
-		for (int j = 0; j < size; j++)
+		cout << "What is the retail cost? ";
+		cin >> retailcost;
+		if (cin.fail())
 		{
-			if (isbn == books[j].getIsbn())
-			{
-				cout << "Copy of book was found.";
-				copy = true;
-				index = j;
-				break;
-			}
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid response.\n";
+		}
+		else
+		{
+			retailEntered = true;
 		}
 	}
-
-	if (copy == false)
+	
+	bool wholesaleEntered = false;
+	while (!wholesaleEntered)
 	{
-		cout << copy;
-		cout << "What is the title of the book you want to add? ";
-		getline(cin, title);
-		cout << "What is the name of the author? ";
-		getline(cin, author);
-
-
-		cout << "What is the publisher of the book? ";
-		getline(cin, publisher);
-		cout << "On what day was this book added? (MM/DD/YYYY) ";
-		getline(cin, dateadded);
-
-		bool retailEntered = false;
-		while (!retailEntered)
+		cout << "What is the wholesalecost? ";
+		cin >> wholesalecost;
+		if (cin.fail())
 		{
-			cout << "What is the retail cost? ";
-			cin >> retailcost;
-			if (cin.fail())
-			{
-				cin.clear();
-				cin.ignore(1000, '\n');
-				cout << "Invalid response.\n";
-			}
-			else
-			{
-				retailEntered = true;
-			}
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid response.\n";
 		}
-
-		bool wholesaleEntered = false;
-		while (!wholesaleEntered)
+		else
 		{
-			cout << "What is the wholesalecost? ";
-			cin >> wholesalecost;
-			if (cin.fail())
-			{
-				cin.clear();
-				cin.ignore(1000, '\n');
-				cout << "Invalid response.\n";
-			}
-			else
-			{
-				wholesaleEntered = true;
-			}
+			wholesaleEntered = true;
 		}
-		cin.ignore(1000, '\n');
-		system("CLS");
-		cout << "\n\n\t\t\tBook successfully added!" << endl;
+	}
+	cin.ignore(1000, '\n');
+	system("CLS");
+	cout << "\n\n\t\t\tBook successfully added!" << endl;
 
-		
-		a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
+	Book a;
+	a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
 
-		cout << "\n\nDoes this look right?\n\n";
-		cout << a;
+	cout << "\n\nDoes this look right?\n\n";
+	cout << a;
 
-		string response;
-		bool done = false;
-		while (!done)
+	string response;
+	bool done = false;
+	while (!done)
+	{
+		cout << "(Y/N)> ";
+		cin >> response;
+		if (response == "y" || response == "Y")
 		{
-			cout << "(Y/N)> ";
-			cin >> response;
-			if (response == "y" || response == "Y")
+			while (!done)
 			{
-				while (!done)
+				cout << "How many copies of " << a.getTitle() << " would you like to add? ";
+				int numBooksToAdd;
+				cin >> numBooksToAdd;
+				if (cin.fail())
 				{
-					cout << "How many copies of " << a.getTitle() << " would you like to add? ";
-					int numBooksToAdd;
-					cin >> numBooksToAdd;
-					if (cin.fail())
+					cout << "That is an invalid response.\n";
+					cin.clear();
+					cin.ignore(1000, '\n');
+				}
+				else if (numBooksToAdd < 0)
+				{
+					cout << "That is an invalid number of books.\n";
+				}
+				else
+				{
+					for (int i = 0; i < numBooksToAdd; i++)
 					{
-						cout << "That is an invalid response.\n";
-						cin.clear();
-						cin.ignore(1000, '\n');
-					}
-					else if (numBooksToAdd < 0)
-					{
-						cout << "That is an invalid number of books.\n";
-					}
-					else
-					{
-						for (int i = 0; i < numBooksToAdd; i++)
+						try
 						{
-							try
-							{
-								addBook(a);
-							}
-							catch (char e[])
-							{
-								cout << e;
-								cout << "Press return to continue.";
-								cin.ignore(1000, '\n');
-								cin.get();
-							}
-							catch (...)
-							{
-								cout << "There was an error.\n";
-								cout << "Press return to continue.";
-								cin.ignore(1000, '\n');
-								cin.get();
-							}
+							addBook(a);
 						}
-						done = true;
+						catch (char e[])
+						{
+							cout << e;
+							cout << "Press return to continue.";
+							cin.ignore(1000, '\n');
+							cin.get();
+						}
+						catch (...)
+						{
+							cout << "There was an error.\n";
+							cout << "Press return to continue.";
+							cin.ignore(1000, '\n');
+							cin.get();
+						}
 					}
+					done = true;
 				}
-			}
-			else if (response == "n" || response == "N")
-			{
-				cout << "Exiting...\n";
-				done = true;
-				cout << "Press return to continue.";
-				cin.ignore();
-				cin.get();
-			}
-			else
-			{
-				cout << "Invalid response.\n";
-				cout << "Press return to continue.";
-				cin.ignore();
-				cin.get();
 			}
 		}
-	}
-	else
-	{
-		bool done = false;
-		cout << "Another copy of this book was found in the inventory.\n";
-		while (!done)
+		else if (response == "n" || response == "N")
 		{
-			cout << "How many copies of " << books[index].getTitle() << " would you like to add? ";
-			int numBooksToAdd;
-			cin >> numBooksToAdd;
-			if (cin.fail())
-			{
-				cout << "That is an invalid response.\n";
-				cin.clear();
-				cin.ignore(1000, '\n');
-			}
-			else if (numBooksToAdd < 0)
-			{
-				cout << "That is an invalid number of books.\n";
-			}
-			else
-			{
-				for (int i = 0; i < numBooksToAdd; i++)
-				{
-					try
-					{
-						a.setAll(books[index].getTitle(), books[index].getAuthor(), books[index].getIsbn(), books[index].getPublisher(), books[index].getWholesaleCost(),
-							books[index].getRetailPrice(), books[index].getDateAdded(), identifierCount);
-						addBook(a);
-					}
-					catch (char e[])
-					{
-						cout << e;
-						cout << "Press return to continue.";
-						cin.ignore(1000, '\n');
-						cin.get();
-					}
-					catch (...)
-					{
-						cout << "There was an error.\n";
-						cout << "Press return to continue.";
-						cin.ignore(1000, '\n');
-						cin.get();
-					}
-				}
-				done = true;
-			}
+			cout << "Exiting...\n";
+			done = true;
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+		else
+		{
+			cout << "Invalid response.\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 		}
 	}
 }
@@ -703,7 +626,6 @@ void BookDatabase::lookupBookMenu()
 			break;
 		}
 	}
-	
 }
 void BookDatabase::changeBook()
 {
