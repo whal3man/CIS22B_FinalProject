@@ -6,7 +6,7 @@ Book::Book()
 	author = "default author";
 	bookIdentifier = -1;
 	dateAdded = "XX/XX/XXXX";
-	isbn = "defualt isbn";
+	isbn = "default isbn";
 	publisher = "default publisher";
 	retailPrice = 0.0;
 	title = "default title";
