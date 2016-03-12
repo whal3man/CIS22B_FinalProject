@@ -74,7 +74,6 @@ void Report::listRetailValue()
 	bool swap;
 	double sum = 0;
 
-	//new
 	do
 	{
 		swap = false;
