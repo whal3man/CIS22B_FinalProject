@@ -120,11 +120,30 @@ string BookDatabase::getDatabaseFile()
 
 void BookDatabase::addBook(Book book)
 {
-	books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
-		book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
-	identifierCount++;
-	size++;
-	writeFile();
+	try
+	{
+		if (size >= 1024)
+		{
+			char except[128] = "Unable to add book to database because the database is full.\n\0";
+			throw except;
+		}
+		else
+		{
+			books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
+				book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
+			identifierCount++;
+			size++;
+			writeFile();
+		}
+	}
+	catch (char e[])
+	{
+		throw e;
+	}
+	catch (...)
+	{
+		throw;
+	}
 }
 double BookDatabase::getPrice(int identifier)
 {
@@ -267,10 +286,40 @@ void BookDatabase::addBookMenu()
 	getline(cin, publisher);
 	cout << "On what day was this book added? (MM/DD/YYYY) ";
 	getline(cin, dateadded);
-	cout << "What is the retail cost? ";
-	cin >> retailcost;
-	cout << "What is the wholesalecost? ";
-	cin >> wholesalecost;
+
+	bool retailEntered = false;
+	while (!retailEntered)
+	{
+		cout << "What is the retail cost? ";
+		cin >> retailcost;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid response.\n";
+		}
+		else
+		{
+			retailEntered = true;
+		}
+	}
+	
+	bool wholesaleEntered = false;
+	while (!wholesaleEntered)
+	{
+		cout << "What is the wholesalecost? ";
+		cin >> wholesalecost;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid response.\n";
+		}
+		else
+		{
+			wholesaleEntered = true;
+		}
+	}
 	cin.ignore(1000, '\n');
 	system("CLS");
 	cout << "\n\n\t\t\tBook successfully added!" << endl;
@@ -298,6 +347,7 @@ void BookDatabase::addBookMenu()
 				{
 					cout << "That is an invalid response.\n";
 					cin.clear();
+					cin.ignore(1000, '\n');
 				}
 				else if (numBooksToAdd < 0)
 				{
@@ -307,8 +357,24 @@ void BookDatabase::addBookMenu()
 				{
 					for (int i = 0; i < numBooksToAdd; i++)
 					{
-						a.setIdentifier(identifierCount);
-						addBook(a);
+						try
+						{
+							addBook(a);
+						}
+						catch (char e[])
+						{
+							cout << e;
+							cout << "Press return to continue.";
+							cin.ignore(1000, '\n');
+							cin.get();
+						}
+						catch (...)
+						{
+							cout << "There was an error.\n";
+							cout << "Press return to continue.";
+							cin.ignore(1000, '\n');
+							cin.get();
+						}
 					}
 					done = true;
 				}
@@ -318,10 +384,16 @@ void BookDatabase::addBookMenu()
 		{
 			cout << "Exiting...\n";
 			done = true;
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 		}
 		else
 		{
 			cout << "Invalid response.\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 		}
 	}
 }
