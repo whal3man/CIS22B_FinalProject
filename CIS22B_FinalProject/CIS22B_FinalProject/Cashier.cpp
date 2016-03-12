@@ -134,6 +134,5 @@ void Cashier::mainMenu()
 			cout << "Invalid choice! ";
 		}
 	}
-	system("PAUSE");
 }
 

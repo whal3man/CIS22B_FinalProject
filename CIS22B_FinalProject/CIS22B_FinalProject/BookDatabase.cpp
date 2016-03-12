@@ -193,10 +193,10 @@ Book* BookDatabase::operator[](int i)
 
 void BookDatabase::mainMenu()
 {
-	system("CLS");
 	bool done = false;
 	while (!done)
 	{
+		system("CLS");
 		cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Main Menu\n\n";
 		cout << "\t    1. Look Up a Book\n";
 		cout << "\t    2. Add a Book\n";
@@ -243,15 +243,15 @@ void BookDatabase::addBookMenu()
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
 	cout << "What is the title of the book you want to add?";
-	cin >> title;
+	getline(cin, title);
 	cout << "\nWhat is the name of the author? \n";
-	cin >> author;
+	getline(cin, author);
 	cout << "\nWhat is the isbn of the book?\n";
-	cin >> isbn;
+	getline(cin, isbn);
 	cout << "\nWhat is the publisher of the book? \n";
-	cin >> publisher;
+	getline(cin, publisher);
 	cout << "\nWhat date is this book added";
-	cin >> dateadded;
+	getline(cin, dateadded);
 	cout << "\nWhat is the retail cost? \n";
 	cin >> retailcost;
 	cout << "\nWhat is the wholesalecost? \n";
@@ -291,6 +291,7 @@ void BookDatabase::lookupBookMenu()
 	
 	while (!done)
 	{
+		
 		cout << "\t\tSerendipity Booksellers\n\t\t\tBook Lookup\n\n";
 		cout << "\t    1. Look Up by Identifier\n";
 		cout << "\t    2. Look Up by Title\n";
@@ -329,7 +330,10 @@ void BookDatabase::lookupBookMenu()
 			}
 			if (!idenfound)
 			{
-				cout << "nothing was found\n";
+				cout << "Nothing was found. Press anything to continue\n";
+				cin.ignore();
+				cin.get();
+				system("CLS");
 			}
 			break;
 		case 2:
@@ -345,7 +349,10 @@ void BookDatabase::lookupBookMenu()
 			}
 			if (!titleFound)
 			{
-				cout << "No book with that title found.\n";
+				cout << "Nothing was found. Press anything to continue\n";
+				cin.ignore();
+				cin.get();
+				system("CLS");
 			}
 			break;
 		case 3:
@@ -361,7 +368,12 @@ void BookDatabase::lookupBookMenu()
 			}
 			if (!authorFound)
 			{
-				cout << "No book with that author found.\n";
+				
+					cout << "Nothing was found. Press anything to continue\n";
+					cin.ignore();
+					cin.get();
+					system("CLS");
+
 			}
 			break;
 		case 4:
@@ -378,7 +390,10 @@ void BookDatabase::lookupBookMenu()
 			}
 		if (!isbnfound)
 		{
-			cout << "nothing was found\n";
+			cout << "Nothing was found. Press anything to continue\n";
+			cin.ignore();
+			cin.get();
+			system("CLS");
 		}
 			break;
 		case 5:
@@ -394,7 +409,10 @@ void BookDatabase::lookupBookMenu()
 			}
 			if (!pubFound)
 			{
-				cout << "No book with that publisher found.\n";
+				cout << "Nothing was found. Press anything to continue\n";
+				cin.ignore();
+				cin.get();
+				system("CLS");
 			}
 			break;
 		case 6:
@@ -411,7 +429,10 @@ void BookDatabase::lookupBookMenu()
 			}
 		if (!datefound)
 		{
-			cout << "nothing was found\n";
+				cout << "Nothing was found. Press anything to continue\n";
+				cin.ignore();
+				cin.get();
+				system("CLS");
 		}
 			break;
 		case 7:
@@ -428,7 +449,10 @@ void BookDatabase::lookupBookMenu()
 			}
 			if (!retailfound)
 			{
-				cout << "nothing was found\n";
+				cout << "Nothing was found. Press anything to continue\n";
+				cin.ignore();
+				cin.get();
+				system("CLS");
 			}
 			break;
 		case 8:
@@ -445,7 +469,10 @@ void BookDatabase::lookupBookMenu()
 			}
 			if (!wholefound)
 			{
-				cout << "nothing was found\n";
+					cout << "Nothing was found. Press anything to continue\n";
+					cin.ignore();
+					cin.get();
+					system("CLS");
 			}
 			break;
 		case 9:
