@@ -24,6 +24,7 @@ Report::Report(BookDatabase* dtbs)
 //List books by title
 void Report::listInventory()
 {
+	system("CLS"); //clear screen of other modules and text
 	cout << "Listing current inventory...\n\n";
 
 	Book* books = database->getBooks();
@@ -59,6 +60,7 @@ void Report::listInventory()
 //and the total retail value of the inventory.
 void Report::listRetailValue()
 {
+	system("CLS"); //clear screen of other modules and text
 	cout << "Listing inventory sorted by retail value...\n\n";
 
 	Book* books = database->getBooks();
@@ -100,6 +102,7 @@ void Report::listRetailValue()
 //inventory and the total wholesale value of the inventory
 void Report::listWholesaleValue()
 {
+	system("CLS"); //clear screen of other modules and text
 	cout << "Listing wholesale value of the inventory...\n\n";
 
 	//all books + total
@@ -109,6 +112,7 @@ void Report::listWholesaleValue()
 //books that have been in the inventory longest will be listed first.
 void Report::listAge()
 {
+	system("CLS"); //clear screen of other modules and text
 	cout << "Listing inventory by date added...\n\n";
 
 	Book* books = database->getBooks();
@@ -140,61 +144,45 @@ void Report::listAge()
 //books with the greatest wholesale cost will be listed first.
 void Report::listCost()
 {
+	system("CLS"); //clear screen of other modules and text
 	cout << "Listing inventory sorted by wholesale cost...\n\n";
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
 
-	for (int i = 0; i < size; i++)
-	{
-		double bookWholesaleValue1; //get retail value of the current index
-		double bookWholesaleValue2; //get retail value of the next index
-		bookWholesaleValue1 = books[i].getWholesaleCost();
-		for (int j = 0; j <= size; j++)
-		{
-			if ((j + 1) != size) //if next book index == size
-			{
-				bookWholesaleValue2 = books[j + 1].getRetailPrice();
-				if (bookWholesaleValue1 > bookWholesaleValue2)
-				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
-				}
-			}
-		}
-		cout << fixed << setprecision(2) << i + 1 << ". " << books[i].getWholesaleCost() << endl;
-	}
+
 }
 
 //A list of all books in the inventory sorted by quantity on hand.
 //The books with the greatest quantity on hand will be listed first.
 void Report::listQuantity()
 {
+	system("CLS"); //clear screen of other modules and text
 	cout << "Listing inventory sorted by quantity on hand...\n\n";
 	//write newly sorted book database to file
 }
 
 void Report::mainMenu()
 {
+	system("CLS"); //clear screen of other modules and text
 	int selection = 0; //to hold the user selection
 
 	//ask user what they want to have shown
 		do
 		{
-			//system("CLS"); //clear screen of other modules and text
 			cout << "\t\tReport Module\n\n";
-			cout << "\t    1. List Inventory\n";
-			cout << "\t    2. List by Retail Value\n";
-			cout << "\t    3. List by Wholesale Value\n";
+			cout << "\t    1. Inventory Listing\n";
+			cout << "\t    2. Inventory Retail Value\n";
+			cout << "\t    3. Inventory Wholesale Value\n";
 			cout << "\t    4. List by Age\n";
 			cout << "\t    5. List by Quantity\n";
-			cout << "\t    6. Return to Main Menu\n";
+			cout << "\t    6. List by Cost\n";
+			cout << "\t    7. Return to Main Menu\n";
 			cout << "\n\n\tPlease enter a number corresponding to a selection: ";
 			if (cin >> selection)
 			{
-				//run the choice selected 1-5
-				//break if == 6
+				//run the choice selected 1-6
+				//break if == 7
 				if (selection == 1)
 				{
 					listInventory();
@@ -217,6 +205,10 @@ void Report::mainMenu()
 				}
 				else if (selection == 6)
 				{
+					listCost();
+				}
+				else if (selection == 7)
+				{
 					break;
 				}
 				else
@@ -231,6 +223,6 @@ void Report::mainMenu()
 				cin.ignore(1000, '\n');
 				selection = 0;
 			}
-		} while (selection != 6); //6 here is return to front main menu
+		} while (selection != 7); //7 here is return to front main menu
 	return;
 }
