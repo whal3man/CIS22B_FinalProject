@@ -35,21 +35,20 @@ void BookDatabase::readFile()
 
 		for (int i = 0; i < size; i++)
 		{
-			fin.ignore();
+			fin.ignore(1000, '\n');
 			getline(fin, tempAuthor);
-			fin.ignore();
 			getline(fin, tempDateAdded);
 			fin >> tempIdentifier;
-			fin.ignore();
+			fin.ignore(1000, '\n');
 			getline(fin, tempIsbn);
-			fin.ignore();
 			getline(fin, tempPublisher);
 			fin >> tempRetailPrice;
-			fin.ignore();
+			fin.ignore(1000, '\n');
 			getline(fin, tempTitle);
 			fin >> tempWholesaleCost;
 			books[i].setAll(tempTitle, tempAuthor, tempIsbn, tempPublisher, tempWholesaleCost, tempRetailPrice, tempDateAdded, tempIdentifier);
 		}
+		fin.close();
 	}
 	catch (string e)
 	{
@@ -66,11 +65,17 @@ void BookDatabase::writeFile()
 		ifstream ifile(databaseFile.c_str());
 		if (ifile)
 		{
+			ifile.close();
 			string newName = databaseFile + ".bak";
 			ifstream bakIsFile(newName.c_str());
 			if (bakIsFile)
 			{
+				bakIsFile.close();
 				remove(newName.c_str());
+			}
+			else
+			{
+				bakIsFile.close();
 			}
 			rename(databaseFile.c_str(), newName.c_str());
 		}
@@ -95,6 +100,7 @@ void BookDatabase::writeFile()
 			fout << books[i].getTitle() << endl;
 			fout << books[i].getWholesaleCost() << endl;
 		}
+		fout.close();
 	}
 	catch (string e)
 	{
@@ -160,11 +166,11 @@ void BookDatabase::removeBook(int identifier)
 	{
 		if (foundBook)
 		{
-			books[count] = books[count++];
+			books[count++] = books[count];
 		}
 		else if (books[count].getIdentifier() == identifier)
 		{
-			books[count] = books[count++];
+			books[count++] = books[count];
 			foundBook = true;
 		}
 		count++;
@@ -245,17 +251,17 @@ void BookDatabase::addBookMenu()
 	cout << "What is the title of the book you want to add? ";
 	cin.ignore(1000, '\n');
 	getline(cin, title);
-	cout << "\nWhat is the name of the author? ";
+	cout << "What is the name of the author? ";
 	getline(cin, author);
-	cout << "\nWhat is the isbn of the book? ";
+	cout << "What is the isbn of the book? ";
 	getline(cin, isbn);
-	cout << "\nWhat is the publisher of the book? ";
+	cout << "What is the publisher of the book? ";
 	getline(cin, publisher);
-	cout << "\nWhat date is this book added? ";
+	cout << "On what day was this book added? (MM/DD/YYYY) ";
 	getline(cin, dateadded);
-	cout << "\nWhat is the retail cost? ";
+	cout << "What is the retail cost? ";
 	cin >> retailcost;
-	cout << "\nWhat is the wholesalecost? ";
+	cout << "What is the wholesalecost? ";
 	cin >> wholesalecost;
 
 	Book a;
@@ -597,5 +603,5 @@ void BookDatabase::changeBook()
 			break;
 		}
 	}
-
+	writeFile();
 }
