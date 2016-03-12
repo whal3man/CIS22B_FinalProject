@@ -289,8 +289,31 @@ void BookDatabase::addBookMenu()
 		cin >> response;
 		if (response == "y" || response == "Y")
 		{
-			addBook(a);
-			done = true;
+			bool done2 = false;
+			while (!done2)
+			{
+				cout << "How many copies of " << a.getTitle() << " would you like to add? ";
+				int numBooksToAdd;
+				cin >> numBooksToAdd;
+				if (cin.fail())
+				{
+					cout << "That is an invalid response.\n";
+					cin.clear();
+				}
+				else if (numBooksToAdd < 0)
+				{
+					cout << "That is an invalid number of books.\n";
+				}
+				else
+				{
+					for (int i = 0; i < numBooksToAdd; i++)
+					{
+						a.setIdentifier(identifierCount);
+						addBook(a);
+					}
+					done = true;
+				}
+			}
 		}
 		else if (response == "n" || response == "N")
 		{
