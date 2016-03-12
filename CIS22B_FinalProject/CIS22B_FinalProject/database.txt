@@ -1,0 +1,42 @@
+6
+5
+Corey Russ
+11/11/1111
+2
+11-1111-11
+Serendipity
+5
+Flies
+2
+Jose
+01/11/1111
+3
+33-3333-33
+Google
+90
+Apples and Oranges
+0
+George Carlin
+12/31/1992
+1
+66-6666-66
+Me
+100
+Hello World
+2
+Me
+9/09/9999
+4
+5
+Nobody
+40
+Apples
+20
+Nobody
+12/31/1992
+5
+66-5555-44
+Me
+1
+Az
+1

@@ -63,29 +63,37 @@ void Report::listRetailValue()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
+	bool swap;
+	double sum = 0;
 
-	for (int i = 0; i < size; i++)
+	//new
+	do
 	{
-		double bookRetailValue1; //get retail value of the current index
-		double bookRetailValue2; //get retail value of the next index
-		bookRetailValue1 = books[i].getRetailPrice();
-		for (int j = 0; j <= size; j++)
+		swap = false;
+		for (int i = 0; i < size; i++)
 		{
-			if ((j + 1) != size) //if next book index == size
+
+			if ((i + 1) < size) //if next book index < size
 			{
-				bookRetailValue2 = books[j + 1].getRetailPrice();
-				if (bookRetailValue1 > bookRetailValue2)
+				if (books[i].getRetailPrice() > books[i + 1].getRetailPrice())
 				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
 				}
 			}
 		}
-		cout << fixed << setprecision(2) << i + 1 << ". " << books[i].getRetailPrice() << endl;
+	} while (swap);
+
+	for (int i = 0; i < size; i++)
+	{
+		cout << fixed << setprecision(2) << i + 1 << ". $" << books[i].getRetailPrice() << " " << books[i].getTitle() << endl;
+		sum += books[i].getRetailPrice();
 	}
+
 	//print the total retail value
-	cout << "Total Retail Value: " << endl;
+	cout << fixed << setprecision(2) << "Total Retail Value: $" << sum << endl << endl;
 }
 
 //A list of the wholesale value of all books in the
