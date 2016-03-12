@@ -642,6 +642,9 @@ void BookDatabase::changeBook()
 		if (book->getIdentifier() == -1)
 		{
 			cout << "A book with that identifier does not exist.\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 		}
 		else
 		{
