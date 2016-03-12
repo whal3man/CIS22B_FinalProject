@@ -118,6 +118,7 @@ void BookDatabase::addBook(Book book)
 		book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
 	identifierCount++;
 	size++;
+	writeFile();
 }
 double BookDatabase::getPrice(int identifier)
 {
@@ -142,7 +143,6 @@ void BookDatabase::printISBN(string isbn)
 			cout << books[i] << endl;;
 		}
 	}
-	writeFile();
 }
 Book * BookDatabase::getBooks()
 {
@@ -242,24 +242,49 @@ void BookDatabase::addBookMenu()
 	system("CLS");
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
-	cout << "What is the title of the book you want to add?";
+	cout << "What is the title of the book you want to add? ";
+	cin.ignore(1000, '\n');
 	getline(cin, title);
-	cout << "\nWhat is the name of the author? \n";
+	cout << "\nWhat is the name of the author? ";
 	getline(cin, author);
-	cout << "\nWhat is the isbn of the book?\n";
+	cout << "\nWhat is the isbn of the book? ";
 	getline(cin, isbn);
-	cout << "\nWhat is the publisher of the book? \n";
+	cout << "\nWhat is the publisher of the book? ";
 	getline(cin, publisher);
-	cout << "\nWhat date is this book added";
+	cout << "\nWhat date is this book added? ";
 	getline(cin, dateadded);
-	cout << "\nWhat is the retail cost? \n";
+	cout << "\nWhat is the retail cost? ";
 	cin >> retailcost;
-	cout << "\nWhat is the wholesalecost? \n";
+	cout << "\nWhat is the wholesalecost? ";
 	cin >> wholesalecost;
 
 	Book a;
 	a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
-	addBook(a);
+
+	cout << "\n\nDoes this look right?\n\n";
+	cout << a;
+
+	string response;
+	bool done = false;
+	while (!done)
+	{
+		cout << "(Y/N)> ";
+		cin >> response;
+		if (response == "y" || response == "Y")
+		{
+			addBook(a);
+			done = true;
+		}
+		else if (response == "n" || response == "N")
+		{
+			cout << "Exiting...\n";
+			done = true;
+		}
+		else
+		{
+			cout << "Invalid response.\n";
+		}
+	}
 }
 void BookDatabase::removeBookMenu()
 {
