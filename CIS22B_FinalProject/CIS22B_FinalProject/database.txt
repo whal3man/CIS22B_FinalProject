@@ -1,0 +1,42 @@
+6
+5
+Author1
+00/00/0000
+1
+First ISBN
+Pub1
+33
+Title1
+22
+Author1
+00/00/0000
+2
+First ISBN
+Pub1
+33
+Title1
+22
+Author1
+00/00/0000
+3
+First ISBN
+Pub1
+33
+Title1
+22
+Author1
+00/00/0000
+4
+First ISBN
+Pub1
+33
+Title1
+22
+Author1
+00/00/0000
+5
+First ISBN
+Pub1
+33
+Title1
+22

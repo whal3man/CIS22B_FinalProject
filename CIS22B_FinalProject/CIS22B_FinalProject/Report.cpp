@@ -36,63 +36,35 @@ void Report::listInventory()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
-	bool swap;
 
-	//int size = database->getSize();
-	BooksWithIsbn* bookCount = new BooksWithIsbn[1024];
-	int numIsbns = 0;
-	//Book* books = database->getBooks();
-
-
-	for (int i = 0; i < size; i++)
-	{
-		bool found = false;
-		for (int j = 0; j < numIsbns; j++)
-		{
-			if (bookCount[j].isbn == books[i].getIsbn())
-			{
-				found = true;
-				bookCount[j].bookIdentifiers[bookCount[j].numBookIdentifiers] = books[i].getIdentifier();
-				bookCount[j].numBookIdentifiers++;
-			}
-		}
-		if (!found)
-		{
-			bookCount[numIsbns].isbn = books[i].getIsbn();
-			bookCount[numIsbns].bookIdentifiers[bookCount[i].numBookIdentifiers] = books[i].getIdentifier();
-		}
-	}
-	/*
-	do
-	{
-		swap = false;
-		for (int i = 0; i < size; i++)
-		{
-
-			if ((i + 1) < size) //if next book index < size
-			{
-				if (books[i].getTitle() > books[i + 1].getTitle())
-				{
-					Book temp = books[i];
-					books[i] = books[i + 1];
-					books[i + 1] = temp;
-					swap = true;
-				}
-			}
-		}
-	} while (swap);
-	*/
+	int indexID = getIdentifierCount();
 
 	cout << "\nTitle\t\t\tAuthor\t\tPublisher\t\tISBN\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << i + 1 << ". "
-			<< bookCount[i].bookIdentifiers[i]
-			//<< books[i].getQuantity()
-			<< setw(20) << left << books[i].getTitle()
-			<< setw(20) << left << books[i].getAuthor()
-			<< setw(20) << left << books[i].getPublisher()
-			<< setw(12) << left << books[i].getIsbn() << endl;
+		for (int j = 0; j < size; j++)
+		{
+			if (i != j)
+			{
+				if (books[i].getIsbn() == books[j].getIsbn())
+				{
+					books[i].increaseQuantity();
+				}
+			}
+		}
+	}
+	int i = 1; //for outputting numbered list
+	cout << "INDEXID IS: " << indexID << endl;
+	while (indexID > 0)
+	{
+		if (books[indexID].getIsbn() != "default isbn")
+			cout << i << ". "
+			<< books[indexID].getQuantity()
+			<< setw(20) << left << books[indexID].getTitle()
+			<< setw(20) << left << books[indexID].getAuthor()
+			<< setw(20) << left << books[indexID].getPublisher()
+			<< setw(12) << left << books[indexID].getIsbn() << endl;
+		indexID--;
 	}
 	cout << endl;
 }

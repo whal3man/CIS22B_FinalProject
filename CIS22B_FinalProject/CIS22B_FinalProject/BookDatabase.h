@@ -36,6 +36,8 @@ public:
 	void printISBN(string isbn);
 	// returns a pointer to books
 	Book* getBooks();
+	// get identifier count
+	int getIdentifierCount();
 	// returns size
 	int getSize();
 	// removes book with identifier from books,
