@@ -200,10 +200,9 @@ Book* BookDatabase::operator[](int i)
 void BookDatabase::mainMenu()
 {
 	bool done = false;
-	system("CLS");
 	while (!done)
 	{
-		
+		system("CLS");
 		cout << "\n\t\t\tSerendipity Booksellers\n\t\t\tInventory Main Menu\n\n";
 		cout << "\t    1. Look Up a Book\n";
 		cout << "\t    2. Add a Book\n";
@@ -317,24 +316,10 @@ void BookDatabase::removeBookMenu()
 
 void BookDatabase::lookupBookMenu()
 {
-	system("CLS");
 	bool done = false;
-	bool idenfound = false;
-	int identifier;
-	bool isbnfound = false;
-	string isbn;
-	bool datefound = false;
-	string dateadded;
-	bool retailfound = false;
-	double retailprice;
-	double wholecost;
-	bool wholefound = false;
-
-	
-	
 	while (!done)
 	{
-		
+		system("CLS");
 		cout << "\n\t\tSerendipity Booksellers\n\t\t\tBook Lookup\n\n";
 		cout << "\t    1. Look Up by Identifier\n";
 		cout << "\t    2. Look Up by Title\n";
@@ -355,7 +340,16 @@ void BookDatabase::lookupBookMenu()
 		bool titleFound = false;
 		string author;
 		bool authorFound = false;
-
+		bool idenFound = false;
+		int identifier;
+		bool isbnFound = false;
+		string isbn;
+		bool dateFound = false;
+		string dateadded;
+		bool retailFound = false;
+		double retailPrice;
+		double wholsaleCost;
+		bool wholeFound = false;
 
 		switch (response)
 		{
@@ -368,16 +362,17 @@ void BookDatabase::lookupBookMenu()
 				if (books[i].getIdentifier() == identifier)
 				{
 					cout << books[i];
-					idenfound = true;
+					idenFound = true;
 				}
 			}
-			if (!idenfound)
+			cout << endl;
+			if (!idenFound)
 			{
-				cout << "Nothing was found. Press anything to continue.\n";
-				cin.ignore();
-				cin.get();
-				system("CLS");
+				cout << "No book with that identifier was found. ";
 			}
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 2:
 			cout << "Enter the title you want to search for: ";
@@ -390,13 +385,14 @@ void BookDatabase::lookupBookMenu()
 					titleFound = true;
 				}
 			}
+			cout << endl;
 			if (!titleFound)
 			{
-				cout << "Nothing was found. Press anything to continue\n";
-				cin.ignore();
-				cin.get();
-				system("CLS");
+				cout << "No book with that title was found. ";
 			}
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 3:
 			cout << "Enter the author you want to search for: ";
@@ -409,15 +405,14 @@ void BookDatabase::lookupBookMenu()
 					authorFound = true;
 				}
 			}
+			cout << endl;
 			if (!authorFound)
 			{
-				
-					cout << "Nothing was found. Press anything to continue\n";
-					cin.ignore();
-					cin.get();
-					system("CLS");
-
+				cout << "No book with that author was found. ";
 			}
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 4:
 			cout << "Enter the ISBN you are looking for: ";
@@ -428,16 +423,17 @@ void BookDatabase::lookupBookMenu()
 				if (books[i].getIsbn() == isbn)
 				{
 					cout << books[i];
-					isbnfound = true;
+					isbnFound = true;
 				}
 			}
-		if (!isbnfound)
-		{
-			cout << "Nothing was found. Press anything to continue\n";
+			cout << endl;
+			if (!isbnFound)
+			{
+				cout << "No book with that ISBN was found. ";
+			}
+			cout << "Press anything to continue.";
 			cin.ignore();
 			cin.get();
-			system("CLS");
-		}
 			break;
 		case 5:
 			cout << "Enter the publisher you want to search for: ";
@@ -450,13 +446,14 @@ void BookDatabase::lookupBookMenu()
 					pubFound = true;
 				}
 			}
+			cout << endl;
 			if (!pubFound)
 			{
-				cout << "Nothing was found. Press anything to continue\n";
-				cin.ignore();
-				cin.get();
-				system("CLS");
+				cout << "No book with that publisher was found. ";
 			}
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 6:
 			cout << "Enter the date added you are looking for: ";
@@ -467,62 +464,68 @@ void BookDatabase::lookupBookMenu()
 				if (books[i].getDateAdded() == dateadded)
 				{
 					cout << books[i];
-					datefound = true;
+					dateFound = true;
 				}
 			}
-		if (!datefound)
-		{
-				cout << "Nothing was found. Press anything to continue\n";
-				cin.ignore();
-				cin.get();
-				system("CLS");
-		}
+			cout << endl;
+			if (!dateFound)
+			{
+				cout << "No book with that publisher was found. ";
+			}
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 7:
 			cout << "Enter the retail price you are looking for: ";
 		
-			cin >> retailprice;
+			cin >> retailPrice;
 			for (int i = 0; i < size; i++)
 			{
-				if (books[i].getRetailPrice() == retailprice)
+				if (books[i].getRetailPrice() == retailPrice)
 				{
 					cout << books[i];
-					retailfound = true;
+					retailFound = true;
 				}
 			}
-			if (!retailfound)
+			cout << endl;
+			if (!retailFound)
 			{
-				cout << "Nothing was found. Press anything to continue\n";
-				cin.ignore();
-				cin.get();
-				system("CLS");
+				cout << "No book with that retail price was found. ";
 			}
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 8:
 			cout << "Enter the wholesale cost you are looking for: ";
 
-			cin >> wholecost;
+			cin >> wholsaleCost;
 			for (int i = 0; i < size; i++)
 			{
-				if (books[i].getWholesaleCost() == wholecost)
+				if (books[i].getWholesaleCost() == wholsaleCost)
 				{
 					cout << books[i];
-					wholefound = true;
+					wholeFound = true;
 				}
 			}
-			if (!wholefound)
+			cout << endl;
+			if (!wholeFound)
 			{
-					cout << "Nothing was found. Press anything to continue\n";
-					cin.ignore();
-					cin.get();
-					system("CLS");
+				cout << "No book with that wholesale cost was found. ";
 			}
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 9:
 			done = true;
-			system("CLS");
 			break;
 		default:
+			cout << "Invalid response. ";
+			cout << "Press anything to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 	}
