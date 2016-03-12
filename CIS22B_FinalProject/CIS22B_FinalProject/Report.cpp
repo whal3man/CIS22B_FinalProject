@@ -20,6 +20,13 @@ Report::Report(BookDatabase* dtbs)
 	database = dtbs;
 }
 
+struct BooksWithIsbn
+{
+	string Isbn;
+	int bookIdentifiers[1024];
+	int numBookIdentifiers = 0;
+};
+
 //A list of information on all books in the inventory
 //List books by title
 void Report::listInventory()
@@ -169,16 +176,8 @@ void Report::listQuantity()
 	Book* books = database->getBooks();
 	int size = database->getSize();
 
-	struct BooksWithIsbn
-	{
-		string Isbn;
-		int bookIdentifiers[128];
-		int numBookIdentifiers = 0;
-	};
-
 	BooksWithIsbn* isbnDatabase = new BooksWithIsbn[1024];
 	int numIsbns = 0;
-
 
 	// goes through the entire database finding books with the same isbn
 	// and putting their identifiers in bookIdentifiers of the element
@@ -207,7 +206,7 @@ void Report::listQuantity()
 	for (int i = 0; i < numIsbns; i++)
 	{
 		cout << "There are " << isbnDatabase[i].numBookIdentifiers << " copies of "
-			<< books[i].getTitle()//database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
+			<< database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
 			<< " with ISBN " << isbnDatabase[i].Isbn << endl;
 	}
 
