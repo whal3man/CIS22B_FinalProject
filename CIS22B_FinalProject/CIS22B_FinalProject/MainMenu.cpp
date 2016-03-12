@@ -20,19 +20,19 @@ void MainMenu::fileLoadMenu()
 	string response;
 	while (!databaseFileDone)
 	{
-		cout << "Do you want to specify where the database will be saved? (Y/N) ";
+		cout << "Do you want to specify where the database will be saved/loaded? (Y/N) ";
 		cin >> response;
 		if (response == "y" || response == "Y")
 		{
-			cout << "Where do you want to save the database? ";
+			cout << "Where do you want to save/load the database from? ";
 			cin >> response;
 			database->setDatabaseFile(response);
-			cout << "The database will be saved to " << response << endl;
+			cout << "The database will be saved/loaded to " << response << endl << endl;
 			databaseFileDone = true;
 		}
 		else if (response == "n" || response == "N")
 		{
-			cout << "Default location will be used.\n";
+			cout << "Default location will be used. (./database.txt)\n";
 			databaseFileDone = true;
 		}
 		else
@@ -45,16 +45,20 @@ void MainMenu::fileLoadMenu()
 	ifstream ifile(database->getDatabaseFile().c_str());
 	if (ifile)
 	{
-	database->readFile();
-	cout << "Read database from " << database->getDatabaseFile() << ".\n";
+		database->readFile();
+		cout << "Existing database was read from " << database->getDatabaseFile() << ".";
+		
 	}
+	cout << " (Press return to continue)";
+	cin.ignore();
+	cin.get();
+	ifile.close();
 }
 
 int MainMenu::showMainMenu()
 {
 	bool done = false;
 	int choice = 0;
-
 	do
 	{
 		system("CLS");
@@ -71,12 +75,12 @@ int MainMenu::showMainMenu()
 		if (choice == 1)
 		{
 			cout << "Cashier module loading...\n\n";
-			//cashier.mainMenu();
+			cashier.mainMenu();
 		}
 		else if (choice == 2)
 		{
 			cout << "Inventory Database module loading...\n\n";
-			//database.mainmenu
+			database->mainMenu();
 		}
 		else if (choice == 3)
 		{
@@ -86,7 +90,6 @@ int MainMenu::showMainMenu()
 		else if (choice == 4)
 		{
 			cout << "\n\n\t\t\tThank you!\n\n";
-			system("pause");
 			return 0;
 		}
 		else

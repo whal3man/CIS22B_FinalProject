@@ -12,7 +12,7 @@ BookDatabase::BookDatabase()
 
 BookDatabase::~BookDatabase()
 {
-	delete[] books;
+
 }
 
 void BookDatabase::readFile()
@@ -35,21 +35,20 @@ void BookDatabase::readFile()
 
 		for (int i = 0; i < size; i++)
 		{
-			fin.ignore();
+			fin.ignore(1000, '\n');
 			getline(fin, tempAuthor);
-			fin.ignore();
 			getline(fin, tempDateAdded);
 			fin >> tempIdentifier;
-			fin.ignore();
+			fin.ignore(1000, '\n');
 			getline(fin, tempIsbn);
-			fin.ignore();
 			getline(fin, tempPublisher);
 			fin >> tempRetailPrice;
-			fin.ignore();
+			fin.ignore(1000, '\n');
 			getline(fin, tempTitle);
 			fin >> tempWholesaleCost;
 			books[i].setAll(tempTitle, tempAuthor, tempIsbn, tempPublisher, tempWholesaleCost, tempRetailPrice, tempDateAdded, tempIdentifier);
 		}
+		fin.close(); //close the input file 
 	}
 	catch (string e)
 	{
@@ -66,11 +65,17 @@ void BookDatabase::writeFile()
 		ifstream ifile(databaseFile.c_str());
 		if (ifile)
 		{
+			ifile.close();
 			string newName = databaseFile + ".bak";
 			ifstream bakIsFile(newName.c_str());
 			if (bakIsFile)
 			{
+				bakIsFile.close();
 				remove(newName.c_str());
+			}
+			else
+			{
+				bakIsFile.close();
 			}
 			rename(databaseFile.c_str(), newName.c_str());
 		}
@@ -95,6 +100,7 @@ void BookDatabase::writeFile()
 			fout << books[i].getTitle() << endl;
 			fout << books[i].getWholesaleCost() << endl;
 		}
+		fout.close(); //close the output file
 	}
 	catch (string e)
 	{
@@ -114,10 +120,30 @@ string BookDatabase::getDatabaseFile()
 
 void BookDatabase::addBook(Book book)
 {
-	books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
-		book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
-	identifierCount++;
-	size++;
+	try
+	{
+		if (size >= 1024)
+		{
+			char except[128] = "Unable to add book to database because the database is full.\n\0";
+			throw except;
+		}
+		else
+		{
+			books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
+				book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
+			identifierCount++;
+			size++;
+			writeFile();
+		}
+	}
+	catch (char e[])
+	{
+		throw e;
+	}
+	catch (...)
+	{
+		throw;
+	}
 }
 double BookDatabase::getPrice(int identifier)
 {
@@ -142,7 +168,6 @@ void BookDatabase::printISBN(string isbn)
 			cout << books[i] << endl;;
 		}
 	}
-	writeFile();
 }
 Book * BookDatabase::getBooks()
 {
@@ -160,11 +185,11 @@ void BookDatabase::removeBook(int identifier)
 	{
 		if (foundBook)
 		{
-			books[count] = books[count++];
+			books[count++] = books[count];
 		}
 		else if (books[count].getIdentifier() == identifier)
 		{
-			books[count] = books[count++];
+			books[count++] = books[count];
 			foundBook = true;
 		}
 		count++;
@@ -193,11 +218,11 @@ Book* BookDatabase::operator[](int i)
 
 void BookDatabase::mainMenu()
 {
-	system("CLS");
 	bool done = false;
 	while (!done)
 	{
-		cout << "\t\tSerendipity Booksellers\n\t\t\tInventory Main Menu\n\n";
+		system("CLS");
+		cout << "\n\t\t\tSerendipity Booksellers\n\t\t\tInventory Main Menu\n\n";
 		cout << "\t    1. Look Up a Book\n";
 		cout << "\t    2. Add a Book\n";
 		cout << "\t    3. Edit a Books Record\n";
@@ -205,28 +230,36 @@ void BookDatabase::mainMenu()
 		cout << "\t    5. Exit\n";
 		cout << "\n\t     Enter your choice: ";
 		int response;
-		cin >> response;
-		switch (response)
+		//changed from switch so we can catch if user inputs a char instead of int
+		if (cin >> response)
 		{
-		case 1:
-			lookupBookMenu();
-			break;
-		case 2:
-			addBookMenu();
-			break;
-		case 3:
-			changeBook();
-			break;
-		case 4:
-			removeBookMenu();
-			break;
-		case 5:
-			done = true;
-			break;
-		default:
-			cout << "Invalid response.\n";
+			if (response == 1)
+			{
+				lookupBookMenu();
+			}
+			if (response == 2)
+			{
+				addBookMenu();
+			}
+			if (response == 3)
+			{
+				changeBook();
+			}
+			if (response == 4)
+			{
+				removeBookMenu();
+			}
+			if (response == 5)
+			{
+				done = true;
+			}
+		}
+		else
+		{
 			system("CLS");
-			break;
+			cout << "\n\t\t\tInvalid response.\n\n\n";
+			cin.clear();
+			cin.ignore(1000, '\n');
 		}
 	}
 }
@@ -242,25 +275,127 @@ void BookDatabase::addBookMenu()
 	system("CLS");
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
-	cout << "What is the title of the book you want to add?";
-	cin >> title;
-	cout << "\nWhat is the name of the author? \n";
-	cin >> author;
-	cout << "\nWhat is the isbn of the book?\n";
-	cin >> isbn;
-	cout << "\nWhat is the publisher of the book? \n";
-	cin >> publisher;
-	cout << "\nWhat date is this book added";
-	cin >> dateadded;
-	cout << "\nWhat is the retail cost? \n";
-	cin >> retailcost;
-	cout << "\nWhat is the wholesalecost? \n";
-	cin >> wholesalecost;
+	cout << "What is the title of the book you want to add? ";
+	cin.ignore(1000, '\n');
+	getline(cin, title);
+	cout << "What is the name of the author? ";
+	getline(cin, author);
+	cout << "What is the isbn of the book? ";
+	getline(cin, isbn);
+	cout << "What is the publisher of the book? ";
+	getline(cin, publisher);
+	cout << "On what day was this book added? (MM/DD/YYYY) ";
+	getline(cin, dateadded);
+
+	bool retailEntered = false;
+	while (!retailEntered)
+	{
+		cout << "What is the retail cost? ";
+		cin >> retailcost;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid response.\n";
+		}
+		else
+		{
+			retailEntered = true;
+		}
+	}
+	
+	bool wholesaleEntered = false;
+	while (!wholesaleEntered)
+	{
+		cout << "What is the wholesalecost? ";
+		cin >> wholesalecost;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid response.\n";
+		}
+		else
+		{
+			wholesaleEntered = true;
+		}
+	}
+	cin.ignore(1000, '\n');
+	system("CLS");
+	cout << "\n\n\t\t\tBook successfully added!" << endl;
 
 	Book a;
 	a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
-	identifierCount++;
-	addBook(a);
+
+	cout << "\n\nDoes this look right?\n\n";
+	cout << a;
+
+	string response;
+	bool done = false;
+	while (!done)
+	{
+		cout << "(Y/N)> ";
+		cin >> response;
+		if (response == "y" || response == "Y")
+		{
+			while (!done)
+			{
+				cout << "How many copies of " << a.getTitle() << " would you like to add? ";
+				int numBooksToAdd;
+				cin >> numBooksToAdd;
+				if (cin.fail())
+				{
+					cout << "That is an invalid response.\n";
+					cin.clear();
+					cin.ignore(1000, '\n');
+				}
+				else if (numBooksToAdd < 0)
+				{
+					cout << "That is an invalid number of books.\n";
+				}
+				else
+				{
+					for (int i = 0; i < numBooksToAdd; i++)
+					{
+						try
+						{
+							addBook(a);
+						}
+						catch (char e[])
+						{
+							cout << e;
+							cout << "Press return to continue.";
+							cin.ignore(1000, '\n');
+							cin.get();
+						}
+						catch (...)
+						{
+							cout << "There was an error.\n";
+							cout << "Press return to continue.";
+							cin.ignore(1000, '\n');
+							cin.get();
+						}
+					}
+					done = true;
+				}
+			}
+		}
+		else if (response == "n" || response == "N")
+		{
+			cout << "Exiting...\n";
+			done = true;
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+		else
+		{
+			cout << "Invalid response.\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+	}
 }
 void BookDatabase::removeBookMenu()
 {
@@ -275,24 +410,11 @@ void BookDatabase::removeBookMenu()
 
 void BookDatabase::lookupBookMenu()
 {
-	system("CLS");
 	bool done = false;
-	bool idenfound = false;
-	int identifier;
-	bool isbnfound = false;
-	string isbn;
-	bool datefound = false;
-	string dateadded;
-	bool retailfound = false;
-	double retailprice;
-	double wholecost;
-	bool wholefound = false;
-
-	
-	
 	while (!done)
 	{
-		cout << "\t\tSerendipity Booksellers\n\t\t\tBook Lookup\n\n";
+		system("CLS");
+		cout << "\n\t\tSerendipity Booksellers\n\t\t\tBook Lookup\n\n";
 		cout << "\t    1. Look Up by Identifier\n";
 		cout << "\t    2. Look Up by Title\n";
 		cout << "\t    3. Look Up by Author\n";
@@ -312,147 +434,195 @@ void BookDatabase::lookupBookMenu()
 		bool titleFound = false;
 		string author;
 		bool authorFound = false;
-
+		bool idenFound = false;
+		int identifier;
+		bool isbnFound = false;
+		string isbn;
+		bool dateFound = false;
+		string dateadded;
+		bool retailFound = false;
+		double retailPrice;
+		double wholsaleCost;
+		bool wholeFound = false;
 
 		switch (response)
 		{
 		case 1:
 			cout << "Enter the identifier you are looking for: ";
-			
 			cin >> identifier;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getIdentifier() == identifier)
 				{
-					cout << books[i];
-					idenfound = true;
+					cout << books[i] << endl;
+					idenFound = true;
 				}
 			}
-			if (!idenfound)
+			cout << endl;
+			if (!idenFound)
 			{
-				cout << "nothing was found\n";
+				cout << "No book with that identifier was found. ";
 			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 2:
 			cout << "Enter the title you want to search for: ";
 			cin >> title;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getTitle().find(title) != std::string::npos)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					titleFound = true;
 				}
 			}
+			cout << endl;
 			if (!titleFound)
 			{
-				cout << "No book with that title found.\n";
+				cout << "No book with that title was found. ";
 			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 3:
 			cout << "Enter the author you want to search for: ";
 			cin >> author;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getAuthor().find(author) != std::string::npos)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					authorFound = true;
 				}
 			}
+			cout << endl;
 			if (!authorFound)
 			{
-				cout << "No book with that author found.\n";
+				cout << "No book with that author was found. ";
 			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 4:
 			cout << "Enter the ISBN you are looking for: ";
-			
 			cin >> isbn;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getIsbn() == isbn)
 				{
-					cout << books[i];
-					isbnfound = true;
+					cout << books[i] << endl;
+					isbnFound = true;
 				}
 			}
-		if (!isbnfound)
-		{
-			cout << "nothing was found\n";
-		}
+			cout << endl;
+			if (!isbnFound)
+			{
+				cout << "No book with that ISBN was found. ";
+			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 5:
 			cout << "Enter the publisher you want to search for: ";
 			cin >> publisher;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getPublisher().find(publisher) != std::string::npos)
 				{
-					cout << books[i];
+					cout << books[i] << endl;
 					pubFound = true;
 				}
 			}
+			cout << endl;
 			if (!pubFound)
 			{
-				cout << "No book with that publisher found.\n";
+				cout << "No book with that publisher was found. ";
 			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 6:
 			cout << "Enter the date added you are looking for: ";
-			
 			cin >> dateadded;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
 				if (books[i].getDateAdded() == dateadded)
 				{
-					cout << books[i];
-					datefound = true;
+					cout << books[i] << endl;
+					dateFound = true;
 				}
 			}
-		if (!datefound)
-		{
-			cout << "nothing was found\n";
-		}
+			cout << endl;
+			if (!dateFound)
+			{
+				cout << "No book with that publisher was found. ";
+			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 7:
 			cout << "Enter the retail price you are looking for: ";
-		
-			cin >> retailprice;
+			cin >> retailPrice;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
-				if (books[i].getRetailPrice() == retailprice)
+				if (books[i].getRetailPrice() == retailPrice)
 				{
-					cout << books[i];
-					retailfound = true;
+					cout << books[i] << endl;
+					retailFound = true;
 				}
 			}
-			if (!retailfound)
+			cout << endl;
+			if (!retailFound)
 			{
-				cout << "nothing was found\n";
+				cout << "No book with that retail price was found. ";
 			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 8:
 			cout << "Enter the wholesale cost you are looking for: ";
-
-			cin >> wholecost;
+			cin >> wholsaleCost;
+			cout << endl;
 			for (int i = 0; i < size; i++)
 			{
-				if (books[i].getWholesaleCost() == wholecost)
+				if (books[i].getWholesaleCost() == wholsaleCost)
 				{
-					cout << books[i];
-					wholefound = true;
+					cout << books[i] << endl;
+					wholeFound = true;
 				}
 			}
-			if (!wholefound)
+			cout << endl;
+			if (!wholeFound)
 			{
-				cout << "nothing was found\n";
+				cout << "No book with that wholesale cost was found. ";
 			}
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		case 9:
 			done = true;
 			break;
 		default:
+			cout << "Invalid response. ";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 	}
@@ -463,12 +633,14 @@ void BookDatabase::changeBook()
 	double retailcost, wholesalecost;
 	int choice, identifier;
 	bool done = false;
-	system("CLS");
-	while (!done);
+	while (done != false);
 	{
-		cout << "which book would you liek to change";
+		system("CLS");
+		cout << "Enter the identifier of the book you would like to change: ";
 		cin >> identifier;
-		cout << "What would you like to change about that book?" << endl;
+		Book* book = searchIdentifier(identifier); //we only need to get the identifier once per user input
+		cout << endl << *book << endl;
+		cout << "What would you like to change?"<< endl; // change from "that book" to the actual title for clarity
 		cout << "1. Title" << endl;
 		cout << "2. Author" << endl;
 		cout << "3. ISBN" << endl;
@@ -479,72 +651,102 @@ void BookDatabase::changeBook()
 		cout << "8. Exit" << endl;
 		cout << "Enter your choice: ";
 		cin >> choice;
-		switch (choice)
+		if (!(cin.fail()))
 		{
-		case 1:
-		{
-			Book* book = searchIdentifier(identifier);
-			cout << "What is the new title: ";
-			cin >> title;
-			book->setTitle(title);
-			break;
+			switch (choice)
+			{
+			case 1:
+				cout << "What is the new title: ";
+				cin.ignore(1000, '\n');
+				getline(cin, title);
+				book->setTitle(title);
+				cout << "The title is now " << book->getTitle() << endl;
+				cout << "Press return to continue.";
+				cin.get();
+				writeFile();
+				break;
+			case 2:
+				cout << "What is the new Author name: ";
+				cin.ignore(1000, '\n');
+				getline(cin, author);
+				book->setAuthor(author);
+				cout << "The author of " << book->getTitle() << " is now " << book->getAuthor() << endl;
+				cout << "Press return to continue.";
+				cin.get();
+				writeFile();
+				break;
+			case 3:
+				cout << "What is the new ISBN: ";
+				cin >> ISBN;
+				book->setIsbn(ISBN);
+				cout << "The ISBN of " << book->getTitle() << " is now " << book->getIsbn() << endl;
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+				writeFile();
+				break;
+			case 4:
+				cout << "Who is the new publisher: ";
+				cin.ignore(1000, '\n');
+				getline(cin, publisher);
+				book->setPublisher(publisher);
+				cout << "The publisher of " << book->getTitle() << " is now " << book->getPublisher() << endl;
+				cout << "Press return to continue.";
+				cin.get();
+				writeFile();
+				break;
+			case 5:
+				cout << "What is the new date added (MM/DD/YYYY): ";
+				cin >> dateadded;
+				book->setDateAdded(dateadded);
+				cout << "The date added of " << book->getTitle() << " is now " << book->getDateAdded() << endl;
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+				writeFile();
+				break;
+			case 6:
+				cout << "What is the new retail cost: ";
+				cin >> retailcost;
+				book->setRetailPrice(retailcost);
+				cout << "The retail cost of " << book->getTitle() << " is now " << book->getRetailPrice() << endl;
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+				writeFile();
+				break;
+			case 7:
+				cout << "What is the new wholesale cost: ";
+				cin >> wholesalecost;
+				book->setWholesaleCost(wholesalecost);
+				cout << "The wholesale cost of " << book->getTitle() << " is now " << book->getWholesaleCost() << endl;
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+				writeFile();
+				break;
+			case 8:
+				done = true;
+				cout << "Exiting. Press return to continue.";
+				cin.ignore();
+				cin.get();
+				break;
+			default:
+				cout << "Invalid response. ";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+				break;
+			}
 		}
-		case 2:
+		else
 		{
-			Book* book = searchIdentifier(identifier);
-			cout << "What is the new Author name: "; 
-			cin >> author;
-			book->setAuthor(author);
-			break;
-		}
-		case 3:
-		{
-			Book* book = searchIdentifier(identifier);
-			cout << "What is the new ISBN: ";
-			cin >> ISBN;
-			book->setIsbn(ISBN);
-			break;
-		}
-		case 4:
-		{
-			Book* book = searchIdentifier(identifier);
-			cout << "Who is the new publisher: ";
-			cin >> publisher;
-			book->setPublisher(publisher);
-			break;
-		}
-		case 5:
-		{
-			Book* book = searchIdentifier(identifier);
-			cout << "What is the new date added: ";
-			cin >> dateadded;
-			book->setDateAdded(dateadded);
-			break;
-		}
-		case 6:
-		{
-			Book* book = searchIdentifier(identifier);
-			cout << "What is the new retail cost: " ;
-			cin >> retailcost;
-			book->setRetailPrice(retailcost);
-			break;
-		}
-		case 7:
-		{
-			Book* book = searchIdentifier(identifier);
-			cout << "What is the new wholesale cost: ";
-			cin >> wholesalecost;
-			book->setWholesaleCost(wholesalecost);
-			break;
-		}
-		case 8:
-		{
-			done = true;
-			break;
-		}
-		default:
-			break;
+			cout << "That is an invalid identifier. Press return to continue.";
+			cin.ignore();
+			cin.get();
+			cin.ignore(1000, '\n');
+			cin.clear();
+			done = false;
 		}
 	}
-
 }

@@ -3,7 +3,7 @@
 
 #include "BookDatabase.h"
 
-class Report : public Book
+class Report : public Book, BookDatabase
 {
 private:
 	BookDatabase* database;
