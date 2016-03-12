@@ -20,13 +20,6 @@ Report::Report(BookDatabase* dtbs)
 	database = dtbs;
 }
 
-struct BooksWithIsbn
-{
-	string isbn;
-	int bookIdentifiers[128];
-	int numBookIdentifiers = 0;
-};
-
 //A list of information on all books in the inventory
 //List books by title
 void Report::listInventory()
@@ -36,35 +29,35 @@ void Report::listInventory()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
+	bool swap;
 
-	int indexID = getIdentifierCount();
+	do
+	{
+		swap = false;
+		for (int i = 0; i < size; i++)
+		{
+
+			if ((i + 1) < size) //if next book index < size
+			{
+				if (books[i].getTitle() > books[i + 1].getTitle())
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
+			}
+		}
+	} while (swap);
 
 	cout << "\nTitle\t\t\tAuthor\t\tPublisher\t\tISBN\n";
 	for (int i = 0; i < size; i++)
 	{
-		for (int j = 0; j < size; j++)
-		{
-			if (i != j)
-			{
-				if (books[i].getIsbn() == books[j].getIsbn())
-				{
-					books[i].increaseQuantity();
-				}
-			}
-		}
-	}
-	int i = 1; //for outputting numbered list
-	cout << "INDEXID IS: " << indexID << endl;
-	while (indexID > 0)
-	{
-		if (books[indexID].getIsbn() != "default isbn")
-			cout << i << ". "
-			<< books[indexID].getQuantity()
-			<< setw(20) << left << books[indexID].getTitle()
-			<< setw(20) << left << books[indexID].getAuthor()
-			<< setw(20) << left << books[indexID].getPublisher()
-			<< setw(12) << left << books[indexID].getIsbn() << endl;
-		indexID--;
+		cout << i + 1 << ". "
+			<< setw(20) << left << books[i].getTitle()
+			<< setw(20) << left << books[i].getAuthor()
+			<< setw(20) << left << books[i].getPublisher()
+			<< setw(12) << left << books[i].getIsbn() << endl;
 	}
 	cout << endl;
 }
@@ -176,6 +169,49 @@ void Report::listQuantity()
 	Book* books = database->getBooks();
 	int size = database->getSize();
 
+	struct BooksWithIsbn
+	{
+		string Isbn;
+		int bookIdentifiers[128];
+		int numBookIdentifiers = 0;
+	};
+
+	BooksWithIsbn* isbnDatabase = new BooksWithIsbn[1024];
+	int numIsbns = 0;
+
+
+	// goes through the entire database finding books with the same isbn
+	// and putting their identifiers in bookIdentifiers of the element
+	// in isbnDatabase that has the same isbn as them
+	for (int i = 0; i < size; i++)
+	{
+		bool foundIsbn = false;
+		for (int j = 0; j < numIsbns; j++)
+		{
+			if (isbnDatabase[j].Isbn == books[i].getIsbn())
+			{
+				foundIsbn = true;
+				isbnDatabase[j].bookIdentifiers[isbnDatabase[j].numBookIdentifiers] = books[i].getIdentifier();
+				isbnDatabase[j].numBookIdentifiers++;
+			}
+		}
+		if (!foundIsbn)
+		{
+			isbnDatabase[numIsbns].Isbn = books[i].getIsbn();
+			isbnDatabase[numIsbns].bookIdentifiers[isbnDatabase[numIsbns].numBookIdentifiers] = books[i].getIdentifier();
+			isbnDatabase[numIsbns].numBookIdentifiers++;
+			numIsbns++;
+		}
+	}
+
+	for (int i = 0; i < numIsbns; i++)
+	{
+		cout << "There are " << isbnDatabase[i].numBookIdentifiers << " copies of "
+			<< books[i].getTitle()//database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
+			<< " with ISBN " << isbnDatabase[i].Isbn << endl;
+	}
+
+	delete[] isbnDatabase;
 }
 
 void Report::mainMenu()
