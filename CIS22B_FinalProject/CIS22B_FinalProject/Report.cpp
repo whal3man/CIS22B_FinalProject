@@ -28,30 +28,31 @@ void Report::listInventory()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
+	bool swap;
 
-	for (int i = 0; i < size; i++)
+	do
 	{
-		string bookTitle1; //get title of the current index
-		string bookTitle2; //get title of the next index
-		bookTitle1 = books[i].getTitle();
-		for (int j = 0; j < size; j++)
+		swap = false;
+		for (int i = 0; i < size; i++)
 		{
-			if ((j + 1) != size) //if next book index == size
+
+			if ((i + 1) < size) //if next book index < size
 			{
-				bookTitle2 = books[j + 1].getTitle();
-				if (bookTitle1 > bookTitle2)
+				if (books[i].getTitle() > books[i + 1].getTitle())
 				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
 				}
 			}
 		}
-		cout << i + 1 << ". " << books[i].getTitle() << endl;	
-	}
+	} while (swap);
 
-	//write newly sorted book database to file
-	writeFile();
+	for (int i = 0; i < size; i++)
+	{
+		cout << i + 1 << ". " << books[i].getTitle() << endl;
+	}
 }
 
 //A list of the retail value of all books in the inventory
@@ -83,9 +84,8 @@ void Report::listRetailValue()
 		}
 		cout << fixed << setprecision(2) << i + 1 << ". " << books[i].getRetailPrice() << endl;
 	}
-
-	//write newly sorted book database to file
-	writeFile();
+	//print the total retail value
+	cout << "Total Retail Value: " << endl;
 }
 
 //A list of the wholesale value of all books in the
@@ -93,7 +93,8 @@ void Report::listRetailValue()
 void Report::listWholesaleValue()
 {
 	cout << "Listing wholesale value of the inventory...\n\n";
-	//write newly sorted book database to file
+
+	//all books + total
 }
 
 //A list of all books in the inventory, sorted by purchase date. The
@@ -101,7 +102,30 @@ void Report::listWholesaleValue()
 void Report::listAge()
 {
 	cout << "Listing inventory by date added...\n\n";
-	//write newly sorted book database to file
+
+	Book* books = database->getBooks();
+	int size = database->getSize();
+
+	for (int i = 0; i < size; i++)
+	{
+		string bookDateAdded1; //get title of the current index
+		string bookDateAdded2; //get title of the next index
+		bookDateAdded1 = books[i].getDateAdded();
+		for (int j = 0; j < size; j++)
+		{
+			if ((j + 1) != size) //if next book index == size
+			{
+				bookDateAdded2 = books[j + 1].getDateAdded();
+				if (bookDateAdded1 > bookDateAdded2)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+				}
+			}
+		}
+		cout << i + 1 << ". " << books[i].getDateAdded() << endl;
+	}
 }
 
 //A list of all books in the inventory, sorted by wholesale cost. The
@@ -109,7 +133,30 @@ void Report::listAge()
 void Report::listCost()
 {
 	cout << "Listing inventory sorted by wholesale cost...\n\n";
-	//write newly sorted book database to file
+
+	Book* books = database->getBooks();
+	int size = database->getSize();
+
+	for (int i = 0; i < size; i++)
+	{
+		double bookWholesaleValue1; //get retail value of the current index
+		double bookWholesaleValue2; //get retail value of the next index
+		bookWholesaleValue1 = books[i].getWholesaleCost();
+		for (int j = 0; j <= size; j++)
+		{
+			if ((j + 1) != size) //if next book index == size
+			{
+				bookWholesaleValue2 = books[j + 1].getRetailPrice();
+				if (bookWholesaleValue1 > bookWholesaleValue2)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+				}
+			}
+		}
+		cout << fixed << setprecision(2) << i + 1 << ". " << books[i].getWholesaleCost() << endl;
+	}
 }
 
 //A list of all books in the inventory sorted by quantity on hand.
