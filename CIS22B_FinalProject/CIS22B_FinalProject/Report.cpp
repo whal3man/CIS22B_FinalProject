@@ -52,7 +52,7 @@ void Report::listInventory()
 
 	for (int i = 0; i < size; i++)
 	{
-		cout << i + 1 << ". " << books[i].getTitle() << endl;
+		cout << i + 1 << ". " << books[i].getTitle()  << books[i].getAuthor() << books[i].getPublisher() << books[i].getIsbn() << endl;
 	}
 }
 
@@ -88,9 +88,10 @@ void Report::listRetailValue()
 		}
 	} while (swap);
 
+	cout << "Retail Price\tTitle\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << fixed << setprecision(2) << i + 1 << ". $" << books[i].getRetailPrice() << " " << books[i].getTitle() << endl;
+		cout << fixed << setprecision(2) << i + 1 << ". $" << books[i].getRetailPrice() << "\t" << books[i].getTitle() << endl;
 		sum += books[i].getRetailPrice();
 	}
 
@@ -159,7 +160,28 @@ void Report::listQuantity()
 {
 	system("CLS"); //clear screen of other modules and text
 	cout << "Listing inventory sorted by quantity on hand...\n\n";
-	//write newly sorted book database to file
+
+	Book* books = database->getBooks();
+	int size = database->getSize();
+
+	//count multiples of each book
+	for(int i = 0; i < size; i++)
+	{
+		for(int j = i; j < size; j++)
+		{
+			if (books[i].getIsbn() == books[j].getIsbn())
+			{
+				//increase quantity of the book
+				books[i].setQuantity(1);
+			}	
+		}
+	}
+
+	cout << "\nQuantity\tTitle\n";
+	for (int i = 0; i < size; i++)
+	{
+		cout << books[i].getQuantity() << books[i].getTitle() << endl;
+	}
 }
 
 void Report::mainMenu()

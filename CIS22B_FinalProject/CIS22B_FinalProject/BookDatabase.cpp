@@ -256,13 +256,33 @@ void BookDatabase::addBookMenu()
 	system("CLS");
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
+	bool copy = true;
 	cout << "What is the title of the book you want to add? ";
 	cin.ignore(1000, '\n');
 	getline(cin, title);
 	cout << "What is the name of the author? ";
 	getline(cin, author);
-	cout << "What is the isbn of the book? ";
-	getline(cin, isbn);
+	do
+	{
+		cout << "What is the isbn of the book? ";
+		getline(cin, isbn);
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = i; j < size; j++)
+			{
+				if (books[i].getIsbn() == books[j].getIsbn())
+				{
+					copy = true;
+				}
+			}
+		}
+		if (copy == true)
+		{
+			cout << "A book with this ISBN already exists. Please enter a different ISBN.\n\n";
+		}
+		else
+			copy = false;
+	} while (copy == true);
 	cout << "What is the publisher of the book? ";
 	getline(cin, publisher);
 	cout << "On what day was this book added? (MM/DD/YYYY) ";
