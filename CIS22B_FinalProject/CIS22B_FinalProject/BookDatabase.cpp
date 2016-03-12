@@ -289,8 +289,7 @@ void BookDatabase::addBookMenu()
 		cin >> response;
 		if (response == "y" || response == "Y")
 		{
-			bool done2 = false;
-			while (!done2)
+			while (!done)
 			{
 				cout << "How many copies of " << a.getTitle() << " would you like to add? ";
 				int numBooksToAdd;
