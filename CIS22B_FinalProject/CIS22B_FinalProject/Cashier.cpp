@@ -32,12 +32,25 @@ void Cashier::addBookMenu()
 	cin >> isbn;
 	cout << endl;
 	listIsbn(isbn);
-	int identifier = 0;
+	int identifier = -1;
 	cout << "Which of these books do you want?(Enter in the identifier of the book)" << endl;
 	cin >> identifier;
-	if (identifier == id->getIdentifier())
+	Book* tempBook = database->searchIdentifier(identifier);
+	if (tempBook->getIdentifier() == -1)
 	{
-		cout << "test";
+		cout << "A book with the identifier " << identifier << " was not found.\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
+	else
+	{
+		cart[cartSize] = identifier;
+		cartSize++;
+		cout << "The book " << database->searchIdentifier(identifier)->getTitle() << " was added to the cart.\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
 	}
 }
 
@@ -115,6 +128,7 @@ void Cashier::checkout()
 }
 void Cashier::mainMenu()
 {
+	system("CLS");
 	bool done = false;
 	while (!done)
 	{
