@@ -89,17 +89,22 @@ int MainMenu::showMainMenu()
 		}
 		else if (choice == 4)
 		{
-			cout << "\n\n\t\t\tThank you!\n\n";
+			system("CLS");
+			cout << "\n\n\t\t\tThank you for using Serendipity Booksellers Database!\n\n";
+			cout << "\t\t\t\t(Press return to continue)";
+			cin.ignore();
+			cin.get();
 			return 0;
 		}
 		else
 		{
-			{
-				cout << "\n\t    Please enter a valid selection.\n";
-				cin.clear();
-				cin.ignore(1000, '\n');
-				choice = 0;
-			}
+			system("CLS");
+			cout << "\n\t    Please enter a valid selection.\n";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "\n\t    Press return to continue.";
+			cin.get();
+			choice = 0;
 		}
 	} while (choice != 4);
 	return -1;
@@ -110,5 +115,4 @@ int main()
 	MainMenu menu; //we need a main menu object
 	menu.fileLoadMenu();
 	menu.showMainMenu();
-	system("pause");
 }
