@@ -175,8 +175,6 @@ void Report::listQuantity()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
-	int count = 0;
-	
 	BooksWithIsbn* isbnDatabase = new BooksWithIsbn[1024];
 	int numIsbns = 0;
 
@@ -203,7 +201,6 @@ void Report::listQuantity()
 			numIsbns++;
 		}
 	}
-	Book temp;
 
 	int sorted = 0;
 	while (sorted < numIsbns - 1)
