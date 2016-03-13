@@ -32,8 +32,13 @@ void Cashier::addBookMenu()
 	cin >> isbn;
 	cout << endl;
 	listIsbn(isbn);
+	int identifier = 0;
 	cout << "Which of these books do you want?(Enter in the identifier of the book)" << endl;
-	//Identifier code goes here
+	cin >> identifier;
+	if (identifier == id->getIdentifier())
+	{
+		cout << "test";
+	}
 }
 
 void Cashier::removeBookFromCart(int identifier)
@@ -70,7 +75,7 @@ void Cashier::removeBookMenu()
 		if (identifier == cart[i])
 		{
 			char choice;
-			cout << "You have chosen to remove " << &database[cart[i]] << " from you list. Is this acceptable? (y/n)" << endl;
+			cout << "You have chosen to remove " << &database[cart[i]] << " from your list. Is this acceptable? (y/n)" << endl;
 			cin >> choice;
 			if (choice == 'y')
 			{
@@ -101,7 +106,7 @@ void Cashier::checkout()
 		Book* book = database->searchIdentifier(cart[i]);
 		cout << book->getIsbn() << "\t" << book->getTitle() << "\t" << book->getRetailPrice();
 	}
-	cout << "   069-12331-123   Living like a God: Travis Pham    $69.99" << endl;
+	cout << "   069-01337-6969  Living like a God: Travis Pham    $69.99" << endl;
 	
 	cout << "\t\t\t\t\t____________________" << endl << endl;
 	cout << "\t\t\t\t\tSubtotal: " << subtotal << endl << "\t\t\t\t\tTax: " << "Sales Tax @ 6.25%: " << (subtotal * 0.0625) << endl << "\t\t\t\t\tTotal: " << subtotal + subtotal*0.0625 << endl;
