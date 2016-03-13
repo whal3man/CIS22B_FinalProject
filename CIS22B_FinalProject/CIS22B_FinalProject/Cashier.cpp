@@ -66,7 +66,7 @@ void Cashier::addBookMenu()
 			}
 			else if (response == "n" || response == "N")
 			{
-				cout << "\Please try again.\n\n";
+				cout << "\nPlease try again.\n\n";
 				cin.ignore();
 			}
 			else
