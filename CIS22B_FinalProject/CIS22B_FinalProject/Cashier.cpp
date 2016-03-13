@@ -27,13 +27,8 @@ void Cashier::listIsbn(string isbn)
 
 void Cashier::addBookMenu()
 {
-	cout << "Enter in the ISBN of the book you want to purchase: " << endl;
-	string isbn;
-	cin >> isbn;
-	cout << endl;
-	listIsbn(isbn);
 	int identifier = -1;
-	cout << "Which of these books do you want?(Enter in the identifier of the book)" << endl;
+	cout << "Enter the identifier of the book you wish to add to cart: ";
 	cin >> identifier;
 	Book* tempBook = database->searchIdentifier(identifier);
 	if (tempBook->getIdentifier() == -1)
@@ -45,12 +40,52 @@ void Cashier::addBookMenu()
 	}
 	else
 	{
-		cart[cartSize] = identifier;
-		cartSize++;
-		cout << "The book " << database->searchIdentifier(identifier)->getTitle() << " was added to the cart.\n";
-		cout << "Press return to continue.";
-		cin.ignore();
-		cin.get();
+		cout << "Does this look correct?\n\n" << *tempBook << endl;
+		cout << "Response (Y/N)> ";
+		string response;
+		cin >> response;
+		if (response == "y" || response == "Y")
+		{
+			bool bookAlreadyInCart = false;
+			for (int i = 0; i < cartSize; i++)
+			{
+				if (cart[i] == identifier)
+				{
+					bookAlreadyInCart = true;
+				}
+			}
+
+			if (bookAlreadyInCart)
+			{
+				cout << "That book is already in the cart.\n";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
+			else
+			{
+				cart[cartSize] = identifier;
+				cartSize++;
+				cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
+		}
+		else if (response == "n" || response == "N")
+		{
+			cout << "Exiting...\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+		else
+		{
+			cout << "Invalid response...\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
 	}
 }
 
@@ -112,26 +147,51 @@ void Cashier::checkout()
 	}
 	cout << "Serendipity Book Sellers" << endl << endl;
 	cout << "Date: " << endl << endl;
-	cout << "      ISBN              Title			 Price       " << endl;
+	cout << "ISBN\t\tTitle\t\t\t\tPrice" << endl;
 	cout << "____________________________________________________________" << endl << endl;
 	for (int i = 0; i < cartSize; i++)
 	{
 		Book* book = database->searchIdentifier(cart[i]);
-		cout << book->getIsbn() << "\t" << book->getTitle() << "\t" << book->getRetailPrice();
+		cout << book->getIsbn() << "\t\t" << book->getTitle() << "\t\t\t\t" << book->getRetailPrice() << endl;
 	}
-	cout << "   069-01337-6969  Living like a God: Travis Pham    $69.99" << endl;
-	
 	cout << "\t\t\t\t\t____________________" << endl << endl;
-	cout << "\t\t\t\t\tSubtotal: " << subtotal << endl << "\t\t\t\t\tTax: " << "Sales Tax @ 6.25%: " << (subtotal * 0.0625) << endl << "\t\t\t\t\tTotal: " << subtotal + subtotal*0.0625 << endl;
-	cout << endl << "Thank You for Shopping at Serendipity!" << endl;
-	system("PAUSE");
+	cout << "\t\tSubtotal:\t\t\t" << subtotal << endl << "\t\tTax: " << "Sales Tax @ 6.25%:\t\t" << (subtotal * 0.0625) << endl << "\t\tTotal:\t\t\t\t" << subtotal + subtotal*0.0625 << endl << endl;
+	cout << "Does this look correct? (Y/N)> ";
+	string response;
+	cin >> response;
+	if (response == "y" || response == "Y")
+	{
+		for (int i = 0; i < cartSize; i++)
+		{
+			database->removeBook(cart[i]);
+		}
+		cartSize = 0;
+		cout << "Transaction successful.\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
+	else if (response == "n" || response == "N")
+	{
+		cout << "Exiting...\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
+	else
+	{
+		cout << "Invalid response...\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
 }
 void Cashier::mainMenu()
 {
-	system("CLS");
 	bool done = false;
 	while (!done)
 	{
+		system("CLS");
 		cout << "What would you like to do?" << endl << endl << "Press '1' to add a book. " << endl << "Press '2' to go to checkout." << endl << "Press '3' to remove a book." << endl << "Press '4' to go back of the menu." << endl;
 		int choice = 0;
 		cin >> choice;
