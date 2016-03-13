@@ -52,6 +52,7 @@ void Cashier::addBookMenu()
 		cin.ignore();
 		cin.get();
 	}
+	database->removeBook(identifier);
 }
 
 void Cashier::removeBookFromCart(int identifier)
