@@ -6,7 +6,7 @@ Book::Book()
 	author = "default author";
 	bookIdentifier = -1;
 	dateAdded = "XX/XX/XXXX";
-	isbn = "defualt isbn";
+	isbn = "default isbn";
 	publisher = "default publisher";
 	retailPrice = 0.0;
 	title = "default title";
@@ -115,6 +115,18 @@ void Book::setTitle(string titl)
 void Book::setWholesaleCost(double wholesaleCos)
 {
 	wholesaleCost = wholesaleCos;
+}
+
+void Book::operator=(Book & toCopy)
+{
+	title = toCopy.getTitle();
+	author = toCopy.getAuthor();
+	isbn = toCopy.getIsbn();
+	publisher = toCopy.getPublisher();
+	wholesaleCost = toCopy.getWholesaleCost();
+	retailPrice = toCopy.getRetailPrice();
+	dateAdded = toCopy.getDateAdded();
+	bookIdentifier = toCopy.getIdentifier();
 }
 
 ostream& operator<<(ostream& out, Book& book)

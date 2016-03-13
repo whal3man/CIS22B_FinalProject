@@ -25,8 +25,6 @@ public:
 	void checkout();
 	// main menu that asks the user what they want to do
 	void mainMenu();
-	// function to give a list of ISBN numbers
-	void listIsbn(string isbn);
 	// to remove book from removeBookMenu function
 	void removeBookFromCart(int identifier);
 	

@@ -20,19 +20,19 @@ void MainMenu::fileLoadMenu()
 	string response;
 	while (!databaseFileDone)
 	{
-		cout << "Do you want to specify where the database will be saved? (Y/N) ";
+		cout << "Do you want to specify where the database will be saved/loaded? (Y/N) ";
 		cin >> response;
 		if (response == "y" || response == "Y")
 		{
-			cout << "Where do you want to save the database? ";
+			cout << "Where do you want to save/load the database from? ";
 			cin >> response;
 			database->setDatabaseFile(response);
-			cout << "The database will be saved to " << response << endl;
+			cout << "The database will be saved/loaded to " << response << endl << endl;
 			databaseFileDone = true;
 		}
 		else if (response == "n" || response == "N")
 		{
-			cout << "Default location will be used.\n";
+			cout << "Default location will be used. (./database.txt)\n";
 			databaseFileDone = true;
 		}
 		else
@@ -45,9 +45,14 @@ void MainMenu::fileLoadMenu()
 	ifstream ifile(database->getDatabaseFile().c_str());
 	if (ifile)
 	{
-	database->readFile();
-	cout << "Read database from " << database->getDatabaseFile() << ".\n";
+		database->readFile();
+		cout << "Existing database was read from " << database->getDatabaseFile() << ".";
+		
 	}
+	cout << " (Press return to continue)";
+	cin.ignore();
+	cin.get();
+	ifile.close();
 }
 
 int MainMenu::showMainMenu()
@@ -84,18 +89,22 @@ int MainMenu::showMainMenu()
 		}
 		else if (choice == 4)
 		{
-			cout << "\n\n\t\t\tThank you!\n\n";
-			system("pause");
+			system("CLS");
+			cout << "\n\n\t   Thank you for using Serendipity Booksellers Database!\n\n";
+			cout << "\t\t\t(Press return to continue)";
+			cin.ignore();
+			cin.get();
 			return 0;
 		}
 		else
 		{
-			{
-				cout << "\n\t    Please enter a valid selection.\n";
-				cin.clear();
-				cin.ignore(1000, '\n');
-				choice = 0;
-			}
+			system("CLS");
+			cout << "\n\t    Please enter a valid selection.\n";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "\n\t    Press return to continue.";
+			cin.get();
+			choice = 0;
 		}
 	} while (choice != 4);
 	return -1;
@@ -106,5 +115,4 @@ int main()
 	MainMenu menu; //we need a main menu object
 	menu.fileLoadMenu();
 	menu.showMainMenu();
-	system("pause");
 }
