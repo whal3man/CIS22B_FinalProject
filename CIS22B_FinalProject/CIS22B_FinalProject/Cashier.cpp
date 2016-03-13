@@ -200,7 +200,17 @@ void Cashier::mainMenu()
 		cout << "\n\t     Enter your choice: ";
 		int choice = 0;
 		cin >> choice;
-		if (choice == 1)
+
+		if (cin.fail())
+		{
+			system("CLS");
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "That is an invalid response. Press return to continue.";
+			cin.get();
+			done = false;
+		}
+		else if (choice == 1)
 		{
 			addBookMenu();
 		}
