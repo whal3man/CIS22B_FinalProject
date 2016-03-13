@@ -185,11 +185,11 @@ void BookDatabase::removeBook(int identifier)
 	{
 		if (foundBook)
 		{
-			books[count + 1] = books[count];
+			 books[count] = books[count + 1];
 		}
 		else if (books[count].getIdentifier() == identifier)
 		{
-			books[count + 1] = books[count];
+			books[count] = books[count + 1];
 			foundBook = true;
 		}
 		count++;
