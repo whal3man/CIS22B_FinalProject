@@ -11,6 +11,7 @@
 	listQuantity() lists books sorted by quantity on hand. The book with the most copies is listed first
 */
 
+//we need default constructor
 Report::Report()
 {
 
@@ -20,6 +21,7 @@ Report::Report(BookDatabase* dtbs)
 	database = dtbs;
 }
 
+//used for sorting by quantity
 struct BooksWithIsbn
 {
 	string Isbn;
@@ -61,10 +63,10 @@ void Report::listInventory()
 	for (int i = 0; i < size; i++)
 	{
 		cout << setw(5) << right << i + 1 << ". "
-			<< setw(20) << left << books[i].getTitle()
-			<< setw(20) << left << books[i].getAuthor()
-			<< setw(20) << left << books[i].getPublisher()
-			<< setw(12) << left << books[i].getIsbn() << endl;
+			 << setw(20) << left << books[i].getTitle()
+			 << setw(20) << left << books[i].getAuthor()
+			 << setw(20) << left << books[i].getPublisher()
+			 << setw(12) << left << books[i].getIsbn() << endl;
 	}
 	cout << endl;
 }
@@ -104,12 +106,11 @@ void Report::listRetailValue()
 	for (int i = 0; i < size; i++)
 	{
 		cout << fixed << setprecision(2) 
-			<< setw(5) << right << i + 1 << ". $"
-			<< setw(10) << left << books[i].getRetailPrice()
-			<< setw(20) << books[i].getTitle() 
-			<< setw(12) << books[i].getIsbn()
-			<< endl;
-
+			 << setw(5) << right << i + 1 << ". $"
+			 << setw(10) << left << books[i].getRetailPrice()
+			 << setw(20) << books[i].getTitle() 
+			 << setw(12) << books[i].getIsbn()
+			 << endl;
 		sum += books[i].getRetailPrice();
 	}
 
@@ -124,7 +125,44 @@ void Report::listWholesaleValue()
 	system("CLS"); //clear screen of other modules and text
 	cout << "Listing wholesale value of the inventory...\n\n";
 
-	//all books + total
+	Book* books = database->getBooks();
+	int size = database->getSize();
+	bool swap;
+	double sum = 0;
+
+	do
+	{
+		swap = false;
+		for (int i = 0; i < size; i++)
+		{
+
+			if ((i + 1) < size) //if next book index < size
+			{
+				if (books[i].getWholesaleCost() > books[i + 1].getWholesaleCost())
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
+			}
+		}
+	} while (swap);
+
+	cout << " Wholesale Price\tTitle\t\tISBN\n\n";
+	for (int i = 0; i < size; i++)
+	{
+		cout << fixed << setprecision(2)
+			<< setw(5) << right << i + 1 << ". $"
+			<< setw(10) << left << books[i].getWholesaleCost()
+			<< setw(20) << books[i].getTitle()
+			<< setw(12) << books[i].getIsbn()
+			<< endl;
+		sum += books[i].getWholesaleCost();
+	}
+
+	//print the total retail value
+	cout << fixed << setprecision(2) << "\nTotal Wholesale Value: $" << sum << endl << endl;
 }
 
 //A list of all books in the inventory, sorted by purchase date. The
@@ -179,7 +217,44 @@ void Report::listCost()
 	Book* books = database->getBooks();
 	int size = database->getSize();
 
+	bool swap;
+	double sum = 0;
 
+	do
+	{
+		swap = false;
+		for (int i = 0; i < size; i++)
+		{
+
+			if ((i + 1) < size) //if next book index < size
+			{
+				if (books[i].getWholesaleCost() < books[i + 1].getWholesaleCost())
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
+			}
+		}
+	} while (swap);
+
+	cout << " Wholesale Price\tTitle\t\tISBN\n\n";
+	for (int i = 0; i < size; i++)
+	{
+		cout << fixed << setprecision(2)
+			<< setw(5) << right << i + 1 << ". $"
+			<< setw(10) << left << books[i].getWholesaleCost()
+			<< setw(20) << books[i].getTitle()
+			<< setw(12) << books[i].getIsbn()
+			<< endl;
+		sum += books[i].getWholesaleCost();
+	}
+
+	//print the total retail value
+	cout << fixed << setprecision(2) << "\nTotal Wholesale Value: $" << sum << endl << endl;
+
+	
 }
 
 //A list of all books in the inventory sorted by quantity on hand.
@@ -218,6 +293,8 @@ void Report::listQuantity()
 		}
 	}
 
+	//sort the titles corresponding to the quantity
+	//to keep the book attributes matched with the quantity
 	int sorted = 0;
 	while (sorted < numIsbns - 1)
 	{
@@ -251,7 +328,7 @@ void Report::listQuantity()
 	delete[] isbnDatabase;
 }
 
-
+//main menu for the module
 void Report::mainMenu()
 {
 	system("CLS"); //clear screen of other modules and text
