@@ -111,30 +111,44 @@ void Cashier::removeBookFromCart(int identifier)
 }
 void Cashier::removeBookMenu()
 {
-	for (int i = 0; i < cartSize; i++)
+	if (cartSize > 0)
 	{
-		cout << &database[cart[i]];
-	}
-	cout << "What book would you like to remove?" << endl;
-	int identifier = 0;
-	cin >> identifier;
-	for (int i = 0; i < cartSize; i++)
-	{
-		if (identifier == cart[i])
+		cout << "  ID   Price\t   Title\n" << endl;
+		for (int i = 0; i < cartSize; i++)
 		{
-			char choice;
-			cout << "You have chosen to remove " << &database[cart[i]] << " from your list. Is this acceptable? (y/n)" << endl;
-			cin >> choice;
-			if (choice == 'y')
+			Book* book = database->searchIdentifier(cart[i]);
+
+			cout << setw(4) << right << i + 1 << ". " << "$"
+				<< setprecision(2) << fixed
+				<< setw(12) << left << book->getRetailPrice()
+				<< setw(20) << left << book->getTitle()
+				<< endl;
+
+			cout << "\nWhat book would you like to remove? ";
+			int identifier = 0;
+			cin >> identifier;
+
+
+			if (identifier == cart[i])
 			{
-				cout << "This book will be removed from your cart. " << endl;
-				removeBookFromCart(identifier);
-			}
-			if (choice == 'n')
-			{
-				cout << "You will move back to the main menu." << endl;
+				char choice;
+				cout << "\nYou have chosen to remove " << book->getTitle() << " from your list. \n\nIs this acceptable? (y/n)" << endl;
+				cin >> choice;
+				if (choice == 'y')
+				{
+					cout << "This book will be removed from your cart. " << endl;
+					removeBookFromCart(identifier);
+				}
+				if (choice == 'n')
+				{
+					cout << "You will move back to the main menu." << endl;
+				}
 			}
 		}
+	}
+	else
+	{
+		cout << "\n\n\t    The cart is empty!\n\n";
 	}
 	system("PAUSE");
 }

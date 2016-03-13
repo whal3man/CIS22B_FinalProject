@@ -90,8 +90,8 @@ int MainMenu::showMainMenu()
 		else if (choice == 4)
 		{
 			system("CLS");
-			cout << "\n\n\t\t\tThank you for using Serendipity Booksellers Database!\n\n";
-			cout << "\t\t\t\t(Press return to continue)";
+			cout << "\n\n\t   Thank you for using Serendipity Booksellers Database!\n\n";
+			cout << "\t\t\t(Press return to continue)";
 			cin.ignore();
 			cin.get();
 			return 0;
