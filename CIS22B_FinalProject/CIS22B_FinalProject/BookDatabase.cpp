@@ -462,7 +462,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!idenFound)
 			{
-				cout << "No book with that identifier was found. ";
+				cout << "No book with that identifier was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
@@ -483,7 +483,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!titleFound)
 			{
-				cout << "No book with that title was found. ";
+				cout << "No book with that title was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
@@ -504,7 +504,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!authorFound)
 			{
-				cout << "No book with that author was found. ";
+				cout << "No book with that author was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
@@ -525,7 +525,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!isbnFound)
 			{
-				cout << "No book with that ISBN was found. ";
+				cout << "No book with that ISBN was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
@@ -546,7 +546,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!pubFound)
 			{
-				cout << "No book with that publisher was found. ";
+				cout << "No book with that publisher was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
@@ -567,7 +567,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!dateFound)
 			{
-				cout << "No book with that publisher was found. ";
+				cout << "No book with that publisher was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
@@ -588,7 +588,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!retailFound)
 			{
-				cout << "No book with that retail price was found. ";
+				cout << "No book with that retail price was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
@@ -609,7 +609,7 @@ void BookDatabase::lookupBookMenu()
 			cout << endl;
 			if (!wholeFound)
 			{
-				cout << "No book with that wholesale cost was found. ";
+				cout << "No book with that wholesale cost was found.\n";
 			}
 			cout << "Press return to continue.";
 			cin.ignore();
