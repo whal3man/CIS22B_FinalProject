@@ -94,15 +94,13 @@ int MainMenu::showMainMenu()
 		}
 		else
 		{
-			{
-				system("CLS");
-				cout << "\n\t    Please enter a valid selection.\n";
-				cin.clear();
-				cin.ignore(1000, '\n');
-				cout << "\n\t    Press return to continue.";
-				cin.get();
-				choice = 0;
-			}
+			system("CLS");
+			cout << "\n\t    Please enter a valid selection.\n";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "\n\t    Press return to continue.";
+			cin.get();
+			choice = 0;
 		}
 	} while (choice != 4);
 	return -1;
