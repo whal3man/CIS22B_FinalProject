@@ -12,105 +12,119 @@ Cashier::Cashier(BookDatabase* dtbs)
 	database = dtbs;
 }
 
-void Cashier::listIsbn(string isbn)
-{
-	Book * books = database->getBooks();
-	for (int i = 0; i < database->getSize(); i++)
-	{
-		if (books[i].getIsbn() == isbn)
-		{
-			cout << books[i] << endl;
-		}
-	}
-}
-
-
 void Cashier::addBookMenu()
 {
+	system("CLS");
 	int identifier = -1;
-	cout << "Enter the identifier of the book you wish to add to cart: ";
-	cin >> identifier;
-	Book* tempBook = database->searchIdentifier(identifier);
-	if (tempBook->getIdentifier() == -1)
-	{
-		cout << "A book with the identifier " << identifier << " was not found.\n";
-		cout << "Press return to continue.";
-		cin.ignore();
-		cin.get();
-	}
-	else
-	{
-		cout << "Does this look correct?\n\n" << *tempBook << endl;
-		cout << "Response (Y/N)> ";
-		string response;
-		cin >> response;
-		if (response == "y" || response == "Y")
-		{
-			bool bookAlreadyInCart = false;
-			for (int i = 0; i < cartSize; i++)
-			{
-				if (cart[i] == identifier)
-				{
-					bookAlreadyInCart = true;
-				}
-			}
 
-			if (bookAlreadyInCart)
-			{
-				cout << "That book is already in the cart.\n";
-				cout << "Press return to continue.";
-				cin.ignore();
-				cin.get();
-			}
-			else
-			{
-				cart[cartSize] = identifier;
-				cartSize++;
-				cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
-				cout << "Press return to continue.";
-				cin.ignore();
-				cin.get();
-			}
-		}
-		else if (response == "n" || response == "N")
+	bool correctInput = false;
+	while (correctInput == false)
+	{
+		cout << "Enter the identifier of the book you wish to add to cart: ";
+		cin >> identifier;
+		Book* tempBook = database->searchIdentifier(identifier);
+		if (tempBook->getIdentifier() == -1)
 		{
-			cout << "Exiting...\n";
+			cout << "A book with the identifier " << identifier << " was not found.\n";
 			cout << "Press return to continue.";
 			cin.ignore();
 			cin.get();
 		}
 		else
 		{
-			cout << "Invalid response...\n";
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
+			cout << "Does this look correct?\n\n" << *tempBook << endl;
+			cout << "Response (Y/N)> ";
+			string response;
+			cin >> response;
+			if (response == "y" || response == "Y")
+			{
+				bool bookAlreadyInCart = false;
+				for (int i = 0; i < cartSize; i++)
+				{
+					if (cart[i] == identifier)
+					{
+						bookAlreadyInCart = true;
+					}
+				}
+				if (bookAlreadyInCart)
+				{
+					cout << "That book is already in the cart.\n";
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+				}
+				else
+				{
+					correctInput = true;
+					cart[cartSize] = identifier;
+					cartSize++;
+					cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+				}
+			}
+			else if (response == "n" || response == "N")
+			{
+				cout << "\Please try again.\n\n";
+				cin.ignore();
+			}
+			else
+			{
+				cout << "Invalid response...\n";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
 		}
 	}
 }
 
 void Cashier::removeBookFromCart(int identifier)
 {
+	
+	bool bookFound = false;
+	int bookRemoved = -1;
+	if (cartSize == 1)
+	{
+		if (cart[0] == identifier)
+		{
+			bookFound = true;
+			bookRemoved = cart[0];
+		}
+	}
+
 	int count = 0;
 	bool condition = false;
 	while (count < cartSize - 1)
 	{
 		if (condition)
 		{
-			cart[count] = cart[count++];
+			cart[count] = cart[count + 1];
 		}
 		else if (cart[count] == identifier)
 		{
-			cart[count] = cart[count++];
+			bookRemoved = cart[count];
+			cart[count] = cart[count + 1];
 			condition = true;
+			bookFound = true;
 		}
 		count++;
 	}
-	cartSize--;
-		
+	if (bookFound)
+	{
+		cout << "Book: " << database->searchIdentifier(bookRemoved)->getTitle()
+			<< " was removed from the cart.\n";
+		cartSize--;
+	}
+	else
+	{
+		cout << "No book with identifier " << identifier << ".\n";
+	}
 }
 void Cashier::removeBookMenu()
 {
+	system("CLS");
 	if (cartSize > 0)
 	{
 		cout << "  ID   Price\t   Title\n" << endl;
@@ -123,37 +137,59 @@ void Cashier::removeBookMenu()
 				<< setw(12) << left << book->getRetailPrice()
 				<< setw(20) << left << book->getTitle()
 				<< endl;
+		}
+		cout << "\nWhat book would you like to remove? ";
+		int number = 0;
+		cin >> number;
 
-			cout << "\nWhat book would you like to remove? ";
-			int identifier = 0;
-			cin >> identifier;
+		if (number <= cartSize && number >= 1)
+		{
+			Book* book = database->searchIdentifier(cart[number - 1]);
 
-
-			if (identifier == cart[i])
+			char choice;
+			cout << "\nYou have chosen to remove " << book->getTitle() << " from your cart. \n\nIs this acceptable? (Y/N)> ";
+			cin >> choice;
+			if (choice == 'Y' || choice == 'y')
 			{
-				char choice;
-				cout << "\nYou have chosen to remove " << book->getTitle() << " from your list. \n\nIs this acceptable? (y/n)" << endl;
-				cin >> choice;
-				if (choice == 'y')
-				{
-					cout << "This book will be removed from your cart. " << endl;
-					removeBookFromCart(identifier);
-				}
-				if (choice == 'n')
-				{
-					cout << "You will move back to the main menu." << endl;
-				}
+				removeBookFromCart(cart[number - 1]);
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
 			}
+			else if (choice == 'N' || choice == 'n')
+			{
+				cout << book->getTitle() << " was not removed from your cart.\n" << endl;
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
+			else
+			{
+				cout << "That was an invalid choice.\n";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
+		}
+		else
+		{
+			cout << "That book was not found in the cart.\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
 		}
 	}
 	else
 	{
 		cout << "\n\n\t    The cart is empty!\n\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
 	}
-	system("PAUSE");
 }
 void Cashier::checkout()
 {
+	system("CLS");
 	double subtotal = 0;
 	for (int i = 0; i < cartSize; i++)
 	{
