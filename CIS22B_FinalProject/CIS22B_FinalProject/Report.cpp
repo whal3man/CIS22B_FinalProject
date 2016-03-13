@@ -100,10 +100,16 @@ void Report::listRetailValue()
 		}
 	} while (swap);
 
-	cout << "Retail Price\tTitle\n";
+	cout << "    Retail Price\tTitle\t\tISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << fixed << setprecision(2) << i + 1 << ". $" << books[i].getRetailPrice() << "\t" << books[i].getTitle() << endl;
+		cout << fixed << setprecision(2) 
+			<< setw(5) << right << i + 1 << ". $"
+			<< setw(10) << left << books[i].getRetailPrice()
+			<< setw(20) << books[i].getTitle() 
+			<< setw(12) << books[i].getIsbn()
+			<< endl;
+
 		sum += books[i].getRetailPrice();
 	}
 
