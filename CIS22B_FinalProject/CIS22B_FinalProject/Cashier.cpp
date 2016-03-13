@@ -19,7 +19,7 @@ void Cashier::listIsbn(string isbn)
 	{
 		if (books[i].getIsbn() == isbn)
 		{
-			cout << books[i];
+			cout << books[i] << endl;
 		}
 	}
 }
@@ -27,10 +27,66 @@ void Cashier::listIsbn(string isbn)
 
 void Cashier::addBookMenu()
 {
-	cout << "Enter in the ISBN of the book you want to purchase: " << endl;
-	string isbn;
-	cin >> isbn;
-	listIsbn(isbn);
+	int identifier = -1;
+	cout << "Enter the identifier of the book you wish to add to cart: ";
+	cin >> identifier;
+	Book* tempBook = database->searchIdentifier(identifier);
+	if (tempBook->getIdentifier() == -1)
+	{
+		cout << "A book with the identifier " << identifier << " was not found.\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
+	else
+	{
+		cout << "Does this look correct?\n\n" << *tempBook << endl;
+		cout << "Response (Y/N)> ";
+		string response;
+		cin >> response;
+		if (response == "y" || response == "Y")
+		{
+			bool bookAlreadyInCart = false;
+			for (int i = 0; i < cartSize; i++)
+			{
+				if (cart[i] == identifier)
+				{
+					bookAlreadyInCart = true;
+				}
+			}
+
+			if (bookAlreadyInCart)
+			{
+				cout << "That book is already in the cart.\n";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
+			else
+			{
+				cart[cartSize] = identifier;
+				cartSize++;
+				cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
+		}
+		else if (response == "n" || response == "N")
+		{
+			cout << "Exiting...\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+		else
+		{
+			cout << "Invalid response...\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+	}
 }
 
 void Cashier::removeBookFromCart(int identifier)
@@ -67,7 +123,7 @@ void Cashier::removeBookMenu()
 		if (identifier == cart[i])
 		{
 			char choice;
-			cout << "You have chosen to remove " << &database[cart[i]] << " from you list. Is this acceptable? (y/n)" << endl;
+			cout << "You have chosen to remove " << &database[cart[i]] << " from your list. Is this acceptable? (y/n)" << endl;
 			cin >> choice;
 			if (choice == 'y')
 			{
@@ -91,29 +147,70 @@ void Cashier::checkout()
 	}
 	cout << "Serendipity Book Sellers" << endl << endl;
 	cout << "Date: " << endl << endl;
-	cout << "      ISBN              Title				   Price       " << endl;
+	cout << "ISBN\t\tTitle\t\t\t\tPrice" << endl;
 	cout << "____________________________________________________________" << endl << endl;
 	for (int i = 0; i < cartSize; i++)
 	{
 		Book* book = database->searchIdentifier(cart[i]);
-		cout << book->getIsbn() << "\t" << book->getTitle() << "\t" << book->getRetailPrice();
+		cout << book->getIsbn() << "\t\t" << book->getTitle() << "\t\t\t\t" << book->getRetailPrice() << endl;
 	}
-	cout << "   069-12331-123   Living like a God: Travis Pham    $69.99" << endl;
-	
 	cout << "\t\t\t\t\t____________________" << endl << endl;
-	cout << "\t\t\t\t\tSubtotal: " << subtotal << endl << "\t\t\t\t\tTax: " << "Sales Tax @ 6.25%: " << (subtotal * 0.0625) << endl << "\t\t\t\t\tTotal: " << subtotal + subtotal*0.0625 << endl;
-	cout << endl << "Thank You for Shopping at Serendipity!" << endl;
-	system("PAUSE");
+	cout << "\t\tSubtotal:\t\t\t" << subtotal << endl << "\t\tTax: " << "Sales Tax @ 6.25%:\t\t" << (subtotal * 0.0625) << endl << "\t\tTotal:\t\t\t\t" << subtotal + subtotal*0.0625 << endl << endl;
+	cout << "Does this look correct? (Y/N)> ";
+	string response;
+	cin >> response;
+	if (response == "y" || response == "Y")
+	{
+		for (int i = 0; i < cartSize; i++)
+		{
+			database->removeBook(cart[i]);
+		}
+		cartSize = 0;
+		cout << "Transaction successful.\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
+	else if (response == "n" || response == "N")
+	{
+		cout << "Exiting...\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
+	else
+	{
+		cout << "Invalid response...\n";
+		cout << "Press return to continue.";
+		cin.ignore();
+		cin.get();
+	}
 }
 void Cashier::mainMenu()
 {
 	bool done = false;
 	while (!done)
 	{
-		cout << "What would you like to do?" << endl << endl << "Press '1' to add a book. " << endl << "Press '2' to go to checkout." << endl << "Press '3' to remove a book." << endl << "Press '4' to go back of the menu." << endl;
+		system("CLS");
+		cout << "\t\tSerendipity Booksellers\n\t\t\tCashier\n\n";
+		cout << "\t    1. Add a Book to the Cart\n";
+		cout << "\t    2. Proceed to Checkout\n";
+		cout << "\t    3. Remove a Book from the Cart\n";
+		cout << "\t    4. Exit\n";
+		cout << "\n\t     Enter your choice: ";
 		int choice = 0;
 		cin >> choice;
-		if (choice == 1)
+
+		if (cin.fail())
+		{
+			system("CLS");
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "That is an invalid response. Press return to continue.";
+			cin.get();
+			done = false;
+		}
+		else if (choice == 1)
 		{
 			addBookMenu();
 		}
