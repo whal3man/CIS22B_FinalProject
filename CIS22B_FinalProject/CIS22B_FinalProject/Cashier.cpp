@@ -192,7 +192,12 @@ void Cashier::mainMenu()
 	while (!done)
 	{
 		system("CLS");
-		cout << "What would you like to do?" << endl << endl << "Press '1' to add a book. " << endl << "Press '2' to go to checkout." << endl << "Press '3' to remove a book." << endl << "Press '4' to go back of the menu." << endl;
+		cout << "\t\tSerendipity Booksellers\n\t\t\tCashier\n\n";
+		cout << "\t    1. Add a Book to the Cart\n";
+		cout << "\t    2. Proceed to Checkout\n";
+		cout << "\t    3. Remove a Book from the Cart\n";
+		cout << "\t    4. Exit\n";
+		cout << "\n\t     Enter your choice: ";
 		int choice = 0;
 		cin >> choice;
 		if (choice == 1)
