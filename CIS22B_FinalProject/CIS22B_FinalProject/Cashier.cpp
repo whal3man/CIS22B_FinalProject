@@ -16,63 +16,66 @@ void Cashier::addBookMenu()
 {
 	system("CLS");
 	int identifier = -1;
-	cout << "Enter the identifier of the book you wish to add to cart: ";
-	cin >> identifier;
-	Book* tempBook = database->searchIdentifier(identifier);
-	if (tempBook->getIdentifier() == -1)
-	{
-		cout << "A book with the identifier " << identifier << " was not found.\n";
-		cout << "Press return to continue.";
-		cin.ignore();
-		cin.get();
-	}
-	else
-	{
-		cout << "Does this look correct?\n\n" << *tempBook << endl;
-		cout << "Response (Y/N)> ";
-		string response;
-		cin >> response;
-		if (response == "y" || response == "Y")
-		{
-			bool bookAlreadyInCart = false;
-			for (int i = 0; i < cartSize; i++)
-			{
-				if (cart[i] == identifier)
-				{
-					bookAlreadyInCart = true;
-				}
-			}
 
-			if (bookAlreadyInCart)
-			{
-				cout << "That book is already in the cart.\n";
-				cout << "Press return to continue.";
-				cin.ignore();
-				cin.get();
-			}
-			else
-			{
-				cart[cartSize] = identifier;
-				cartSize++;
-				cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
-				cout << "Press return to continue.";
-				cin.ignore();
-				cin.get();
-			}
-		}
-		else if (response == "n" || response == "N")
+	bool correctInput = false;
+	while (correctInput == false)
+	{
+		cout << "Enter the identifier of the book you wish to add to cart: ";
+		cin >> identifier;
+		Book* tempBook = database->searchIdentifier(identifier);
+		if (tempBook->getIdentifier() == -1)
 		{
-			cout << "Exiting...\n";
+			cout << "A book with the identifier " << identifier << " was not found.\n";
 			cout << "Press return to continue.";
 			cin.ignore();
 			cin.get();
 		}
 		else
 		{
-			cout << "Invalid response...\n";
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
+			cout << "Does this look correct?\n\n" << *tempBook << endl;
+			cout << "Response (Y/N)> ";
+			string response;
+			cin >> response;
+			if (response == "y" || response == "Y")
+			{
+				bool bookAlreadyInCart = false;
+				for (int i = 0; i < cartSize; i++)
+				{
+					if (cart[i] == identifier)
+					{
+						bookAlreadyInCart = true;
+					}
+				}
+				if (bookAlreadyInCart)
+				{
+					cout << "That book is already in the cart.\n";
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+				}
+				else
+				{
+					correctInput = true;
+					cart[cartSize] = identifier;
+					cartSize++;
+					cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+				}
+			}
+			else if (response == "n" || response == "N")
+			{
+				cout << "\nPlease try again.\n\n";
+				cin.ignore();
+			}
+			else
+			{
+				cout << "Invalid response...\n";
+				cout << "Press return to continue.";
+				cin.ignore();
+				cin.get();
+			}
 		}
 	}
 }
