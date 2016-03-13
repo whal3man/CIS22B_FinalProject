@@ -57,10 +57,10 @@ void Report::listInventory()
 		}
 	} while (swap);
 
-	cout << "\nTitle\t\t\tAuthor\t\tPublisher\t\tISBN\n";
+	cout << "\n\tTitle\t\t   Author\t      Publisher\t\t    ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << setw(5) << left << i + 1 << ". "
+		cout << setw(5) << right << i + 1 << ". "
 			<< setw(20) << left << books[i].getTitle()
 			<< setw(20) << left << books[i].getAuthor()
 			<< setw(20) << left << books[i].getPublisher()
@@ -130,27 +130,37 @@ void Report::listAge()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
+	bool swap;
 
-	for (int i = 0; i < size; i++)
+	do
 	{
-		string bookDateAdded1; //get title of the current index
-		string bookDateAdded2; //get title of the next index
-		bookDateAdded1 = books[i].getDateAdded();
-		for (int j = 0; j < size; j++)
+		swap = false;
+		for (int i = 0; i < size; i++)
 		{
-			if ((j + 1) != size) //if next book index == size
+
+			if ((i + 1) < size) //if next book index < size
 			{
-				bookDateAdded2 = books[j + 1].getDateAdded();
-				if (bookDateAdded1 > bookDateAdded2)
+				if (books[i].getDateAdded() < books[i + 1].getDateAdded())
 				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
+					Book temp = books[i + 1];
+					books[i + 1] = books[i];
+					books[i] = temp;
+					swap = true;
 				}
 			}
 		}
-		cout << i + 1 << ". " << books[i].getDateAdded() << endl;
+	} while (swap);
+	cout << "\tDate added\t\tTitle\t\tISBN\n";
+	for (int i = 0; i < size; i++)
+	{
+		cout << setw(5) << right
+			 << i + 1 << ". "
+			 << setw(20) << left << books[i].getDateAdded()
+			 << setw(20) << left << books[i].getTitle()
+			 << setw(12) << left << books[i].getIsbn()
+			 << endl;
 	}
+	cout << endl;
 }
 
 //A list of all books in the inventory, sorted by wholesale cost. The
