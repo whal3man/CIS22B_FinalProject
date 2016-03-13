@@ -60,7 +60,7 @@ void Report::listInventory()
 	cout << "\nTitle\t\t\tAuthor\t\tPublisher\t\tISBN\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << i + 1 << ". "
+		cout << setw(5) << left << i + 1 << ". "
 			<< setw(20) << left << books[i].getTitle()
 			<< setw(20) << left << books[i].getAuthor()
 			<< setw(20) << left << books[i].getPublisher()
@@ -175,7 +175,8 @@ void Report::listQuantity()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
-
+	int count = 0;
+	
 	BooksWithIsbn* isbnDatabase = new BooksWithIsbn[1024];
 	int numIsbns = 0;
 
@@ -202,16 +203,41 @@ void Report::listQuantity()
 			numIsbns++;
 		}
 	}
+	Book temp;
 
-	for (int i = 0; i < numIsbns; i++)
+	int sorted = 0;
+	while (sorted < numIsbns - 1)
 	{
-		cout << "There are " << isbnDatabase[i].numBookIdentifiers << " copies of "
-			<< database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
-			<< " with ISBN " << isbnDatabase[i].Isbn << endl;
+		int maxLocation = sorted;
+		int maxValue = isbnDatabase[sorted].numBookIdentifiers;
+		for (int i = sorted; i < numIsbns; i++)
+		{
+			if (isbnDatabase[i].numBookIdentifiers > maxValue)
+			{
+				maxLocation = i;
+				maxValue = isbnDatabase[i].numBookIdentifiers;
+			}
+		}
+		BooksWithIsbn temp = isbnDatabase[maxLocation];
+		isbnDatabase[maxLocation] = isbnDatabase[sorted];
+		isbnDatabase[sorted] = temp;
+		sorted++;
 	}
 
+	cout << "Quantity\t\tTitle\t\t\tISBN\n";
+	for (int i = 0; i < numIsbns; i++)
+	{
+		cout <<
+			setw(20) << left << isbnDatabase[i].numBookIdentifiers
+			<< setw(25) << left << database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
+			<< setw(20) << left << isbnDatabase[i].Isbn << endl;
+	}
+
+	cout << endl;
+	
 	delete[] isbnDatabase;
 }
+
 
 void Report::mainMenu()
 {
