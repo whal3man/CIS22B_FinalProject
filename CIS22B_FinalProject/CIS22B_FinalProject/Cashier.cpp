@@ -15,7 +15,7 @@ Cashier::Cashier(BookDatabase* dtbs)
 template <class Subtotal>
 Subtotal calcSubtotal(Subtotal amount)
 {
-	const double TAX = 0.0625;
+	const Subtotal TAX = 0.0625;
 	return amount * TAX;
 }
 
