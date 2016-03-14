@@ -12,6 +12,7 @@ private:
 	int identifierCount;
 	int size;
 	string databaseFile;
+	Book* invalidBook;		// a default book to be returned when a search comes up empty
 public:
 	// initializes the books array, sets identifier count to 1, and sets size to 0
 	BookDatabase();
