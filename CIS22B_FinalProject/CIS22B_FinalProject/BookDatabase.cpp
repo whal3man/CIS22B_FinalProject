@@ -5,6 +5,7 @@
 BookDatabase::BookDatabase()
 {
 	books = new Book[1024];
+	invalidBook = new Book();
 	identifierCount = 1;
 	size = 0;
 	databaseFile = "database.txt";
@@ -208,7 +209,7 @@ Book* BookDatabase::searchIdentifier(int identifier)
 		}
 		count++;
 	}
-	return &books[1023];
+	return invalidBook;
 }
 
 Book* BookDatabase::operator[](int i)
