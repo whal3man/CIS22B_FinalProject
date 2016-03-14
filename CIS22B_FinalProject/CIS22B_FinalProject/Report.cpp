@@ -70,6 +70,12 @@ void Report::listInventory()
 			 << setw(12) << left << books[i].getIsbn() << endl;
 	}
 	cout << endl;
+
+	//wait until user is done with the information
+	cout << "\n\t    Press return to continue.";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cin.get();
 }
 
 //A list of the retail value of all books in the inventory
@@ -100,13 +106,13 @@ void Report::listRetailValue()
 	} while (swap);
 
 	//output the total retail prices of the books in inventory sorted from least to greatest
-	cout << "    Retail Price\tTitle\t\tISBN\n\n";
+	cout << "    Retail Price\tTitle\t\t\t ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << fixed << setprecision(2) 
 			 << setw(5) << right << i + 1 << ". $"
-			 << setw(10) << left << books[i].getRetailPrice()
-			 << setw(20) << books[i].getTitle() 
+			 << setw(12) << left << books[i].getRetailPrice()
+			 << setw(30) << left << books[i].getTitle() 
 			 << setw(12) << books[i].getIsbn()
 			 << endl;
 		sum += books[i].getRetailPrice();
@@ -114,6 +120,12 @@ void Report::listRetailValue()
 
 	//print the total retail value
 	cout << fixed << setprecision(2) << "\nTotal Retail Value: $" << sum << endl << endl;
+
+	//wait until user is done with the information
+	cout << "\n\t    Press return to continue.";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cin.get();
 }
 
 //A list of the wholesale value of all books in the
@@ -144,13 +156,13 @@ void Report::listWholesaleValue()
 	} while (swap);
 
 	//output the books from least to greatest wholesale price
-	cout << " Wholesale Price\tTitle\t\tISBN\n\n";
+	cout << " Wholesale Price\tTitle\t\t\t ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << fixed << setprecision(2)
 			<< setw(5) << right << i + 1 << ". $"
-			<< setw(10) << left << books[i].getWholesaleCost()
-			<< setw(20) << books[i].getTitle()
+			<< setw(12) << left << books[i].getWholesaleCost()
+			<< setw(30) << books[i].getTitle()
 			<< setw(12) << books[i].getIsbn()
 			<< endl;
 		sum += books[i].getWholesaleCost();
@@ -158,6 +170,12 @@ void Report::listWholesaleValue()
 
 	//print the total retail value
 	cout << fixed << setprecision(2) << "\nTotal Wholesale Value: $" << sum << endl << endl;
+
+	//wait until user is done with the information
+	cout << "\n\t    Press return to continue.";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cin.get();
 }
 
 //A list of all books in the inventory, sorted by purchase date. The
@@ -186,17 +204,23 @@ void Report::listAge()
 		}
 	} while (swap);
 	//output the books sorted with the oldest book in the inventory shown first
-	cout << "\tDate added\t\tTitle\t\tISBN\n";
+	cout << "\tDate added\t\tTitle\t\t\t ISBN\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << setw(5) << right
 			 << i + 1 << ". "
 			 << setw(20) << left << books[i].getDateAdded()
-			 << setw(20) << left << books[i].getTitle()
+			 << setw(30) << left << books[i].getTitle()
 			 << setw(12) << left << books[i].getIsbn()
 			 << endl;
 	}
 	cout << endl;
+
+	//wait until user is done with the information
+	cout << "\n\t    Press return to continue.";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cin.get();
 }
 
 //A list of all books in the inventory, sorted by wholesale cost. The
@@ -227,19 +251,25 @@ void Report::listCost()
 	} while (swap);
 
 	//output the books listed with highest wholesale price first
-	cout << " Wholesale Price\tTitle\t\tISBN\n\n";
+	cout << " Wholesale Price\tTitle\t\t\t    ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << fixed << setprecision(2)
 			<< setw(5) << right << i + 1 << ". $"
-			<< setw(10) << left << books[i].getWholesaleCost()
-			<< setw(20) << books[i].getTitle()
+			<< setw(12) << left << books[i].getWholesaleCost()
+			<< setw(30) << books[i].getTitle()
 			<< setw(12) << books[i].getIsbn()
 			<< endl;
 		sum += books[i].getWholesaleCost();
 	}
 	//print the total retail value
 	cout << fixed << setprecision(2) << "\nTotal Wholesale Value: $" << sum << endl << endl;
+
+	//wait until user is done with the information
+	cout << "\n\t    Press return to continue.";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cin.get();
 }
 
 //A list of all books in the inventory sorted by quantity on hand.
@@ -300,15 +330,22 @@ void Report::listQuantity()
 	}
 
 	//output the books sorted by highest quantity first
-	cout << "Quantity\t\tTitle\t\t\tISBN\n";
+	cout << "Quantity\t\tTitle\t\t\t\tISBN\n";
 	for (int i = 0; i < numIsbns; i++)
 	{
 		cout <<
 			setw(20) << left << isbnDatabase[i].numBookIdentifiers
-			<< setw(25) << left << database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
+			<< setw(30) << left << database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
 			<< setw(20) << left << isbnDatabase[i].Isbn << endl;
 	}
 	cout << endl;
+
+	//wait until user is done with the information
+	cout << "\n\t    Press return to continue.";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cin.get();
+
 	delete[] isbnDatabase;
 }
 
@@ -321,6 +358,8 @@ void Report::mainMenu()
 	//ask user what they want to have shown
 	do
 	{
+		system("CLS");
+
 		cout << "\t\tReport Module\n\n";
 		cout << "\t    1. Inventory Listing\n";
 		cout << "\t    2. Inventory Retail Value\n";
@@ -369,10 +408,11 @@ void Report::mainMenu()
 		}
 		else
 		{
-			cout << "\n\t    Please enter a valid selection.\n\n";
+			cout << "\n\t    Please enter a valid selection.\n\t    Press return to continue.";
 			cin.clear();
 			cin.ignore(1000, '\n');
 			selection = 0;
+			cin.get();
 		}
 	} while (selection != 7); //7 here is return to front main menu
 	return;
