@@ -27,7 +27,6 @@ public:
 	void mainMenu();
 	// to remove book from removeBookMenu function
 	void removeBookFromCart(int identifier);
-	
 };
 
 #endif

@@ -12,6 +12,13 @@ Cashier::Cashier(BookDatabase* dtbs)
 	database = dtbs;
 }
 
+template <class Subtotal>
+Subtotal calcSubtotal(Subtotal amount)
+{
+	const double TAX = 0.0625;
+	return amount * TAX;
+}
+
 void Cashier::addBookMenu()
 {
 	system("CLS");
@@ -217,7 +224,7 @@ void Cashier::checkout()
 			cout << book->getIsbn() << "\t\t" << book->getTitle() << "\t\t\t\t" << book->getRetailPrice() << endl;
 		}
 		cout << "\t\t\t\t\t____________________" << endl << endl;
-		cout << "\t\tSubtotal:\t\t\t" << subtotal << endl << "\t\tTax: " << "Sales Tax @ 6.25%:\t\t" << (subtotal * 0.0625) << endl << "\t\tTotal:\t\t\t\t" << subtotal + subtotal*0.0625 << endl << endl;
+		cout << "\t\tSubtotal:\t\t\t" << subtotal << endl << "\t\tSales Tax @ 6.25%:\t\t" << calcSubtotal(subtotal) << endl << "\t\tTotal:\t\t\t\t" << subtotal + calcSubtotal(subtotal) << endl << endl;
 		cout << "Does this look correct? (Y/N)> ";
 		string response;
 		cin >> response;
