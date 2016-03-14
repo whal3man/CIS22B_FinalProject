@@ -59,6 +59,7 @@ void Report::listInventory()
 		}
 	} while (swap);
 
+	//list all books in the inventory with some relevant information for each book
 	cout << "\n\tTitle\t\t   Author\t      Publisher\t\t    ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
@@ -86,22 +87,19 @@ void Report::listRetailValue()
 	do
 	{
 		swap = false;
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < (size- 1 ); i++)
 		{
-
-			if ((i + 1) < size) //if next book index < size
+			if (books[i].getRetailPrice() > books[i + 1].getRetailPrice())
 			{
-				if (books[i].getRetailPrice() > books[i + 1].getRetailPrice())
-				{
-					Book temp = books[i];
-					books[i] = books[i + 1];
-					books[i + 1] = temp;
-					swap = true;
-				}
+				Book temp = books[i];
+				books[i] = books[i + 1];
+				books[i + 1] = temp;
+				swap = true;
 			}
 		}
 	} while (swap);
 
+	//output the total retail prices of the books in inventory sorted from least to greatest
 	cout << "    Retail Price\tTitle\t\tISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
@@ -133,22 +131,19 @@ void Report::listWholesaleValue()
 	do
 	{
 		swap = false;
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < (size - 1); i++)
 		{
-
-			if ((i + 1) < size) //if next book index < size
+			if (books[i].getWholesaleCost() > books[i + 1].getWholesaleCost())
 			{
-				if (books[i].getWholesaleCost() > books[i + 1].getWholesaleCost())
-				{
-					Book temp = books[i];
-					books[i] = books[i + 1];
-					books[i + 1] = temp;
-					swap = true;
-				}
+				Book temp = books[i];
+				books[i] = books[i + 1];
+				books[i + 1] = temp;
+				swap = true;
 			}
 		}
 	} while (swap);
 
+	//output the books from least to greatest wholesale price
 	cout << " Wholesale Price\tTitle\t\tISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
@@ -179,21 +174,18 @@ void Report::listAge()
 	do
 	{
 		swap = false;
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < (size - 1); i++)
 		{
-
-			if ((i + 1) < size) //if next book index < size
+			if (books[i].getDateAdded() < books[i + 1].getDateAdded())
 			{
-				if (books[i].getDateAdded() < books[i + 1].getDateAdded())
-				{
-					Book temp = books[i + 1];
-					books[i + 1] = books[i];
-					books[i] = temp;
-					swap = true;
-				}
+				Book temp = books[i + 1];
+				books[i + 1] = books[i];
+				books[i] = temp;
+				swap = true;
 			}
 		}
 	} while (swap);
+	//output the books sorted with the oldest book in the inventory shown first
 	cout << "\tDate added\t\tTitle\t\tISBN\n";
 	for (int i = 0; i < size; i++)
 	{
@@ -216,29 +208,25 @@ void Report::listCost()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
-
 	bool swap;
 	double sum = 0;
 
 	do
 	{
 		swap = false;
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < (size - 1); i++)
 		{
-
-			if ((i + 1) < size) //if next book index < size
+			if (books[i].getWholesaleCost() < books[i + 1].getWholesaleCost())
 			{
-				if (books[i].getWholesaleCost() < books[i + 1].getWholesaleCost())
-				{
-					Book temp = books[i];
-					books[i] = books[i + 1];
-					books[i + 1] = temp;
-					swap = true;
-				}
+				Book temp = books[i];
+				books[i] = books[i + 1];
+				books[i + 1] = temp;
+				swap = true;
 			}
 		}
 	} while (swap);
 
+	//output the books listed with highest wholesale price first
 	cout << " Wholesale Price\tTitle\t\tISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
@@ -250,11 +238,8 @@ void Report::listCost()
 			<< endl;
 		sum += books[i].getWholesaleCost();
 	}
-
 	//print the total retail value
 	cout << fixed << setprecision(2) << "\nTotal Wholesale Value: $" << sum << endl << endl;
-
-	
 }
 
 //A list of all books in the inventory sorted by quantity on hand.
@@ -314,6 +299,7 @@ void Report::listQuantity()
 		sorted++;
 	}
 
+	//output the books sorted by highest quantity first
 	cout << "Quantity\t\tTitle\t\t\tISBN\n";
 	for (int i = 0; i < numIsbns; i++)
 	{
@@ -322,9 +308,7 @@ void Report::listQuantity()
 			<< setw(25) << left << database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
 			<< setw(20) << left << isbnDatabase[i].Isbn << endl;
 	}
-
 	cout << endl;
-	
 	delete[] isbnDatabase;
 }
 
@@ -335,61 +319,61 @@ void Report::mainMenu()
 	int selection = 0; //to hold the user selection
 
 	//ask user what they want to have shown
-		do
+	do
+	{
+		cout << "\t\tReport Module\n\n";
+		cout << "\t    1. Inventory Listing\n";
+		cout << "\t    2. Inventory Retail Value\n";
+		cout << "\t    3. Inventory Wholesale Value\n";
+		cout << "\t    4. List by Age\n";
+		cout << "\t    5. List by Quantity\n";
+		cout << "\t    6. List by Cost\n";
+		cout << "\t    7. Return to Main Menu\n";
+		cout << "\n\n\tPlease enter a number corresponding to a selection: ";
+		if (cin >> selection)
 		{
-			cout << "\t\tReport Module\n\n";
-			cout << "\t    1. Inventory Listing\n";
-			cout << "\t    2. Inventory Retail Value\n";
-			cout << "\t    3. Inventory Wholesale Value\n";
-			cout << "\t    4. List by Age\n";
-			cout << "\t    5. List by Quantity\n";
-			cout << "\t    6. List by Cost\n";
-			cout << "\t    7. Return to Main Menu\n";
-			cout << "\n\n\tPlease enter a number corresponding to a selection: ";
-			if (cin >> selection)
+			//run the choice selected 1-6
+			//break if == 7
+			if (selection == 1)
 			{
-				//run the choice selected 1-6
-				//break if == 7
-				if (selection == 1)
-				{
-					listInventory();
-				}
-				else if (selection == 2)
-				{
-					listRetailValue();
-				}
-				else if (selection == 3)
-				{
-					listWholesaleValue();
-				}
-				else if (selection == 4)
-				{
-					listAge();
-				}
-				else if (selection == 5)
-				{
-					listQuantity();
-				}
-				else if (selection == 6)
-				{
-					listCost();
-				}
-				else if (selection == 7)
-				{
-					break;
-				}
-				else
-				{
-					cout << "\n\t    Please enter a valid selection.\n\n";
-				}
+				listInventory();
+			}
+			else if (selection == 2)
+			{
+				listRetailValue();
+			}
+			else if (selection == 3)
+			{
+				listWholesaleValue();
+			}
+			else if (selection == 4)
+			{
+				listAge();
+			}
+			else if (selection == 5)
+			{
+				listQuantity();
+			}
+			else if (selection == 6)
+			{
+				listCost();
+			}
+			else if (selection == 7)
+			{
+				break;
 			}
 			else
 			{
 				cout << "\n\t    Please enter a valid selection.\n\n";
-				cin.clear();
-				cin.ignore(1000, '\n');
-				selection = 0;
 			}
-		} while (selection != 7); //7 here is return to front main menu
+		}
+		else
+		{
+			cout << "\n\t    Please enter a valid selection.\n\n";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			selection = 0;
+		}
+	} while (selection != 7); //7 here is return to front main menu
 	return;
 }
