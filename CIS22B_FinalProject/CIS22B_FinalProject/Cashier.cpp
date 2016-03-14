@@ -12,6 +12,13 @@ Cashier::Cashier(BookDatabase* dtbs)
 	database = dtbs;
 }
 
+template <class Subtotal>
+Subtotal calcSubtotal(Subtotal amount)
+{
+	const Subtotal TAX = 0.0625;
+	return amount * TAX;
+}
+
 void Cashier::addBookMenu()
 {
 	system("CLS");
@@ -20,62 +27,72 @@ void Cashier::addBookMenu()
 	bool correctInput = false;
 	while (correctInput == false)
 	{
-		cout << "Enter the identifier of the book you wish to add to cart: ";
-		cin >> identifier;
-		Book* tempBook = database->searchIdentifier(identifier);
-		if (tempBook->getIdentifier() == -1)
+		cout << "\nEnter the identifier of the book you wish to add to cart: ";
+		if (cin >> identifier)
 		{
-			cout << "A book with the identifier " << identifier << " was not found.\n";
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-		}
-		else
-		{
-			cout << "Does this look correct?\n\n" << *tempBook << endl;
-			cout << "Response (Y/N)> ";
-			string response;
-			cin >> response;
-			if (response == "y" || response == "Y")
+			Book* tempBook = database->searchIdentifier(identifier);
+
+			if (tempBook->getIdentifier() <= 0)
 			{
-				bool bookAlreadyInCart = false;
-				for (int i = 0; i < cartSize; i++)
-				{
-					if (cart[i] == identifier)
-					{
-						bookAlreadyInCart = true;
-					}
-				}
-				if (bookAlreadyInCart)
-				{
-					cout << "That book is already in the cart.\n";
-					cout << "Press return to continue.";
-					cin.ignore();
-					cin.get();
-				}
-				else
-				{
-					correctInput = true;
-					cart[cartSize] = identifier;
-					cartSize++;
-					cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
-					cout << "Press return to continue.";
-					cin.ignore();
-					cin.get();
-				}
-			}
-			else if (response == "n" || response == "N")
-			{
-				cout << "\nPlease try again.\n\n";
-				cin.ignore();
-			}
-			else
-			{
-				cout << "Invalid response...\n";
+				correctInput = true;
+				cout << "A book with the identifier " << identifier << " was not found.\n";
 				cout << "Press return to continue.";
 				cin.ignore();
 				cin.get();
 			}
+			else
+			{
+				cout << "Does this look correct?\n\n" << *tempBook << endl;
+				cout << "Response (Y/N)> ";
+				string response;
+				cin >> response;
+				if (response == "y" || response == "Y")
+				{
+					bool bookAlreadyInCart = false;
+					for (int i = 0; i < cartSize; i++)
+					{
+						if (cart[i] == identifier)
+						{
+							bookAlreadyInCart = true;
+						}
+					}
+					if (bookAlreadyInCart)
+					{
+						cout << "That book is already in the cart.\n";
+						cout << "Press return to continue.";
+						cin.ignore();
+						cin.get();
+					}
+					else
+					{
+						correctInput = true;
+						cart[cartSize] = identifier;
+						cartSize++;
+						cout << "The book " << tempBook->getTitle() << " was added to the cart.\n";
+						cout << "Press return to continue.";
+						cin.ignore();
+						cin.get();
+					}
+				}
+				else if (response == "n" || response == "N")
+				{
+					cout << "\nPlease try again.\n\n";
+					cin.ignore();
+				}
+				else
+				{
+					cout << "Invalid response. Please try again\n";
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+				}
+			}
+		}
+		else
+		{
+			cout << "Invalid response. Please try again.\n\n";
+			cin.clear();
+			cin.ignore(1000, '\n');
 		}
 	}
 }
@@ -132,7 +149,7 @@ void Cashier::removeBookMenu()
 		{
 			Book* book = database->searchIdentifier(cart[i]);
 
-			cout << setw(4) << right << i + 1 << ". " << "$"
+			cout << setw(4) << right << book->getIdentifier() << ". " << "$"
 				<< setprecision(2) << fixed
 				<< setw(12) << left << book->getRetailPrice()
 				<< setw(20) << left << book->getTitle()
@@ -191,46 +208,56 @@ void Cashier::checkout()
 {
 	system("CLS");
 	double subtotal = 0;
-	for (int i = 0; i < cartSize; i++)
-	{
-		subtotal += database->getPrice(cart[i]);
-	}
-	cout << "Serendipity Book Sellers" << endl << endl;
-	cout << "Date: " << endl << endl;
-	cout << "ISBN\t\tTitle\t\t\t\tPrice" << endl;
-	cout << "____________________________________________________________" << endl << endl;
-	for (int i = 0; i < cartSize; i++)
-	{
-		Book* book = database->searchIdentifier(cart[i]);
-		cout << book->getIsbn() << "\t\t" << book->getTitle() << "\t\t\t\t" << book->getRetailPrice() << endl;
-	}
-	cout << "\t\t\t\t\t____________________" << endl << endl;
-	cout << "\t\tSubtotal:\t\t\t" << subtotal << endl << "\t\tTax: " << "Sales Tax @ 6.25%:\t\t" << (subtotal * 0.0625) << endl << "\t\tTotal:\t\t\t\t" << subtotal + subtotal*0.0625 << endl << endl;
-	cout << "Does this look correct? (Y/N)> ";
-	string response;
-	cin >> response;
-	if (response == "y" || response == "Y")
+	if (cartSize > 0)
 	{
 		for (int i = 0; i < cartSize; i++)
 		{
-			database->removeBook(cart[i]);
+			subtotal += database->getPrice(cart[i]);
 		}
-		cartSize = 0;
-		cout << "Transaction successful.\n";
-		cout << "Press return to continue.";
-		cin.ignore();
-		cin.get();
-	}
-	else if (response == "n" || response == "N")
-	{
-		cout << "Exiting...\n";
-		cout << "Press return to continue.";
-		cin.ignore();
-		cin.get();
+		cout << "Serendipity Book Sellers" << endl << endl;
+		cout << "Date: " << endl << endl;
+		cout << "ISBN\t\tTitle\t\t\t\tPrice" << endl;
+		cout << "____________________________________________________________" << endl << endl;
+		for (int i = 0; i < cartSize; i++)
+		{
+			Book* book = database->searchIdentifier(cart[i]);
+			cout << book->getIsbn() << "\t\t" << book->getTitle() << "\t\t\t\t" << book->getRetailPrice() << endl;
+		}
+		cout << "\t\t\t\t\t____________________" << endl << endl;
+		cout << "\t\tSubtotal:\t\t\t" << subtotal << endl << "\t\tSales Tax @ 6.25%:\t\t" << calcSubtotal(subtotal) << endl << "\t\tTotal:\t\t\t\t" << subtotal + calcSubtotal(subtotal) << endl << endl;
+		cout << "Does this look correct? (Y/N)> ";
+		string response;
+		cin >> response;
+		if (response == "y" || response == "Y")
+		{
+			for (int i = 0; i < cartSize; i++)
+			{
+				database->removeBook(cart[i]);
+			}
+			cartSize = 0;
+			cout << "Transaction successful.\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+		else if (response == "n" || response == "N")
+		{
+			cout << "Exiting...\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
+		else
+		{
+			cout << "Invalid response. Please try again.\n";
+			cout << "Press return to continue.";
+			cin.ignore();
+			cin.get();
+		}
 	}
 	else
 	{
-		cout << "Invalid response...\n";
+		cout << "\n\n\t    The cart is empty!\n\n";
 		cout << "Press return to continue.";
 		cin.ignore();
 		cin.get();
