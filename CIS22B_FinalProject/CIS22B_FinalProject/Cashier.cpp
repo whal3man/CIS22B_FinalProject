@@ -20,16 +20,14 @@ void Cashier::addBookMenu()
 	bool correctInput = false;
 	while (correctInput == false)
 	{
-		cout << "Enter the identifier of the book you wish to add to cart or 0 to exit: ";
+		cout << "\nEnter the identifier of the book you wish to add to cart or 0 to exit: ";
 		if (cin >> identifier)
 		{
 			Book* tempBook = database->searchIdentifier(identifier);
-			if (identifier == 0)
+
+			if (tempBook->getIdentifier() <= 0)
 			{
 				correctInput = true;
-			}
-			else if (tempBook->getIdentifier() == -1)
-			{
 				cout << "A book with the identifier " << identifier << " was not found.\n";
 				cout << "Press return to continue.";
 				cin.ignore();
