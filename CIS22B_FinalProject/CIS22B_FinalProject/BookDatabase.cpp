@@ -426,204 +426,258 @@ void BookDatabase::lookupBookMenu()
 		cout << "\t    9. Exit\n";
 		cout << "\n\t     Enter your choice: ";
 		int response;
-		cin >> response;
 
-		bool pubFound = false;
-		string publisher;
-		string title;
-		bool titleFound = false;
-		string author;
-		bool authorFound = false;
-		bool idenFound = false;
-		int identifier;
-		bool isbnFound = false;
-		string isbn;
-		bool dateFound = false;
-		string dateadded;
-		bool retailFound = false;
-		double retailPrice;
-		double wholsaleCost;
-		bool wholeFound = false;
-
-		switch (response)
+		if (cin >> response)
 		{
-		case 1:
-			cout << "Enter the identifier you are looking for: ";
-			cin >> identifier;
-			cout << endl;
-			for (int i = 0; i < size; i++)
+			bool pubFound = false;
+			string publisher;
+			string title;
+			bool titleFound = false;
+			string author;
+			bool authorFound = false;
+			bool idenFound = false;
+			int identifier;
+			bool isbnFound = false;
+			string isbn;
+			bool dateFound = false;
+			string dateadded;
+			bool retailFound = false;
+			double retailPrice;
+			double wholsaleCost;
+			bool wholeFound = false;
+			bool correctResponse = false;
+
+			while (correctResponse == false)
 			{
-				if (books[i].getIdentifier() == identifier)
+				switch (response)
 				{
-					cout << books[i] << endl;
-					idenFound = true;
+				case 1:
+					cout << "Enter the identifier you are looking for: ";
+					if (cin >> identifier)
+					{
+						correctResponse = true;
+						cout << endl;
+						for (int i = 0; i < size; i++)
+						{
+							if (books[i].getIdentifier() == identifier)
+							{
+								cout << books[i] << endl;
+								idenFound = true;
+							}
+						}
+						cout << endl;
+						if (!idenFound)
+						{
+							cout << "No book with that identifier was found.\n";
+						}
+						else idenFound = false;
+						cout << "Press return to continue.\n\n";
+						cin.ignore();
+						cin.get();
+					}
+					else
+					{
+						cout << "Invalid response. Please try again.\n\n";
+						cin.clear();
+						cin.ignore(1000, '\n');
+					}
+	
+					break;
+				case 2:
+					correctResponse = true;
+					cout << "Enter the title you want to search for: ";
+					cin >> title;
+					cout << endl;
+					for (int i = 0; i < size; i++)
+					{
+						if (books[i].getTitle().find(title) != std::string::npos)
+						{
+							cout << books[i] << endl;
+							titleFound = true;
+						}
+					}
+					cout << endl;
+					if (!titleFound)
+					{
+						cout << "No book with that title was found.\n";
+					}
+					else titleFound = false;
+					cout << "Press return to continue.\n\n";
+					cin.ignore();
+					cin.get();
+					break;
+				case 3:
+					correctResponse = true;
+					cout << "Enter the author you want to search for: ";
+					cin >> author;
+					cout << endl;
+					for (int i = 0; i < size; i++)
+					{
+						if (books[i].getAuthor().find(author) != std::string::npos)
+						{
+							cout << books[i] << endl;
+							authorFound = true;
+						}
+					}
+					cout << endl;
+					if (!authorFound)
+					{
+						cout << "No book with that author was found.\n";
+					}
+					else authorFound = false;
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+					break;
+				case 4:
+					correctResponse = true;
+					cout << "Enter the ISBN you are looking for: ";
+					cin >> isbn;
+					cout << endl;
+					for (int i = 0; i < size; i++)
+					{
+						if (books[i].getIsbn() == isbn)
+						{
+							cout << books[i] << endl;
+							isbnFound = true;
+						}
+					}
+					cout << endl;
+					if (!isbnFound)
+					{
+						cout << "No book with that ISBN was found.\n";
+					}
+					else isbnFound = false;
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+					break;
+				case 5:
+					correctResponse = true;
+					cout << "Enter the publisher you want to search for: ";
+					cin >> publisher;
+					cout << endl;
+					for (int i = 0; i < size; i++)
+					{
+						if (books[i].getPublisher().find(publisher) != std::string::npos)
+						{
+							cout << books[i] << endl;
+							pubFound = true;
+						}
+					}
+					cout << endl;
+					if (!pubFound)
+					{
+						cout << "No book with that publisher was found.\n";
+					}
+					else pubFound = false;
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+					break;
+				case 6:
+					correctResponse = true;
+					cout << "Enter the date added you are looking for: ";
+					cin >> dateadded;
+					cout << endl;
+					for (int i = 0; i < size; i++)
+					{
+						if (books[i].getDateAdded() == dateadded)
+						{
+							cout << books[i] << endl;
+							dateFound = true;
+						}
+					}
+					cout << endl;
+					if (!dateFound)
+					{
+						cout << "No book with that publisher was found.\n";
+					}
+					else dateFound = false;
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+					break;
+				case 7:
+					cout << "Enter the retail price you are looking for: ";
+					if (cin >> retailPrice)
+					{
+						correctResponse = true;
+						cout << endl;
+						for (int i = 0; i < size; i++)
+						{
+							if (books[i].getRetailPrice() == retailPrice)
+							{
+								cout << books[i] << endl;
+								retailFound = true;
+							}
+						}
+						cout << endl;
+						if (!retailFound)
+						{
+							cout << "No book with that retail price was found.\n";
+						}
+						else retailFound = false;
+						cout << "Press return to continue.\n\n";
+						cin.ignore();
+						cin.get();
+					}
+					else
+					{
+						cout << "Invalid response. Please try again.\n\n";
+						cin.clear();
+						cin.ignore(1000, '\n');
+					}
+					break;
+				case 8:
+					cout << "Enter the wholesale cost you are looking for: ";
+					if (cin >> wholsaleCost)
+					{
+						correctResponse = true;
+						cout << endl;
+						for (int i = 0; i < size; i++)
+						{
+							if (books[i].getWholesaleCost() == wholsaleCost)
+							{
+								cout << books[i] << endl;
+								wholeFound = true;
+							}
+						}
+						cout << endl;
+						if (!wholeFound)
+						{
+							cout << "No book with that wholesale cost was found.\n";
+						}
+						else wholeFound = false;
+						cout << "Press return to continue.\n\n";
+						cin.ignore();
+						cin.get();
+					}
+					else
+					{
+						cout << "Invalid response. Please try again.\n\n";
+						cin.clear();
+						cin.ignore(1000, '\n');
+					}
+					break;
+				case 9:
+					correctResponse = true;
+					done = true;
+					break;
+				default:
+					cout << "Invalid response. ";
+					cout << "Press return to continue.";
+					cin.ignore();
+					cin.get();
+					break;
 				}
 			}
-			cout << endl;
-			if (!idenFound)
-			{
-				cout << "No book with that identifier was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 2:
-			cout << "Enter the title you want to search for: ";
-			cin >> title;
-			cout << endl;
-			for (int i = 0; i < size; i++)
-			{
-				if (books[i].getTitle().find(title) != std::string::npos)
-				{
-					cout << books[i] << endl;
-					titleFound = true;
-				}
-			}
-			cout << endl;
-			if (!titleFound)
-			{
-				cout << "No book with that title was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 3:
-			cout << "Enter the author you want to search for: ";
-			cin >> author;
-			cout << endl;
-			for (int i = 0; i < size; i++)
-			{
-				if (books[i].getAuthor().find(author) != std::string::npos)
-				{
-					cout << books[i] << endl;
-					authorFound = true;
-				}
-			}
-			cout << endl;
-			if (!authorFound)
-			{
-				cout << "No book with that author was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 4:
-			cout << "Enter the ISBN you are looking for: ";
-			cin >> isbn;
-			cout << endl;
-			for (int i = 0; i < size; i++)
-			{
-				if (books[i].getIsbn() == isbn)
-				{
-					cout << books[i] << endl;
-					isbnFound = true;
-				}
-			}
-			cout << endl;
-			if (!isbnFound)
-			{
-				cout << "No book with that ISBN was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 5:
-			cout << "Enter the publisher you want to search for: ";
-			cin >> publisher;
-			cout << endl;
-			for (int i = 0; i < size; i++)
-			{
-				if (books[i].getPublisher().find(publisher) != std::string::npos)
-				{
-					cout << books[i] << endl;
-					pubFound = true;
-				}
-			}
-			cout << endl;
-			if (!pubFound)
-			{
-				cout << "No book with that publisher was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 6:
-			cout << "Enter the date added you are looking for: ";
-			cin >> dateadded;
-			cout << endl;
-			for (int i = 0; i < size; i++)
-			{
-				if (books[i].getDateAdded() == dateadded)
-				{
-					cout << books[i] << endl;
-					dateFound = true;
-				}
-			}
-			cout << endl;
-			if (!dateFound)
-			{
-				cout << "No book with that publisher was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 7:
-			cout << "Enter the retail price you are looking for: ";
-			cin >> retailPrice;
-			cout << endl;
-			for (int i = 0; i < size; i++)
-			{
-				if (books[i].getRetailPrice() == retailPrice)
-				{
-					cout << books[i] << endl;
-					retailFound = true;
-				}
-			}
-			cout << endl;
-			if (!retailFound)
-			{
-				cout << "No book with that retail price was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 8:
-			cout << "Enter the wholesale cost you are looking for: ";
-			cin >> wholsaleCost;
-			cout << endl;
-			for (int i = 0; i < size; i++)
-			{
-				if (books[i].getWholesaleCost() == wholsaleCost)
-				{
-					cout << books[i] << endl;
-					wholeFound = true;
-				}
-			}
-			cout << endl;
-			if (!wholeFound)
-			{
-				cout << "No book with that wholesale cost was found.\n";
-			}
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
-		case 9:
-			done = true;
-			break;
-		default:
+		}
+		else
+		{
 			cout << "Invalid response. ";
-			cout << "Press return to continue.";
-			cin.ignore();
-			cin.get();
-			break;
+			cin.clear();
+			cin.ignore(1000, '\n');
 		}
 	}
 }
