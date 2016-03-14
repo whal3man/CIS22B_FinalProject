@@ -132,7 +132,7 @@ void Cashier::removeBookMenu()
 		{
 			Book* book = database->searchIdentifier(cart[i]);
 
-			cout << setw(4) << right << i + 1 << ". " << "$"
+			cout << setw(4) << right << book->getIdentifier() << ". " << "$"
 				<< setprecision(2) << fixed
 				<< setw(12) << left << book->getRetailPrice()
 				<< setw(20) << left << book->getTitle()
