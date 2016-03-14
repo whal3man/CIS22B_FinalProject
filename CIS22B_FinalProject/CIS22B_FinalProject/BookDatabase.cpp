@@ -123,19 +123,11 @@ void BookDatabase::addBook(Book book)
 {
 	try
 	{
-		if (size >= 1024)
-		{
-			char except[128] = "Unable to add book to database because the database is full.\n\0";
-			throw except;
-		}
-		else
-		{
-			books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
-				book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
-			identifierCount++;
-			size++;
-			writeFile();
-		}
+		books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
+			book.getWholesaleCost(), book.getRetailPrice(), book.getDateAdded(), identifierCount);
+		identifierCount++;
+		size++;
+		writeFile();
 	}
 	catch (char e[])
 	{
@@ -353,6 +345,14 @@ void BookDatabase::addBookMenu()
 				else if (numBooksToAdd < 0)
 				{
 					cout << "That is an invalid number of books.\n";
+				}
+				else if (numBooksToAdd > 1024 - (identifierCount - 1))
+				{
+					done = true;
+					cout << "\nDatabase will be full! Database can have a maximum of 1024 books.\n";
+					cout << "\nPress return to continue.";
+					cin.ignore(1000, '\n');
+					cin.get();
 				}
 				else
 				{
