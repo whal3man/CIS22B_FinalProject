@@ -215,14 +215,14 @@ void Cashier::checkout()
 		}
 		cout << "Serendipity Book Sellers" << endl << endl;
 		cout << "Date: " << endl << endl;
-		cout << "ISBN\t\tTitle\t\t\t\t\tPrice" << endl;
+		cout << "ISBN\t\t\tTitle\t\t\t\tPrice" << endl;
 		cout << "______________________________________________________________" << endl << endl;
 		for (int i = 0; i < cartSize; i++)
 		{
 			Book* book = database->searchIdentifier(cart[i]);
-			cout << setw(16) << left << book->getIsbn()
+			cout << setw(24) << left << book->getIsbn()
 				 << setw(30) << left << book->getTitle()
-				 << setw(14) << right << book->getRetailPrice() << endl;
+				 << setw(7) << right << book->getRetailPrice() << endl;
 		}
 		cout << "\t\t\t\t\t______________________" << endl << endl;
 		cout << "\t\tSubtotal:\t\t\t\t" << subtotal << endl
