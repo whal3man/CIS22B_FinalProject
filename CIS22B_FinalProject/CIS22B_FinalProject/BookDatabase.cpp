@@ -121,6 +121,7 @@ string BookDatabase::getDatabaseFile()
 void BookDatabase::addBook(Book book)
 {
 	//adds a book with the specifications that the user inputs
+	//or throws an error if there is one
 	try
 	{
 		books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
@@ -374,12 +375,14 @@ void BookDatabase::addBookMenu()
 				}
 				else
 				{
+					//adds the number of books to the database that the user said to add
 					for (int i = 0; i < numBooksToAdd; i++)
 					{
 						try
 						{
 							addBook(a);
 						}
+						//catches an error if there is one
 						catch (char e[])
 						{
 							cout << e;
@@ -399,6 +402,8 @@ void BookDatabase::addBookMenu()
 				}
 			}
 		}
+		//if the user enters n or N 
+		//exit to the previous menu, but waits fot he user to press enter
 		else if (response == "n" || response == "N")
 		{
 			cout << "Exiting...\n";
@@ -407,6 +412,7 @@ void BookDatabase::addBookMenu()
 			cin.ignore();
 			cin.get();
 		}
+		//otherwise if the user adds something that is not n or N use this statement
 		else
 		{
 			cout << "Invalid response.\n";
@@ -418,11 +424,13 @@ void BookDatabase::addBookMenu()
 }
 void BookDatabase::removeBookMenu()
 {
+	//asks the user to enter the identifier of the book that they want to delete then then calls the removebook function
 	system("CLS");
 	int identifier;
 	cout << "Enter the identifier of the book that you want to remove: ";
 	if (cin >> identifier)
 		removeBook(identifier);
+	//used if there is an invalid identifier
 	else
 	{
 		cout << "That is an invalid identifier. Press return to continue.";
@@ -434,6 +442,7 @@ void BookDatabase::removeBookMenu()
 
 void BookDatabase::lookupBookMenu()
 {
+	//displays the BookDatabase menu
 	bool done = false;
 	while (!done)
 	{
@@ -453,6 +462,7 @@ void BookDatabase::lookupBookMenu()
 
 		if (cin >> response)
 		{
+			//creates all the needed variables for this function
 			bool pubFound = false;
 			string publisher;
 			string title;
@@ -473,6 +483,14 @@ void BookDatabase::lookupBookMenu()
 
 			while (correctResponse == false)
 			{
+				//switch statement to catch the response of the user
+				/*
+				READ FOR EXPLANAITON OF FOLLOWING SWITCH STATEMENT!!
+				-each of these cases will run thoruugh each of the books looking for each of its respective variables
+				-for everything that does not have to match exactly (title, author, publisher) making it possible
+				to search for parts of these and come up with all the titles, authors or publisher with that string in
+				their name.
+				*/
 				switch (response)
 				{
 				case 1:
@@ -685,10 +703,12 @@ void BookDatabase::lookupBookMenu()
 					}
 					break;
 				case 9:
+					//sets the correctresponse and done to true, which exits the loop and continues with the program
 					correctResponse = true;
 					done = true;
 					break;
 				default:
+					//default to tell use that they entered in invalid response
 					cout << "Invalid response. ";
 					cout << "Press return to continue.";
 					cin.ignore();
@@ -715,9 +735,11 @@ void BookDatabase::changeBook()
 	{
 		system("CLS");
 		cout << "Enter the identifier of the book you would like to change: ";
+		
 		if (cin >> identifier)
 		{
 			Book* book = searchIdentifier(identifier); //we only need to get the identifier once per user input
+			//if the book does not exist then this will be used
 			if (book->getIdentifier() == -1)
 			{
 				cout << "A book with that identifier does not exist.\n";
@@ -725,8 +747,10 @@ void BookDatabase::changeBook()
 				cin.ignore();
 				cin.get();
 			}
+			//if the book identifier exists, run this
 			else
 			{
+				//dispays the menu
 				cout << endl << *book << endl;
 				cout << "What would you like to change?" << endl; // change from "that book" to the actual title for clarity
 				cout << "1. Title" << endl;
@@ -741,6 +765,14 @@ void BookDatabase::changeBook()
 				cin >> choice;
 				if (!(cin.fail()))
 				{
+					/*
+					READ THIS FOR SWITCH STATEMENT EXPLANATION:
+					-each one
+						-asks the user which the new <blank> is
+						-points to the respective thing  
+						-then prints the new <choice>
+						-then writes to file
+					*/
 					switch (choice)
 					{
 					case 1:
