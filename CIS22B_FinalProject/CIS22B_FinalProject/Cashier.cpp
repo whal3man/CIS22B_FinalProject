@@ -149,26 +149,25 @@ void Cashier::removeBookMenu()
 		{
 			Book* book = database->searchIdentifier(cart[i]);
 
-			cout << setw(4) << right << book->getIdentifier() << ". " << "$"
+			cout << setw(4) << right << i + 1 << ". " << "$"
 				<< setprecision(2) << fixed
 				<< setw(12) << left << book->getRetailPrice()
 				<< setw(20) << left << book->getTitle()
 				<< endl;
 		}
-		cout << "\nWhat book would you like to remove? ";
+		cout << "\nWhat is the ID of the book you want to remove? ";
 		int number = 0;
 		cin >> number;
 
 		if (number <= cartSize && number >= 1)
 		{
-			Book* book = database->searchIdentifier(cart[number - 1]);
-
+			Book* book = database->searchIdentifier(cart[number -1]);
 			char choice;
 			cout << "\nYou have chosen to remove " << book->getTitle() << " from your cart. \n\nIs this acceptable? (Y/N)> ";
 			cin >> choice;
 			if (choice == 'Y' || choice == 'y')
 			{
-				removeBookFromCart(cart[number - 1]);
+				removeBookFromCart(cart[number -1]);
 				cout << "Press return to continue.";
 				cin.ignore();
 				cin.get();
