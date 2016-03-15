@@ -4,16 +4,13 @@
 
 BookDatabase::BookDatabase()
 {
+	//creates a book array of size 1024
+	//initiializes indentifiercount, size and databaseFile
 	books = new Book[1024];
 	invalidBook = new Book();
 	identifierCount = 1;
 	size = 0;
 	databaseFile = "database.txt";
-}
-
-BookDatabase::~BookDatabase()
-{
-
 }
 
 void BookDatabase::readFile()
@@ -111,16 +108,19 @@ void BookDatabase::writeFile()
 
 void BookDatabase::setDatabaseFile(string file)
 {
+	//creates a way to set the name of database file
 	databaseFile = file;
 }
 
 string BookDatabase::getDatabaseFile()
 {
+	//creates a way to get the name of the database file
 	return databaseFile;
 }
 
 void BookDatabase::addBook(Book book)
 {
+	//adds a book with the specifications that the user inputs
 	try
 	{
 		books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
@@ -141,6 +141,8 @@ void BookDatabase::addBook(Book book)
 double BookDatabase::getPrice(int identifier)
 {
 	int count = 0;
+	//runs through all books in the "books" array
+	//then if the book matches the identifier given, it returns the price of that book
 	while (count < size)
 	{
 		if (books[count].getIdentifier() == identifier)
@@ -151,27 +153,23 @@ double BookDatabase::getPrice(int identifier)
 	}
 	return -1;
 }
-void BookDatabase::printISBN(string isbn)
-{
-	cout << "Inventory of books with ISBN: " << isbn << endl;
-	for (int i = 0; i < size; i++)
-	{
-		if (isbn == books[i].getIsbn())
-		{
-			cout << books[i] << endl;;
-		}
-	}
-}
 Book * BookDatabase::getBooks()
 {
+	//creates a way to return the books array
 	return books;
 }
 int BookDatabase::getSize()
 {
+	//creates a way to return the size integer
 	return size;
 }
 void BookDatabase::removeBook(int identifier)
 {
+	//sets integer size to zero
+	//then if the books array if equal to the identifier provided to the function
+	//it shifts the array then sets the bool variable to true
+	//which makes the loop enter the if statement that shifts the array to remove replace the book
+	//then reduces the size by one and updates the file
 	int count = 0;
 	bool foundBook = false;
 	while (count < size - 1)
@@ -187,11 +185,15 @@ void BookDatabase::removeBook(int identifier)
 		}
 		count++;
 	}
+	
 	size--;
 	writeFile();
 }
 Book* BookDatabase::searchIdentifier(int identifier)
 {
+	//runs through all the books and checks if ay of them matches the identifier the returns
+	//the book with that count.
+	//if the book with that "count" was not found, it returns an invalidbook(a default book that is returned when none is found)
 	int count = 0;
 	while (count < size)
 	{
@@ -206,11 +208,17 @@ Book* BookDatabase::searchIdentifier(int identifier)
 
 Book* BookDatabase::operator[](int i)
 {
+	//example of an operator
 	return searchIdentifier(i);
 }
 
 void BookDatabase::mainMenu()
 {
+	//sets a bool variable to false
+	//then while the bool is false, prints the main menu
+	//prompts user to respond and then calls the approriate function depending on their answer
+	//if the user inputs a char instead of an int, t tells them its invalid
+	//clears the screen and returns to the main menu again
 	bool done = false;
 	while (!done)
 	{
@@ -259,12 +267,15 @@ void BookDatabase::mainMenu()
 
 void BookDatabase::swapBooks(int index1, int index2)
 {
+	//makes book1 equal to a temporary variable then switches book2 with book1 then sets book2 equal to temporary variable
 	Book temp = books[index1];
 	books[index1] = books[index2];
 	books[index2] = temp;
 }
 void BookDatabase::addBookMenu()
 {
+	//asks the user to to enter the followinng inforation for the book: title, author, isbn, publisher, dateadded, wholesalecost and retailcost.
+	//then get the line that the user entered.
 	system("CLS");
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
@@ -279,7 +290,9 @@ void BookDatabase::addBookMenu()
 	getline(cin, publisher);
 	cout << "On what day was this book added? (MM/DD/YYYY) ";
 	getline(cin, dateadded);
-
+	//makes a bool false and while it is false
+	//asks the user what the retailcost is, and if it is not valid clears the screen
+	//otherwise it sets bool variable true and continues out of the loop
 	bool retailEntered = false;
 	while (!retailEntered)
 	{
@@ -296,7 +309,7 @@ void BookDatabase::addBookMenu()
 			retailEntered = true;
 		}
 	}
-	
+	// does the same thing as the retailcost, but with the varaible wholesalecost
 	bool wholesaleEntered = false;
 	while (!wholesaleEntered)
 	{
@@ -316,10 +329,10 @@ void BookDatabase::addBookMenu()
 	cin.ignore(1000, '\n');
 	system("CLS");
 	cout << "\n\n\t\t\tBook successfully added!" << endl;
-
+	//creates a new book with everything that the user entered
 	Book a;
 	a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
-
+	//asks the user if their informatiion is correct, and outputs their book that they just created
 	cout << "\n\nDoes this look right?\n\n";
 	cout << a;
 
@@ -327,25 +340,30 @@ void BookDatabase::addBookMenu()
 	bool done = false;
 	while (!done)
 	{
+		//tells the user to enter yes or no
 		cout << "(Y/N)> ";
 		cin >> response;
 		if (response == "y" || response == "Y")
 		{
 			while (!done)
 			{
+				//takes answer and asks how many copies tha tthe user wants to add
 				cout << "How many copies of " << a.getTitle() << " would you like to add? ";
 				int numBooksToAdd;
 				cin >> numBooksToAdd;
+				//created if the user enters anything that is not an int variable
 				if (cin.fail())
 				{
 					cout << "That is an invalid response.\n";
 					cin.clear();
 					cin.ignore(1000, '\n');
 				}
+				//used if the user adds a number less than zero and tells them it is invalid
 				else if (numBooksToAdd < 0)
 				{
 					cout << "That is an invalid number of books.\n";
 				}
+				//used if the number of books added exceed the limit of the number of books that are able to be stored in the database
 				else if (numBooksToAdd > 1024 - (identifierCount - 1))
 				{
 					done = true;
