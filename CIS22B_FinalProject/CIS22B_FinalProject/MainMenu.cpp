@@ -74,14 +74,17 @@ int MainMenu::showMainMenu()
 
 		if (choice == 1)
 		{
+			cout << "Cashier module loading...\n\n";
 			cashier.mainMenu();
 		}
 		else if (choice == 2)
 		{
+			cout << "Inventory Database module loading...\n\n";
 			database->mainMenu();
 		}
 		else if (choice == 3)
 		{
+			cout << "Report module loading...\n\n";
 			report.mainMenu();
 		}
 		else if (choice == 4)
