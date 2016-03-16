@@ -4,16 +4,13 @@
 
 BookDatabase::BookDatabase()
 {
+	//creates a book array of size 1024
+	//initiializes indentifiercount, size and databaseFile
 	books = new Book[1024];
 	invalidBook = new Book();
 	identifierCount = 1;
 	size = 0;
 	databaseFile = "database.txt";
-}
-
-BookDatabase::~BookDatabase()
-{
-
 }
 
 void BookDatabase::readFile()
@@ -111,16 +108,20 @@ void BookDatabase::writeFile()
 
 void BookDatabase::setDatabaseFile(string file)
 {
+	//creates a way to set the name of database file
 	databaseFile = file;
 }
 
 string BookDatabase::getDatabaseFile()
 {
+	//creates a way to get the name of the database file
 	return databaseFile;
 }
 
 void BookDatabase::addBook(Book book)
 {
+	//adds a book with the specifications that the user inputs
+	//or throws an error if there is one
 	try
 	{
 		books[size].setAll(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublisher(),
@@ -141,6 +142,8 @@ void BookDatabase::addBook(Book book)
 double BookDatabase::getPrice(int identifier)
 {
 	int count = 0;
+	//runs through all books in the "books" array
+	//then if the book matches the identifier given, it returns the price of that book
 	while (count < size)
 	{
 		if (books[count].getIdentifier() == identifier)
@@ -151,27 +154,23 @@ double BookDatabase::getPrice(int identifier)
 	}
 	return -1;
 }
-void BookDatabase::printISBN(string isbn)
-{
-	cout << "Inventory of books with ISBN: " << isbn << endl;
-	for (int i = 0; i < size; i++)
-	{
-		if (isbn == books[i].getIsbn())
-		{
-			cout << books[i] << endl;;
-		}
-	}
-}
 Book * BookDatabase::getBooks()
 {
+	//creates a way to return the books array
 	return books;
 }
 int BookDatabase::getSize()
 {
+	//creates a way to return the size integer
 	return size;
 }
 void BookDatabase::removeBook(int identifier)
 {
+	//sets integer size to zero
+	//then if the books array if equal to the identifier provided to the function
+	//it shifts the array then sets the bool variable to true
+	//which makes the loop enter the if statement that shifts the array to remove replace the book
+	//then reduces the size by one and updates the file
 	int count = 0;
 	bool foundBook = false;
 	while (count < size - 1)
@@ -187,11 +186,15 @@ void BookDatabase::removeBook(int identifier)
 		}
 		count++;
 	}
+	
 	size--;
 	writeFile();
 }
 Book* BookDatabase::searchIdentifier(int identifier)
 {
+	//runs through all the books and checks if ay of them matches the identifier the returns
+	//the book with that count.
+	//if the book with that "count" was not found, it returns an invalidbook(a default book that is returned when none is found)
 	int count = 0;
 	while (count < size)
 	{
@@ -206,16 +209,22 @@ Book* BookDatabase::searchIdentifier(int identifier)
 
 Book* BookDatabase::operator[](int i)
 {
+	//example of an operator
 	return searchIdentifier(i);
 }
 
 void BookDatabase::mainMenu()
 {
+	//sets a bool variable to false
+	//then while the bool is false, prints the main menu
+	//prompts user to respond and then calls the approriate function depending on their answer
+	//if the user inputs a char instead of an int, t tells them its invalid
+	//clears the screen and returns to the main menu again
 	bool done = false;
 	while (!done)
 	{
 		system("CLS");
-		cout << "\n\t\t\tSerendipity Booksellers\n\t\t\tInventory Main Menu\n\n";
+		cout << "\n\t\tSerendipity Booksellers\n\t\t  Inventory Main Menu\n\n";
 		cout << "\t    1. Look Up a Book\n";
 		cout << "\t    2. Add a Book\n";
 		cout << "\t    3. Edit a Books Record\n";
@@ -259,12 +268,15 @@ void BookDatabase::mainMenu()
 
 void BookDatabase::swapBooks(int index1, int index2)
 {
+	//makes book1 equal to a temporary variable then switches book2 with book1 then sets book2 equal to temporary variable
 	Book temp = books[index1];
 	books[index1] = books[index2];
 	books[index2] = temp;
 }
 void BookDatabase::addBookMenu()
 {
+	//asks the user to to enter the followinng inforation for the book: title, author, isbn, publisher, dateadded, wholesalecost and retailcost.
+	//then get the line that the user entered.
 	system("CLS");
 	string title, author, isbn, publisher, dateadded;
 	double wholesalecost, retailcost;
@@ -279,7 +291,9 @@ void BookDatabase::addBookMenu()
 	getline(cin, publisher);
 	cout << "On what day was this book added? (MM/DD/YYYY) ";
 	getline(cin, dateadded);
-
+	//makes a bool false and while it is false
+	//asks the user what the retailcost is, and if it is not valid clears the screen
+	//otherwise it sets bool variable true and continues out of the loop
 	bool retailEntered = false;
 	while (!retailEntered)
 	{
@@ -296,7 +310,7 @@ void BookDatabase::addBookMenu()
 			retailEntered = true;
 		}
 	}
-	
+	// does the same thing as the retailcost, but with the varaible wholesalecost
 	bool wholesaleEntered = false;
 	while (!wholesaleEntered)
 	{
@@ -316,10 +330,10 @@ void BookDatabase::addBookMenu()
 	cin.ignore(1000, '\n');
 	system("CLS");
 	cout << "\n\n\t\t\tBook successfully added!" << endl;
-
+	//creates a new book with everything that the user entered
 	Book a;
 	a.setAll(title, author, isbn, publisher, wholesalecost, retailcost, dateadded, identifierCount);
-
+	//asks the user if their informatiion is correct, and outputs their book that they just created
 	cout << "\n\nDoes this look right?\n\n";
 	cout << a;
 
@@ -327,25 +341,30 @@ void BookDatabase::addBookMenu()
 	bool done = false;
 	while (!done)
 	{
+		//tells the user to enter yes or no
 		cout << "(Y/N)> ";
 		cin >> response;
 		if (response == "y" || response == "Y")
 		{
 			while (!done)
 			{
+				//takes answer and asks how many copies tha tthe user wants to add
 				cout << "How many copies of " << a.getTitle() << " would you like to add? ";
 				int numBooksToAdd;
 				cin >> numBooksToAdd;
+				//created if the user enters anything that is not an int variable
 				if (cin.fail())
 				{
 					cout << "That is an invalid response.\n";
 					cin.clear();
 					cin.ignore(1000, '\n');
 				}
+				//used if the user adds a number less than zero and tells them it is invalid
 				else if (numBooksToAdd < 0)
 				{
 					cout << "That is an invalid number of books.\n";
 				}
+				//used if the number of books added exceed the limit of the number of books that are able to be stored in the database
 				else if (numBooksToAdd > 1024 - (identifierCount - 1))
 				{
 					done = true;
@@ -356,12 +375,14 @@ void BookDatabase::addBookMenu()
 				}
 				else
 				{
+					//adds the number of books to the database that the user said to add
 					for (int i = 0; i < numBooksToAdd; i++)
 					{
 						try
 						{
 							addBook(a);
 						}
+						//catches an error if there is one
 						catch (char e[])
 						{
 							cout << e;
@@ -381,6 +402,8 @@ void BookDatabase::addBookMenu()
 				}
 			}
 		}
+		//if the user enters n or N 
+		//exit to the previous menu, but waits fot he user to press enter
 		else if (response == "n" || response == "N")
 		{
 			cout << "Exiting...\n";
@@ -389,6 +412,7 @@ void BookDatabase::addBookMenu()
 			cin.ignore();
 			cin.get();
 		}
+		//otherwise if the user adds something that is not n or N use this statement
 		else
 		{
 			cout << "Invalid response.\n";
@@ -400,11 +424,14 @@ void BookDatabase::addBookMenu()
 }
 void BookDatabase::removeBookMenu()
 {
+	//asks the user to enter the identifier of the book that they want to delete then then calls the removebook function
 	system("CLS");
 	int identifier;
 	cout << "Enter the identifier of the book that you want to remove: ";
 	if (cin >> identifier)
 		removeBook(identifier);
+	
+	//used if there is an invalid identifier
 	else
 	{
 		cout << "That is an invalid identifier. Press return to continue.";
@@ -416,6 +443,7 @@ void BookDatabase::removeBookMenu()
 
 void BookDatabase::lookupBookMenu()
 {
+	//displays the BookDatabase menu
 	bool done = false;
 	while (!done)
 	{
@@ -435,6 +463,7 @@ void BookDatabase::lookupBookMenu()
 
 		if (cin >> response)
 		{
+			//creates all the needed variables for this function
 			bool pubFound = false;
 			string publisher;
 			string title;
@@ -455,6 +484,14 @@ void BookDatabase::lookupBookMenu()
 
 			while (correctResponse == false)
 			{
+				//switch statement to catch the response of the user
+				/*
+				READ FOR EXPLANAITON OF FOLLOWING SWITCH STATEMENT!!
+				-each of these cases will run thoruugh each of the books looking for each of its respective variables
+				-for everything that does not have to match exactly (title, author, publisher) making it possible
+				to search for parts of these and come up with all the titles, authors or publisher with that string in
+				their name.
+				*/
 				switch (response)
 				{
 				case 1:
@@ -667,10 +704,12 @@ void BookDatabase::lookupBookMenu()
 					}
 					break;
 				case 9:
+					//sets the correctresponse and done to true, which exits the loop and continues with the program
 					correctResponse = true;
 					done = true;
 					break;
 				default:
+					//default to tell use that they entered in invalid response
 					cout << "Invalid response. ";
 					cout << "Press return to continue.";
 					cin.ignore();
@@ -697,9 +736,11 @@ void BookDatabase::changeBook()
 	{
 		system("CLS");
 		cout << "Enter the identifier of the book you would like to change: ";
+		
 		if (cin >> identifier)
 		{
 			Book* book = searchIdentifier(identifier); //we only need to get the identifier once per user input
+			//if the book does not exist then this will be used
 			if (book->getIdentifier() == -1)
 			{
 				cout << "A book with that identifier does not exist.\n";
@@ -707,8 +748,10 @@ void BookDatabase::changeBook()
 				cin.ignore();
 				cin.get();
 			}
+			//if the book identifier exists, run this
 			else
 			{
+				//dispays the menu
 				cout << endl << *book << endl;
 				cout << "What would you like to change?" << endl; // change from "that book" to the actual title for clarity
 				cout << "1. Title" << endl;
@@ -723,6 +766,14 @@ void BookDatabase::changeBook()
 				cin >> choice;
 				if (!(cin.fail()))
 				{
+					/*
+					READ THIS FOR SWITCH STATEMENT EXPLANATION:
+					-each one
+						-asks the user which the new <blank> is
+						-points to the respective thing  
+						-then prints the new <choice>
+						-then writes changes to the file
+					*/
 					switch (choice)
 					{
 					case 1:

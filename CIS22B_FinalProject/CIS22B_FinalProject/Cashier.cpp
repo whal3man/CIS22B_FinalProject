@@ -15,7 +15,7 @@ Cashier::Cashier(BookDatabase* dtbs)
 template <class Subtotal>
 Subtotal calcSubtotal(Subtotal amount)
 {
-	const double TAX = 0.0625;
+	const Subtotal TAX = 0.0625;
 	return amount * TAX;
 }
 
@@ -149,26 +149,25 @@ void Cashier::removeBookMenu()
 		{
 			Book* book = database->searchIdentifier(cart[i]);
 
-			cout << setw(4) << right << book->getIdentifier() << ". " << "$"
+			cout << setw(4) << right << i + 1 << ". " << "$"
 				<< setprecision(2) << fixed
 				<< setw(12) << left << book->getRetailPrice()
 				<< setw(20) << left << book->getTitle()
 				<< endl;
 		}
-		cout << "\nWhat book would you like to remove? ";
+		cout << "\nWhat is the ID of the book you want to remove? ";
 		int number = 0;
 		cin >> number;
 
 		if (number <= cartSize && number >= 1)
 		{
-			Book* book = database->searchIdentifier(cart[number - 1]);
-
+			Book* book = database->searchIdentifier(cart[number -1]);
 			char choice;
 			cout << "\nYou have chosen to remove " << book->getTitle() << " from your cart. \n\nIs this acceptable? (Y/N)> ";
 			cin >> choice;
 			if (choice == 'Y' || choice == 'y')
 			{
-				removeBookFromCart(cart[number - 1]);
+				removeBookFromCart(cart[number -1]);
 				cout << "Press return to continue.";
 				cin.ignore();
 				cin.get();
@@ -216,15 +215,19 @@ void Cashier::checkout()
 		}
 		cout << "Serendipity Book Sellers" << endl << endl;
 		cout << "Date: " << endl << endl;
-		cout << "ISBN\t\tTitle\t\t\t\tPrice" << endl;
-		cout << "____________________________________________________________" << endl << endl;
+		cout << "ISBN\t\t\tTitle\t\t\t\tPrice" << endl;
+		cout << "______________________________________________________________" << endl << endl;
 		for (int i = 0; i < cartSize; i++)
 		{
 			Book* book = database->searchIdentifier(cart[i]);
-			cout << book->getIsbn() << "\t\t" << book->getTitle() << "\t\t\t\t" << book->getRetailPrice() << endl;
+			cout << setw(24) << left << book->getIsbn()
+				 << setw(30) << left << book->getTitle()
+				 << setw(7) << right << book->getRetailPrice() << endl;
 		}
-		cout << "\t\t\t\t\t____________________" << endl << endl;
-		cout << "\t\tSubtotal:\t\t\t" << subtotal << endl << "\t\tSales Tax @ 6.25%:\t\t" << calcSubtotal(subtotal) << endl << "\t\tTotal:\t\t\t\t" << subtotal + calcSubtotal(subtotal) << endl << endl;
+		cout << "\t\t\t\t\t______________________" << endl << endl;
+		cout << "\t\tSubtotal:\t\t\t\t" << subtotal << endl
+			 << "\t\tSales Tax @ 6.25%:\t\t\t" << calcSubtotal(subtotal) << endl
+			 << "\t\tTotal:\t\t\t\t\t" << subtotal + calcSubtotal(subtotal) << endl << endl;
 		cout << "Does this look correct? (Y/N)> ";
 		string response;
 		cin >> response;
