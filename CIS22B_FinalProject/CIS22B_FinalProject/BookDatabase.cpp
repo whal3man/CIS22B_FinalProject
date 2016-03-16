@@ -224,7 +224,7 @@ void BookDatabase::mainMenu()
 	while (!done)
 	{
 		system("CLS");
-		cout << "\n\t\t\tSerendipity Booksellers\n\t\t\tInventory Main Menu\n\n";
+		cout << "\n\t\tSerendipity Booksellers\n\t\t  Inventory Main Menu\n\n";
 		cout << "\t    1. Look Up a Book\n";
 		cout << "\t    2. Add a Book\n";
 		cout << "\t    3. Edit a Books Record\n";
@@ -430,6 +430,7 @@ void BookDatabase::removeBookMenu()
 	cout << "Enter the identifier of the book that you want to remove: ";
 	if (cin >> identifier)
 		removeBook(identifier);
+	
 	//used if there is an invalid identifier
 	else
 	{
@@ -771,7 +772,7 @@ void BookDatabase::changeBook()
 						-asks the user which the new <blank> is
 						-points to the respective thing  
 						-then prints the new <choice>
-						-then writes to file
+						-then writes changes to the file
 					*/
 					switch (choice)
 					{
