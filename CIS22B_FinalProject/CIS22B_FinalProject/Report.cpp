@@ -2,16 +2,16 @@
 #include "Report.h"
 
 /*
-	This module generates reports based on the users choice
-	listInventory() lists all books in the inventory
-	listRetailValue() lists retail value of all books in the inventory
-	listWholesaleValue() lists wholesale value of all books in the inventory
-	listAge() lists books sorted by date added to the inventory via the inventory database module
-	listCost() lists books sorted by wholesale cost, greatest first to least last
-	listQuantity() lists books sorted by quantity on hand. The book with the most copies is listed first
+This module generates reports based on the users choice
+listInventory() lists all books in the inventory
+listRetailValue() lists retail value of all books in the inventory
+listWholesaleValue() lists wholesale value of all books in the inventory
+listAge() lists books sorted by date added to the inventory via the inventory database module
+listCost() lists books sorted by wholesale cost, greatest first to least last
+listQuantity() lists books sorted by quantity on hand. The book with the most copies is listed first
 */
 
-//we need default constructor
+//we need default constructor defined
 Report::Report()
 {
 
@@ -40,6 +40,7 @@ void Report::listInventory()
 	int size = database->getSize();
 	bool swap;
 
+	//sort titles of books
 	do
 	{
 		swap = false;
@@ -60,14 +61,14 @@ void Report::listInventory()
 	} while (swap);
 
 	//list all books in the inventory with some relevant information for each book
-	cout << "\n\tTitle\t\t   Author\t      Publisher\t\t    ISBN\n\n";
+	cout << "\n\tTitle\t\t\t\t   Author\t\t    ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << setw(5) << right << i + 1 << ". "
-			 << setw(20) << left << books[i].getTitle()
-			 << setw(20) << left << books[i].getAuthor()
-			 << setw(20) << left << books[i].getPublisher()
-			 << setw(12) << left << books[i].getIsbn() << endl;
+			<< setw(30) << left << books[i].getTitle()
+			<< setw(23) << left << books[i].getAuthor()
+			//<< setw(20) << left << books[i].getPublisher()
+			<< setw(18) << right << books[i].getIsbn() << endl;
 	}
 	cout << endl;
 
@@ -90,10 +91,11 @@ void Report::listRetailValue()
 	bool swap;
 	double sum = 0;
 
+	//sort retail value of books low to high
 	do
 	{
 		swap = false;
-		for (int i = 0; i < (size- 1 ); i++)
+		for (int i = 0; i < (size - 1); i++)
 		{
 			if (books[i].getRetailPrice() > books[i + 1].getRetailPrice())
 			{
@@ -109,12 +111,13 @@ void Report::listRetailValue()
 	cout << "    Retail Price\tTitle\t\t\t ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << fixed << setprecision(2) 
-			 << setw(5) << right << i + 1 << ". $"
-			 << setw(12) << left << books[i].getRetailPrice()
-			 << setw(30) << left << books[i].getTitle() 
-			 << setw(12) << books[i].getIsbn()
-			 << endl;
+		cout << fixed << setprecision(2)
+			<< setw(5) << right << i + 1 << ". $"
+			<< setw(12) << left << books[i].getRetailPrice()
+			<< setw(30) << left << books[i].getTitle()
+			<< setw(12) << books[i].getIsbn()
+			<< endl;
+		//calculate total
 		sum += books[i].getRetailPrice();
 	}
 
@@ -140,6 +143,7 @@ void Report::listWholesaleValue()
 	bool swap;
 	double sum = 0;
 
+	//sort books from lowest to highest
 	do
 	{
 		swap = false;
@@ -165,6 +169,7 @@ void Report::listWholesaleValue()
 			<< setw(30) << books[i].getTitle()
 			<< setw(12) << books[i].getIsbn()
 			<< endl;
+		//calculate total
 		sum += books[i].getWholesaleCost();
 	}
 
@@ -187,34 +192,99 @@ void Report::listAge()
 
 	Book* books = database->getBooks();
 	int size = database->getSize();
-	bool swap;
+	bool swap = true;
 
-	do
+	string str1day;
+	string str2day;
+	string str1month;
+	string str2month;
+	string str1year;
+	string str2year;
+
+
+	while (swap)
 	{
 		swap = false;
+
 		for (int i = 0; i < (size - 1); i++)
 		{
-			if (books[i].getDateAdded() < books[i + 1].getDateAdded())
+			for (int j = 0; j < size; j++)
 			{
-				Book temp = books[i + 1];
-				books[i + 1] = books[i];
-				books[i] = temp;
-				swap = true;
+				//get the current and next string
+				string str1 = books[i].getDateAdded();
+				string str2 = books[i + 1].getDateAdded();
+
+				//extract the month from the string
+				str1month = str1[0];
+				str1month += str1[1];
+				str2month = str2[0];
+				str2month += str2[1];
+
+				//extract the day from the string
+				str1day = str1[3];
+				str1day += str1[4];
+				str2day = str2[3];
+				str2day += str2[4];
+
+				//extract the year from the string
+				str1year = str1[6];
+				str2year = str2[6];
+				for (int k = 7; k <= 9; k++)
+				{
+					str1year += str1[k];
+					str2year += str2[k];
+				}
+
+				//switch day, month, and year to ints for easier handling
+				int month1Int = stoi(str1month);
+				int year1Int = stoi(str1year);
+				int day1Int = stoi(str1day);
+				int month2Int = stoi(str2month);
+				int year2Int = stoi(str2year);
+				int day2Int = stoi(str2day);
+
+				//sort year first
+				if (year1Int > year2Int)
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
+				//if year is sorted, sort month
+				if (year1Int == year2Int && month1Int > month2Int)
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
+				//if year and month are sorted, sort day
+				if (year1Int == year2Int && month1Int == month2Int && day1Int > day2Int)
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
 			}
 		}
-	} while (swap);
+	}
+
 	//output the books sorted with the oldest book in the inventory shown first
-	cout << "\tDate added\t\tTitle\t\t\t ISBN\n";
+	cout << "\tDate added\t\tTitle\t\t\t ISBN\n\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << setw(5) << right
-			 << i + 1 << ". "
-			 << setw(20) << left << books[i].getDateAdded()
-			 << setw(30) << left << books[i].getTitle()
-			 << setw(12) << left << books[i].getIsbn()
-			 << endl;
+			<< i + 1 << ". "
+			<< setw(20) << left << books[i].getDateAdded()
+			<< setw(30) << left << books[i].getTitle()
+			<< setw(12) << left << books[i].getIsbn()
+			<< endl;
 	}
 	cout << endl;
+
+	
 
 	//wait until user is done with the information
 	cout << "\n\t    Press return to continue.";
@@ -330,11 +400,11 @@ void Report::listQuantity()
 	}
 
 	//output the books sorted by highest quantity first
-	cout << "Quantity\t\tTitle\t\t\t\tISBN\n";
+	cout << "Quantity\tTitle\t\t\t\tISBN\n";
 	for (int i = 0; i < numIsbns; i++)
 	{
 		cout <<
-			setw(20) << left << isbnDatabase[i].numBookIdentifiers
+			setw(10) << left << isbnDatabase[i].numBookIdentifiers
 			<< setw(30) << left << database->searchIdentifier(isbnDatabase[i].bookIdentifiers[0])->getTitle()
 			<< setw(20) << left << isbnDatabase[i].Isbn << endl;
 	}
