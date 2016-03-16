@@ -9,14 +9,13 @@ class BookDatabase
 {
 private:
 	Book* books;			// array of 1024 books
-	int identifierCount;
-	int size;
-	string databaseFile;
+	int identifierCount;	//number of books added
+	int size;				//number of objects in the array(between 0-1023)
+	string databaseFile;	//name of the databse file used
+	Book* invalidBook;		// a default book to be returned when a search comes up empty
 public:
 	// initializes the books array, sets identifier count to 1, and sets size to 0
 	BookDatabase();
-	// deletes the books array
-	~BookDatabase();
 	// clear BookDatabase, then read database from file
 	void readFile();
 	// write all info in database to file
@@ -25,15 +24,12 @@ public:
 	void setDatabaseFile(string file);
 	// returns databaseFile
 	string getDatabaseFile();
-
 	// adds book to the database, assigns it an identifier
 	// incraments identiferCount, incraments size
 	// and runs writeFile()
 	void addBook(Book book);
 	// returns the price 
 	double getPrice(int identifier);
-	// prints all of the books with the given ISBN
-	void printISBN(string isbn);
 	// returns a pointer to books
 	Book* getBooks();
 	// returns size
