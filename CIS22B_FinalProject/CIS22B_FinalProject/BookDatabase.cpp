@@ -15,22 +15,25 @@ BookDatabase::BookDatabase()
 
 void BookDatabase::readFile()
 {
+	// try to  read from file
 	try
 	{
 		ifstream fin;
 		fin.open(databaseFile);
+		// if unable to open database file, throw error
 		if (fin.fail())
 		{
 			throw "Failed to open " + databaseFile + " for reading.\n";
 		}
 
+		// take in the first two variables in the database file
 		fin >> identifierCount;
 		fin >> size;
 
 		string tempAuthor, tempDateAdded, tempIsbn, tempPublisher, tempTitle;
 		int tempIdentifier;
 		double tempRetailPrice, tempWholesaleCost;
-
+		// store all of the variables for each book in temporary variables
 		for (int i = 0; i < size; i++)
 		{
 			fin.ignore(1000, '\n');
@@ -44,10 +47,12 @@ void BookDatabase::readFile()
 			fin.ignore(1000, '\n');
 			getline(fin, tempTitle);
 			fin >> tempWholesaleCost;
+			// assign all of the variables to the book in the database
 			books[i].setAll(tempTitle, tempAuthor, tempIsbn, tempPublisher, tempWholesaleCost, tempRetailPrice, tempDateAdded, tempIdentifier);
 		}
 		fin.close(); //close the input file 
 	}
+	// catches the error thrown if the database file was unreadable.
 	catch (string e)
 	{
 		cout << e;
