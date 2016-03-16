@@ -189,10 +189,6 @@ void Report::listAge()
 	int size = database->getSize();
 	bool swap = true;
 
-	bool yearDone = true;
-	bool dayDone = true;
-	bool monthDone = true;
-
 	string str1day;
 	string str2day;
 	string str1month;
@@ -204,127 +200,61 @@ void Report::listAge()
 	while (swap)
 	{
 		swap = false;
+
 		for (int i = 0; i < (size - 1); i++)
 		{
-			string str1 = books[i].getDateAdded();
-			string str2 = books[i + 1].getDateAdded();
-
-			str1month = str1[0];
-			str1month += str1[1];
-			str2month = str2[0];
-			str2month += str2[1];
-
-			str1day = str1[3];
-			str1day += str1[4];
-			str2day = str2[3];
-			str2day += str2[4];
-
-			str1year = str1[6];
-			str2year = str2[6];
-			for (int j = 7; j <= 9; j++)
-			{
-				str1year += str1[j];
-				str2year += str2[j];
-			}
-
-			int month1Int = stoi(str1month);
-			int year1Int = stoi(str1year);
-			int day1Int = stoi(str1day);
-
-			int month2Int = stoi(str2month);
-			int year2Int = stoi(str2year);
-			int day2Int = stoi(str2day);
-
 			for (int j = 0; j < size; j++)
 			{
-				//if (year1Int == year2Int && month1Int == month2Int && day1Int < day2Int)
-				//{
-				//	Book temp = books[i];
-				//	books[i] = books[i + 1];
-				//	books[i + 1] = temp;
-				//	swap = true;
-				//	cout << "1. " << endl;
-				//}
-				//else if (year1Int < year2Int && month1Int < month2Int)
-				//{
-				//	Book temp = books[i];
-				//	books[i] = books[i + 1];
-				//	books[i + 1] = temp;
-				//	swap = true;
-				//	//cout << "2. " << endl;
-				//}
-				//else
-				//	yearDone = true;
-				if (year1Int < year2Int)
+				string str1 = books[i].getDateAdded();
+				string str2 = books[i + 1].getDateAdded();
+
+				str1month = str1[0];
+				str1month += str1[1];
+				str2month = str2[0];
+				str2month += str2[1];
+
+				str1day = str1[3];
+				str1day += str1[4];
+				str2day = str2[3];
+				str2day += str2[4];
+
+				str1year = str1[6];
+				str2year = str2[6];
+				for (int k = 7; k <= 9; k++)
+				{
+					str1year += str1[k];
+					str2year += str2[k];
+				}
+
+				int month1Int = stoi(str1month);
+				int year1Int = stoi(str1year);
+				int day1Int = stoi(str1day);
+
+				int month2Int = stoi(str2month);
+				int year2Int = stoi(str2year);
+				int day2Int = stoi(str2day);
+
+				if (year1Int < year2Int)//do nothing if equal or greater
 				{
 					Book temp = books[i];
 					books[i] = books[i + 1];
 					books[i + 1] = temp;
 					swap = true;
 				}
-				else if (year1Int == year2Int && month1Int < month2Int && day1Int < day2Int)
+				if (year1Int == year2Int && month1Int < month2Int)
 				{
 					Book temp = books[i];
 					books[i] = books[i + 1];
 					books[i + 1] = temp;
 					swap = true;
 				}
-				else if (year1Int < year2Int && month1Int < month2Int)
+				if (year1Int == year2Int && month1Int == month2Int && day1Int < day2Int)
 				{
 					Book temp = books[i];
 					books[i] = books[i + 1];
 					books[i + 1] = temp;
 					swap = true;
 				}
-
-
-
-
-				/*
-				if (year1Int < year2Int && month1Int < month2Int && day1Int < day2Int)
-				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
-					swap = true;
-				}
-				else if (year1Int == year2Int && month1Int < month2Int && day1Int < day2Int)
-				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
-					swap = true;
-				}
-				else if (year1Int == year2Int && month1Int == month2Int && day1Int < day2Int)
-				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
-					swap = true;
-				}
-				else if (year1Int < year2Int && month1Int == month2Int && day1Int < day2Int)
-				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
-					swap = true;
-				}
-				else if (year1Int < year2Int && month1Int == month2Int && day1Int == day2Int)
-				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
-					swap = true;
-				}
-				*/
-				
-				/*if (year1Int < year2Int && month1Int < month2Int)
-				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
-					swap = true;
-				}*/
 			}
 		}
 	}
