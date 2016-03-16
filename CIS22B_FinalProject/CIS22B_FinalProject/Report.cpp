@@ -235,29 +235,96 @@ void Report::listAge()
 			int year2Int = stoi(str2year);
 			int day2Int = stoi(str2day);
 
-			for (int j = 0; j < size - 1; j++)
+			for (int j = 0; j < size; j++)
 			{
+				//if (year1Int == year2Int && month1Int == month2Int && day1Int < day2Int)
+				//{
+				//	Book temp = books[i];
+				//	books[i] = books[i + 1];
+				//	books[i + 1] = temp;
+				//	swap = true;
+				//	cout << "1. " << endl;
+				//}
+				//else if (year1Int < year2Int && month1Int < month2Int)
+				//{
+				//	Book temp = books[i];
+				//	books[i] = books[i + 1];
+				//	books[i + 1] = temp;
+				//	swap = true;
+				//	//cout << "2. " << endl;
+				//}
+				//else
+				//	yearDone = true;
 				if (year1Int < year2Int)
 				{
-					Book temp = books[j];
-					books[j] = books[j + 1];
-					books[j + 1] = temp;
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
 					swap = true;
 				}
-				if (year1Int == year2Int && month1Int < month2Int)
+				else if (year1Int == year2Int && month1Int < month2Int && day1Int < day2Int)
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
+				else if (year1Int < year2Int && month1Int < month2Int)
+				{
+					Book temp = books[i];
+					books[i] = books[i + 1];
+					books[i + 1] = temp;
+					swap = true;
+				}
+
+
+
+
+				/*
+				if (year1Int < year2Int && month1Int < month2Int && day1Int < day2Int)
 				{
 					Book temp = books[j];
 					books[j] = books[j + 1];
 					books[j + 1] = temp;
 					swap = true;
 				}
-				if (year1Int == year2Int && month1Int == month2Int && day1Int < day2Int)
+				else if (year1Int == year2Int && month1Int < month2Int && day1Int < day2Int)
 				{
 					Book temp = books[j];
 					books[j] = books[j + 1];
 					books[j + 1] = temp;
 					swap = true;
 				}
+				else if (year1Int == year2Int && month1Int == month2Int && day1Int < day2Int)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+					swap = true;
+				}
+				else if (year1Int < year2Int && month1Int == month2Int && day1Int < day2Int)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+					swap = true;
+				}
+				else if (year1Int < year2Int && month1Int == month2Int && day1Int == day2Int)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+					swap = true;
+				}
+				*/
+				
+				/*if (year1Int < year2Int && month1Int < month2Int)
+				{
+					Book temp = books[j];
+					books[j] = books[j + 1];
+					books[j + 1] = temp;
+					swap = true;
+				}*/
 			}
 		}
 	}
