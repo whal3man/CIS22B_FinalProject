@@ -234,21 +234,21 @@ void Report::listAge()
 				int year2Int = stoi(str2year);
 				int day2Int = stoi(str2day);
 
-				if (year1Int < year2Int)//do nothing if equal or greater
+				if (year1Int > year2Int)//do nothing if equal or greater
 				{
 					Book temp = books[i];
 					books[i] = books[i + 1];
 					books[i + 1] = temp;
 					swap = true;
 				}
-				if (year1Int == year2Int && month1Int < month2Int)
+				if (year1Int == year2Int && month1Int > month2Int)
 				{
 					Book temp = books[i];
 					books[i] = books[i + 1];
 					books[i + 1] = temp;
 					swap = true;
 				}
-				if (year1Int == year2Int && month1Int == month2Int && day1Int < day2Int)
+				if (year1Int == year2Int && month1Int == month2Int && day1Int > day2Int)
 				{
 					Book temp = books[i];
 					books[i] = books[i + 1];
