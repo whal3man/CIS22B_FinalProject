@@ -1,0 +1,177 @@
+Cashier constructor
+{
+}
+
+Cashier point to BookDatabase
+{
+variable to set equal to pointer
+}
+
+subtotal funtion to take in variable of type Subtotal
+{
+tax rate of type const Subtotal
+returns the amount multiplied by tax
+}
+
+addBookMenu function
+{
+variable declarations
+ask for input of identifier user wants
+if (input is for the identifier)
+{
+	search for book
+	if (the book's ID is less than or greater than zero)
+	{
+		tell user book was not found and to come back to menu
+	}	
+	otherwise
+	{
+		ask user if this selection is correct 
+		users inputs y(yes) or n(no)
+	if (y or Y)
+	{
+		boolean statement to start if's below
+	}
+	if(book is already in cart)
+	{
+		tell user book is already in cart
+		go back to main menu
+	}
+	if (neither condition is true)
+	{
+		add book to cart
+	}
+	if (user input was 'n')	
+	{
+		go back to menu
+	}
+	if (input was neither 'y' or 'n'
+	{
+		tell user that input was invalid
+		go back to menu
+	}	
+}
+
+Cashier book removal from cart function
+{
+	variable declarations
+	if (variable cartSize is equal to one)
+	{	
+		if (the first element of array cart is equal to identifier)
+		{
+		set bookFound to true
+		set variable bookRemoved equal to cart 
+		}
+	}
+	while (count is less than the cartSize subtracted by 1)
+	{
+		if ( boolean condition is false)
+		{
+			make cart[count] equal to cart[count added by 1]
+		}
+		also if (cart array is equal to identifier)
+		{
+			set cart[count] equal to cart[count + 1]
+			set variable bookRemoved equal to cart [count]
+			make booleans true
+		}
+		increment count
+	}
+	if (the book was found)
+	{
+		tell user book was found and removed
+		decrement cartSize
+	}
+	otherwise
+	{
+	tell user book was not found to be removed
+	}
+}
+
+Cashier's removeBookMenu
+{
+	if (cartSize is less than zero)
+	{
+	cout statement for book information
+		for loop for cartSize
+		{
+			cout statements for setW
+		}
+	}
+	ask user for book ID
+	user inputs book ID
+	if (book ID is less than or equal cartSize and greater than or equal to 1)
+	{
+		variable of char choice
+		tell user you have chosen to remove a book
+		users put in choice
+		if (choice is 'y' or 'Y')
+		{
+		remove book
+		}
+		if(choice is 'n' or 'N')
+		{
+		tell user book was not removed and go back to menu
+		}
+		otherwise
+		{
+		tell user they made invalid choice
+		}
+	}
+	else
+	{
+	tell user cart's empty
+	}
+}
+
+checkout function for cashier
+{
+	if (the cartSize is greater than zero)
+	{
+	get subtotal from bookDatabase class
+	}
+		cout statements and for loop to design UI
+		after printing details(tax, prices, design), ask user is this is ok
+		if (reponse is 'y' or 'Y')
+		{
+			remove book
+			tell user
+			return to menu
+		}
+		if (reponse is 'n' or 'N')
+		{
+			go back to menu
+		}
+		otherwise
+		{
+			go back to menu
+		}
+	else 
+	{
+	tell user cart is empty
+	go back to menu
+	}	
+}
+
+main menu for cashier 
+{
+	list choices for user
+	if (choice is invalid)
+	{
+	tell user choice is invalid
+	}
+	else if (choices are valid)
+	{
+	go to respective menus
+	}
+}
+
+	
+
+
+	
+			
+			
+	
+	
+
