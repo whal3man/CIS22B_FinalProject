@@ -3,8 +3,8 @@
 
 
 
-
-Cashier::Cashier()
+//default constructor
+Cashier::Cashier() 
 {
 }
 Cashier::Cashier(BookDatabase* dtbs)
@@ -12,6 +12,7 @@ Cashier::Cashier(BookDatabase* dtbs)
 	database = dtbs;
 }
 
+//function to take the subtotal(total without tax) and multiply with tax (6.25%)
 template <class Subtotal>
 Subtotal calcSubtotal(Subtotal amount)
 {
@@ -19,6 +20,7 @@ Subtotal calcSubtotal(Subtotal amount)
 	return amount * TAX;
 }
 
+//function to allow the user to add a book to their cart
 void Cashier::addBookMenu()
 {
 	system("CLS");
@@ -31,7 +33,7 @@ void Cashier::addBookMenu()
 		if (cin >> identifier)
 		{
 			Book* tempBook = database->searchIdentifier(identifier);
-
+			//if-statement will show if the book doesn't exist
 			if (tempBook->getIdentifier() <= 0)
 			{
 				correctInput = true;
@@ -40,6 +42,7 @@ void Cashier::addBookMenu()
 				cin.ignore();
 				cin.get();
 			}
+			// user prompt
 			else
 			{
 				cout << "Does this look correct?\n\n" << *tempBook << endl;
@@ -56,6 +59,7 @@ void Cashier::addBookMenu()
 							bookAlreadyInCart = true;
 						}
 					}
+					//to check if desired book is in the cart, cannot add if so
 					if (bookAlreadyInCart)
 					{
 						cout << "That book is already in the cart.\n";
@@ -63,6 +67,7 @@ void Cashier::addBookMenu()
 						cin.ignore();
 						cin.get();
 					}
+					//the book is added to the cart when all other conditions are cleared
 					else
 					{
 						correctInput = true;
@@ -95,8 +100,9 @@ void Cashier::addBookMenu()
 			cin.ignore(1000, '\n');
 		}
 	}
+	database->removeBook(identifier);
 }
-
+//function to remove book based on identifier, to be used in 'removeBookMenu'
 void Cashier::removeBookFromCart(int identifier)
 {
 	
@@ -128,17 +134,20 @@ void Cashier::removeBookFromCart(int identifier)
 		}
 		count++;
 	}
+	//book will be removed if it exists and is in cart
 	if (bookFound)
 	{
 		cout << "Book: " << database->searchIdentifier(bookRemoved)->getTitle()
 			<< " was removed from the cart.\n";
 		cartSize--;
 	}
+	//book will be removed because it doesn't exists and is not in cart
 	else
 	{
 		cout << "No book with identifier " << identifier << ".\n";
 	}
 }
+//UI function to remove books from user's cart with displayed book information
 void Cashier::removeBookMenu()
 {
 	system("CLS");
@@ -203,6 +212,7 @@ void Cashier::removeBookMenu()
 		cin.get();
 	}
 }
+//Shows the user their receipt for all the books they inputted
 void Cashier::checkout()
 {
 	system("CLS");
@@ -266,6 +276,7 @@ void Cashier::checkout()
 		cin.get();
 	}
 }
+//UI for all the Cashier functions in this program
 void Cashier::mainMenu()
 {
 	bool done = false;
